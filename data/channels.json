@@ -28,5 +28,17 @@
     "isLive": true,
     "quality": "HD",
     "featured": true
+  },
+  {
+    "id": 1780945315256,
+    "name": "France (FIFA)",
+    "logo": "",
+    "stream": "http://145.239.5.177/559/mpegts",
+    "category": "Sports",
+    "language": "France",
+    "country": "France",
+    "isLive": true,
+    "quality": "HD",
+    "featured": false
   }
 ]
