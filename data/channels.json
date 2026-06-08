@@ -31,9 +31,9 @@
   },
   {
     "id": 1780945315256,
-    "name": "France (FIFA)",
+    "name": " Bein Sports 2 B- France (FIFA)",
     "logo": "",
-    "stream": "http://145.239.5.177/559/mpegts",
+    "stream": "http://145.239.5.177:80/559/index.m3u8",
     "category": "Sports",
     "language": "France",
     "country": "France",
