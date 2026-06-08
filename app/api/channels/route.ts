@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { loadChannels, saveChannels } from "@/lib/channels";
 import type { Channel } from "@/types/channel";
+import { loadIPTVConfig, syncIPTVPlaylist } from "@/lib/iptv";
 
 export const dynamic = "force-dynamic";
 
@@ -9,6 +10,21 @@ function authCheck(request: NextRequest): boolean {
 }
 
 export async function GET() {
+  try {
+    const config = await loadIPTVConfig();
+    if (config && config.autoUpdate && config.playlistUrl) {
+      const lastUpdated = config.lastUpdated ? new Date(config.lastUpdated).getTime() : 0;
+      const now = Date.now();
+      const twelveHours = 12 * 60 * 60 * 1000;
+      if (now - lastUpdated > twelveHours) {
+        // Run sync in the background without blocking the response
+        syncIPTVPlaylist().catch((err) => console.error("Background IPTV sync failed:", err));
+      }
+    }
+  } catch (error) {
+    console.error("Failed to check background IPTV sync:", error);
+  }
+
   return NextResponse.json(await loadChannels());
 }
 

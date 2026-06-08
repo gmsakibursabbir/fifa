@@ -14,6 +14,7 @@ export interface Channel {
   isLive?: boolean;
   quality?: "HD" | "FHD" | "4K" | "SD";
   featured?: boolean;
+  isIptv?: boolean;
 }
 
 export type ChannelCategory =

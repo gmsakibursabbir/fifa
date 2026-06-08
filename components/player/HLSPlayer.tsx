@@ -23,6 +23,35 @@ interface HLSPlayerProps {
   className?: string;
 }
 
+function getStreamType(url: string): "hls" | "mpegts" | "native" {
+  if (!url) return "native";
+  const cleanUrl = url.split("?")[0].toLowerCase();
+  
+  if (
+    cleanUrl.endsWith(".m3u8") ||
+    url.includes("/m3u8") ||
+    url.includes("playlist.m3u8") ||
+    url.includes("manifest(format=m3u8-aapl)")
+  ) {
+    return "hls";
+  }
+  
+  if (
+    cleanUrl.endsWith(".ts") ||
+    url.includes("/mpegts") ||
+    url.includes("/ts") ||
+    cleanUrl.endsWith("/ts") ||
+    cleanUrl.endsWith("/mpegts")
+  ) {
+    if (cleanUrl.endsWith(".ts/index.m3u8") || url.includes(".m3u8")) {
+      return "hls";
+    }
+    return "mpegts";
+  }
+  
+  return "native";
+}
+
 function HLSPlayerInner({
   src,
   channelName,
@@ -33,6 +62,7 @@ function HLSPlayerInner({
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const hlsRef = useRef<{ destroy: () => void } | null>(null);
+  const mpegtsPlayerRef = useRef<any>(null);
   const controlsTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [playing, setPlaying] = useState(false);
@@ -42,6 +72,7 @@ function HLSPlayerInner({
   const [error, setError] = useState("");
   const [showControls, setShowControls] = useState(true);
   const [pipSupported, setPipSupported] = useState(false);
+  const [retryKey, setRetryKey] = useState(0);
 
   const resetControlsTimer = useCallback(() => {
     setShowControls(true);
@@ -64,37 +95,97 @@ function HLSPlayerInner({
     setPlaying(false);
 
     async function setup() {
-      const Hls = (await import("hls.js")).default;
-      if (hlsRef.current) hlsRef.current.destroy();
+      const type = getStreamType(src);
 
-      if (Hls.isSupported()) {
-        const hls = new Hls({
-          enableWorker: true,
-          lowLatencyMode: true,
-          backBufferLength: 90,
-        });
-        hlsRef.current = hls;
-        hls.loadSource(src);
-        hls.attachMedia(video!);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => {
-          setLoading(false);
-          if (autoPlay) video!.play().catch(() => {});
-        });
-        hls.on(Hls.Events.ERROR, (_: unknown, data: { fatal: boolean }) => {
-          if (data.fatal) {
-            setError("Stream unavailable. Please try another channel.");
-            setLoading(false);
+      // Reset existing player instances
+      if (hlsRef.current) {
+        hlsRef.current.destroy();
+        hlsRef.current = null;
+      }
+      if (mpegtsPlayerRef.current) {
+        try {
+          mpegtsPlayerRef.current.pause();
+          mpegtsPlayerRef.current.unload();
+          mpegtsPlayerRef.current.detachMediaElement();
+          mpegtsPlayerRef.current.destroy();
+        } catch (e) {
+          console.error("mpegts clean error:", e);
+        }
+        mpegtsPlayerRef.current = null;
+      }
+
+      // Reset native video source
+      video!.src = "";
+
+      if (type === "mpegts") {
+        const mpegts = (await import("mpegts.js")).default;
+        if (mpegts.getFeatureList().mseLivePlayback) {
+          const player = mpegts.createPlayer({
+            type: "mse",
+            isLive: true,
+            url: src,
+          });
+          mpegtsPlayerRef.current = player;
+          player.attachMediaElement(video!);
+          player.load();
+          const playResult = player.play();
+          if (playResult && typeof playResult.catch === "function") {
+            playResult.catch(() => {});
           }
-        });
-      } else if (video!.canPlayType("application/vnd.apple.mpegurl")) {
+
+          player.on(mpegts.Events.ERROR, (errType, errDetail, errInfo) => {
+            console.error("mpegts error:", errType, errDetail, errInfo);
+            setError("Stream unavailable. This stream may be offline or blocked by CORS restrictions.");
+            setLoading(false);
+          });
+          setLoading(false);
+        } else {
+          setError("MPEG-TS streaming is not supported on this browser/device.");
+          setLoading(false);
+        }
+      } else if (type === "hls") {
+        const Hls = (await import("hls.js")).default;
+        if (Hls.isSupported()) {
+          const hls = new Hls({
+            enableWorker: true,
+            lowLatencyMode: true,
+            backBufferLength: 90,
+          });
+          hlsRef.current = hls;
+          hls.loadSource(src);
+          hls.attachMedia(video!);
+          hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            setLoading(false);
+            if (autoPlay) video!.play().catch(() => {});
+          });
+          hls.on(Hls.Events.ERROR, (_: unknown, data: { fatal: boolean }) => {
+            if (data.fatal) {
+              setError("Stream unavailable. Please try another channel or check CORS permissions.");
+              setLoading(false);
+            }
+          });
+        } else if (video!.canPlayType("application/vnd.apple.mpegurl")) {
+          video!.src = src;
+          video!.addEventListener("loadedmetadata", () => {
+            setLoading(false);
+            if (autoPlay) video!.play().catch(() => {});
+          });
+        } else {
+          setError("HLS streaming is not supported in your browser.");
+          setLoading(false);
+        }
+      } else {
+        // Native fallback (e.g. mp4, webm)
         video!.src = src;
+        video!.load();
         video!.addEventListener("loadedmetadata", () => {
           setLoading(false);
           if (autoPlay) video!.play().catch(() => {});
         });
-      } else {
-        setError("HLS streaming is not supported in your browser.");
-        setLoading(false);
+        video!.addEventListener("error", () => {
+          setError("Unsupported media format or stream is offline.");
+          setLoading(false);
+        });
       }
     }
 
@@ -105,9 +196,23 @@ function HLSPlayerInner({
     });
 
     return () => {
-      if (hlsRef.current) hlsRef.current.destroy();
+      if (hlsRef.current) {
+        hlsRef.current.destroy();
+        hlsRef.current = null;
+      }
+      if (mpegtsPlayerRef.current) {
+        try {
+          mpegtsPlayerRef.current.pause();
+          mpegtsPlayerRef.current.unload();
+          mpegtsPlayerRef.current.detachMediaElement();
+          mpegtsPlayerRef.current.destroy();
+        } catch (e) {
+          console.error("mpegts clean error:", e);
+        }
+        mpegtsPlayerRef.current = null;
+      }
     };
-  }, [src, autoPlay]);
+  }, [src, autoPlay, retryKey]);
 
   // Video event listeners
   useEffect(() => {
@@ -182,12 +287,7 @@ function HLSPlayerInner({
   const retry = () => {
     setError("");
     setLoading(true);
-    const v = videoRef.current;
-    if (v) {
-      v.src = src;
-      v.load();
-      v.play().catch(() => {});
-    }
+    setRetryKey((prev) => prev + 1);
   };
 
   return (

@@ -144,10 +144,95 @@ export default function AdminPage() {
   const [importing, setImporting] = useState(false);
   const [importProgress, setImportProgress] = useState(0);
 
+  // IPTV URL Playlist Sync
+  const [iptvConfig, setIptvConfig] = useState<{
+    playlistUrl: string;
+    autoUpdate: boolean;
+    syncMode: "overwrite" | "merge";
+    lastUpdated?: string;
+    channelCount?: number;
+  }>({
+    playlistUrl: "",
+    autoUpdate: false,
+    syncMode: "merge",
+  });
+  const [showIPTVConfig, setShowIPTVConfig] = useState(false);
+  const [syncing, setSyncing] = useState(false);
+
   // Handle mounting client-side
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Load IPTV config on mount
+  useEffect(() => {
+    if (isAuthenticated && token) {
+      fetch("/api/iptv", {
+        headers: { "x-admin-token": token },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && !data.error) {
+            setIptvConfig({
+              playlistUrl: data.playlistUrl || "",
+              autoUpdate: data.autoUpdate || false,
+              syncMode: data.syncMode || "merge",
+              lastUpdated: data.lastUpdated,
+              channelCount: data.channelCount,
+            });
+          }
+        })
+        .catch((err) => console.error("Failed to load IPTV config:", err));
+    }
+  }, [isAuthenticated, token]);
+
+  const handleSaveIPTVConfig = async (triggerSync = false) => {
+    if (!token) return;
+    setSyncing(triggerSync);
+    setSaving(!triggerSync);
+    try {
+      const res = await fetch(`/api/iptv${triggerSync ? "?sync=true" : ""}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-token": token,
+        },
+        body: JSON.stringify(iptvConfig),
+      });
+      const data = await res.json();
+      if (data.error) {
+        alert(data.error);
+        return;
+      }
+      
+      if (data.config) {
+        setIptvConfig({
+          playlistUrl: data.config.playlistUrl || "",
+          autoUpdate: data.config.autoUpdate || false,
+          syncMode: data.config.syncMode || "merge",
+          lastUpdated: data.config.lastUpdated,
+          channelCount: data.config.channelCount,
+        });
+      }
+      
+      if (triggerSync) {
+        if (data.sync && data.sync.success) {
+          showSuccess(`IPTV Sync completed! Loaded ${data.sync.count} channels.`);
+          mutate(); // Refresh the channels list
+        } else {
+          alert(`IPTV Sync failed: ${data.sync?.error || "Unknown error"}`);
+        }
+      } else {
+        showSuccess("IPTV Settings saved.");
+      }
+    } catch (err: any) {
+      console.error(err);
+      alert("An error occurred during IPTV operation.");
+    } finally {
+      setSyncing(false);
+      setSaving(false);
+    }
+  };
 
   useEffect(() => {
     if (mounted && !isAuthenticated) {
@@ -158,7 +243,7 @@ export default function AdminPage() {
   // Keyboard shortcuts
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") { setEditing(null); setParsedChannels(null); setConfirmModal(null); }
+      if (e.key === "Escape") { setEditing(null); setParsedChannels(null); setConfirmModal(null); setShowIPTVConfig(false); }
       if ((e.metaKey || e.ctrlKey) && e.key === "f") { e.preventDefault(); searchRef.current?.focus(); }
     };
     window.addEventListener("keydown", handleKey);
@@ -384,10 +469,21 @@ export default function AdminPage() {
                 )}
               </div>
 
+              {/* IPTV Auto Sync */}
+              <Button
+                id="iptv-sync-btn"
+                onClick={() => { setShowIPTVConfig(true); setEditing(null); setParsedChannels(null); }}
+                size="sm"
+                className="bg-white/5 hover:bg-white/10 text-white border border-white/5 rounded-full px-3 text-xs"
+              >
+                <Zap className="w-3.5 h-3.5 mr-1.5 text-cyan-400" />
+                IPTV Sync
+              </Button>
+
               {/* Import M3U */}
               <Button
                 id="import-m3u-btn"
-                onClick={() => document.getElementById("m3u-file-input")?.click()}
+                onClick={() => { document.getElementById("m3u-file-input")?.click(); setShowIPTVConfig(false); }}
                 size="sm"
                 className="bg-white/5 hover:bg-white/10 text-white border border-white/5 rounded-full px-3 text-xs"
               >
@@ -410,7 +506,7 @@ export default function AdminPage() {
               {/* Add Channel */}
               <Button
                 id="add-channel-btn"
-                onClick={() => { setEditing({ ...EMPTY_CHANNEL }); setIsNew(true); }}
+                onClick={() => { setEditing({ ...EMPTY_CHANNEL }); setIsNew(true); setParsedChannels(null); setShowIPTVConfig(false); }}
                 size="sm"
                 className="bg-cyan-500 hover:bg-cyan-400 text-white rounded-full px-3 text-xs"
               >
@@ -543,7 +639,7 @@ export default function AdminPage() {
                         <div className="flex items-center gap-1 flex-shrink-0">
                           <button
                             id={`edit-ch-${ch.id}`}
-                            onClick={() => { setEditing({ ...ch }); setIsNew(false); setParsedChannels(null); }}
+                            onClick={() => { setEditing({ ...ch }); setIsNew(false); setParsedChannels(null); setShowIPTVConfig(false); }}
                             title="Edit channel"
                             className="p-2 rounded-lg text-white/30 hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors"
                           >
@@ -634,6 +730,115 @@ export default function AdminPage() {
                       {importing ? <><Loader2 className="w-3.5 h-3.5 mr-1 animate-spin" />Importing</> : "Import All"}
                     </Button>
                   </div>
+                </motion.div>
+              ) : showIPTVConfig ? (
+                <motion.div
+                  key="iptv-panel"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  className="bg-[#0d0d11] border border-white/5 shadow-2xl rounded-2xl p-5 sticky top-24"
+                >
+                  <div className="flex items-center justify-between mb-5">
+                    <h3 className="text-white font-bold text-sm uppercase tracking-wider flex items-center gap-2">
+                      <Zap className="w-4 h-4 text-cyan-400" />
+                      IPTV Playlist Sync
+                    </h3>
+                    <button onClick={() => setShowIPTVConfig(false)} className="text-white/40 hover:text-white transition-colors">
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  <div className="space-y-4">
+                    {/* Playlist URL */}
+                    <div>
+                      <label className="text-white/40 text-[10px] font-bold uppercase tracking-widest block mb-1">Playlist URL *</label>
+                      <input
+                        id="iptv-playlist-url"
+                        type="text"
+                        value={iptvConfig.playlistUrl}
+                        onChange={(e) => setIptvConfig({ ...iptvConfig, playlistUrl: e.target.value })}
+                        placeholder="https://example.com/playlist.m3u"
+                        className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/5 text-white text-xs placeholder:text-white/20 focus:outline-none focus:bg-white/8 focus:border-cyan-500/40 transition-all"
+                      />
+                    </div>
+
+                    {/* Sync Mode */}
+                    <div>
+                      <label className="text-white/40 text-[10px] font-bold uppercase tracking-widest block mb-1">Sync Mode</label>
+                      <select
+                        id="iptv-sync-mode"
+                        value={iptvConfig.syncMode}
+                        onChange={(e) => setIptvConfig({ ...iptvConfig, syncMode: e.target.value as "overwrite" | "merge" })}
+                        className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/5 text-white text-xs focus:outline-none focus:border-cyan-500/40 transition-all"
+                      >
+                        <option value="merge" className="bg-[#0f0f1a]">Merge (Replace IPTV, keep manual)</option>
+                        <option value="overwrite" className="bg-[#0f0f1a]">Overwrite (Caution: Delete all channels)</option>
+                      </select>
+                    </div>
+
+                    {/* Auto Update Toggle */}
+                    <div className="flex items-center justify-between pt-2 border-t border-white/5">
+                      <div>
+                        <span className="text-white/60 text-xs font-bold uppercase tracking-wider block">Auto-Sync</span>
+                        <span className="text-[10px] text-white/30 font-semibold block mt-0.5">Automatically updates every 12 hours</span>
+                      </div>
+                      <label className="relative flex items-center cursor-pointer select-none">
+                        <div
+                          onClick={() => setIptvConfig({ ...iptvConfig, autoUpdate: !iptvConfig.autoUpdate })}
+                          className={`w-9 h-5 rounded-full transition-colors cursor-pointer ${iptvConfig.autoUpdate ? "bg-cyan-500" : "bg-white/10"}`}
+                        >
+                          <div className={`w-4 h-4 rounded-full bg-white m-0.5 transition-transform ${iptvConfig.autoUpdate ? "translate-x-4" : ""}`} />
+                        </div>
+                      </label>
+                    </div>
+
+                    {/* Status Information */}
+                    {iptvConfig.lastUpdated && (
+                      <div className="bg-white/[0.02] border border-white/5 rounded-xl p-3 space-y-1 text-xs">
+                        <div className="flex justify-between">
+                          <span className="text-white/40">Last Synced:</span>
+                          <span className="text-white font-medium">{new Date(iptvConfig.lastUpdated).toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-white/40">Channels Loaded:</span>
+                          <span className="text-cyan-400 font-bold">{iptvConfig.channelCount || 0}</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex flex-col gap-2 mt-6">
+                    <Button
+                      id="iptv-save-btn"
+                      onClick={() => handleSaveIPTVConfig(false)}
+                      disabled={saving || syncing || !iptvConfig.playlistUrl}
+                      className="w-full bg-white/5 hover:bg-white/10 border border-white/5 text-white font-bold uppercase tracking-wider text-xs rounded-full py-2.5 disabled:opacity-50"
+                    >
+                      {saving ? <><Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />Saving Settings…</> : "Save Settings"}
+                    </Button>
+                    
+                    <Button
+                      id="iptv-sync-now-btn"
+                      onClick={() => handleSaveIPTVConfig(true)}
+                      disabled={saving || syncing || !iptvConfig.playlistUrl}
+                      className="w-full bg-cyan-500 hover:bg-cyan-400 text-white font-bold uppercase tracking-wider text-xs rounded-full py-2.5 disabled:opacity-50"
+                    >
+                      {syncing ? (
+                        <>
+                          <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />
+                          Syncing IPTV Playlist…
+                        </>
+                      ) : (
+                        <>
+                          <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
+                          Sync & Update Now
+                        </>
+                      )}
+                    </Button>
+                  </div>
+
+                  <p className="text-center text-white/20 text-[10px] font-semibold mt-3">Press Esc to cancel</p>
                 </motion.div>
               ) : editing ? (
                 <motion.div
