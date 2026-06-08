@@ -84,10 +84,10 @@ export default function HeroBanner() {
         </AnimatePresence>
 
         {/* Cinematic Apple TV dark gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent z-10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10" />
+        <div className="absolute inset-0 bg-linear-to-r from-black via-black/70 to-transparent z-10" />
+        <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent z-10" />
         {/* Subtle grid watermark */}
-        <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:4rem_4rem] z-10" />
+        <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-size-[4rem_4rem] z-10" />
       </div>
 
       {/* Content */}

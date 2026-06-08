@@ -52,7 +52,7 @@ export default function WorldCupGroups() {
               key={g}
               onClick={() => setActiveGroup(g)}
               className={cn(
-                "px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-200 flex-shrink-0 border",
+                "px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all duration-200 shrink-0 border",
                 activeGroup === g
                   ? "bg-white text-black border-white"
                   : "bg-white/5 text-white/50 border-white/5 hover:text-white hover:bg-white/10"
@@ -76,7 +76,7 @@ export default function WorldCupGroups() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-white/5 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-white/40 bg-white/[0.01]">
+                <tr className="border-b border-white/5 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-white/40 bg-white/1">
                   <th className="py-3 sm:py-4 px-3 sm:px-6 text-center w-10 sm:w-12">#</th>
                   <th className="py-3 sm:py-4 px-2 sm:px-4">Team</th>
                   <th className="py-3 sm:py-4 px-2 sm:px-4 text-center">P</th>
@@ -93,7 +93,7 @@ export default function WorldCupGroups() {
                   return (
                     <tr
                       key={row.team.id}
-                      className="hover:bg-white/[0.02] transition-colors group"
+                      className="hover:bg-white/2 transition-colors group"
                     >
                       <td className="py-3 sm:py-4 px-3 sm:px-6 text-center font-bold relative">
                         {isQualifying && (
@@ -105,7 +105,7 @@ export default function WorldCupGroups() {
                       </td>
                       <td className="py-3 sm:py-4 px-2 sm:px-4 font-semibold text-white">
                         <div className="flex items-center gap-2 sm:gap-3">
-                          <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full overflow-hidden bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 select-none">
+                          <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full overflow-hidden bg-white/5 border border-white/10 flex items-center justify-center shrink-0 select-none">
                             {(() => {
                               const flagUrl = getTeamFlagUrl(row.team.tla, row.team.crest);
                               if (flagUrl) {
@@ -146,7 +146,7 @@ export default function WorldCupGroups() {
               </tbody>
             </table>
           </div>
-          <div className="p-4 bg-white/[0.01] border-t border-white/5 flex items-center gap-4 text-[10px] text-white/30 font-bold uppercase tracking-widest">
+          <div className="p-4 bg-white/1 border-t border-white/5 flex items-center gap-4 text-[10px] text-white/30 font-bold uppercase tracking-widest">
             <div className="flex items-center gap-1.5">
               <div className="w-1.5 h-1.5 bg-white rounded-full" />
               <span>Qualifies for Round of 32</span>

@@ -94,7 +94,7 @@ function ConfirmModal({
         className="bg-[#0d0d11] border border-white/10 rounded-2xl p-6 max-w-sm w-full shadow-2xl"
       >
         <div className="flex items-start gap-3 mb-5">
-          <div className="w-9 h-9 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center flex-shrink-0">
+          <div className="w-9 h-9 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
             <AlertTriangle className="w-4 h-4 text-red-400" />
           </div>
           <p className="text-white text-sm font-medium leading-relaxed">{message}</p>
@@ -400,7 +400,7 @@ export default function AdminPage() {
         {/* ── Header ──────────────────────────────────────────────────────── */}
         <div className="flex items-center justify-between mb-8 border-b border-white/5 pb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg">
+            <div className="w-10 h-10 rounded-xl bg-linear-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg">
               <Shield className="w-5 h-5 text-white" />
             </div>
             <div>
@@ -595,7 +595,7 @@ export default function AdminPage() {
                         {/* Checkbox */}
                         <button
                           onClick={() => toggleSelect(ch.id)}
-                          className="flex-shrink-0 text-white/30 hover:text-cyan-400 transition-colors"
+                          className="shrink-0 text-white/30 hover:text-cyan-400 transition-colors"
                           aria-label={`Select ${ch.name}`}
                         >
                           {isSelected
@@ -608,11 +608,11 @@ export default function AdminPage() {
                           <img
                             src={ch.logo}
                             alt={ch.name}
-                            className="w-8 h-8 rounded-lg object-contain bg-white/5 border border-white/10 flex-shrink-0"
+                            className="w-8 h-8 rounded-lg object-contain bg-white/5 border border-white/10 shrink-0"
                             onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                           />
                         ) : (
-                          <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
+                          <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
                             <Tv className="w-3.5 h-3.5 text-white/20" />
                           </div>
                         )}
@@ -636,7 +636,7 @@ export default function AdminPage() {
                         </div>
 
                         {/* Actions — always visible */}
-                        <div className="flex items-center gap-1 flex-shrink-0">
+                        <div className="flex items-center gap-1 shrink-0">
                           <button
                             id={`edit-ch-${ch.id}`}
                             onClick={() => { setEditing({ ...ch }); setIsNew(false); setParsedChannels(null); setShowIPTVConfig(false); }}
@@ -699,7 +699,7 @@ export default function AdminPage() {
                       </div>
                       <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-300"
+                          className="h-full bg-linear-to-r from-cyan-500 to-blue-500 transition-all duration-300"
                           style={{ width: `${(importProgress / parsedChannels.length) * 100}%` }}
                         />
                       </div>
@@ -710,7 +710,7 @@ export default function AdminPage() {
                     {parsedChannels.slice(0, 15).map((ch, i) => (
                       <div key={i} className="p-2 rounded-lg bg-white/5 border border-white/5 flex items-center justify-between text-xs">
                         <span className="text-white truncate font-medium max-w-[180px]">{ch.name}</span>
-                        <span className="text-white/35 text-[9px] uppercase font-bold flex-shrink-0">{ch.category}</span>
+                        <span className="text-white/35 text-[9px] uppercase font-bold shrink-0">{ch.category}</span>
                       </div>
                     ))}
                     {parsedChannels.length > 15 && (
@@ -795,7 +795,7 @@ export default function AdminPage() {
 
                     {/* Status Information */}
                     {iptvConfig.lastUpdated && (
-                      <div className="bg-white/[0.02] border border-white/5 rounded-xl p-3 space-y-1 text-xs">
+                      <div className="bg-white/2 border border-white/5 rounded-xl p-3 space-y-1 text-xs">
                         <div className="flex justify-between">
                           <span className="text-white/40">Last Synced:</span>
                           <span className="text-white font-medium">{new Date(iptvConfig.lastUpdated).toLocaleString()}</span>

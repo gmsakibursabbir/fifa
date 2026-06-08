@@ -140,7 +140,7 @@ export default function SchedulePage() {
               <button
                 key={date.toISOString()}
                 onClick={() => setSelectedDate(date)}
-                className={`relative flex-shrink-0 w-24 rounded-2xl pt-4 px-3 pb-6 transition-all duration-300 select-none group border ${
+                className={`relative shrink-0 w-24 rounded-2xl pt-4 px-3 pb-6 transition-all duration-300 select-none group border ${
                   isSelected
                     ? "bg-white border-white text-black shadow-lg shadow-white/5 scale-[1.03]"
                     : "bg-white/5 border-white/5 text-white hover:bg-white/10 hover:border-white/10"
@@ -205,7 +205,7 @@ export default function SchedulePage() {
         </div>
       ) : filteredMatches.length === 0 ? (
         <div className="bg-[#0c0c0e]/80 border border-white/5 rounded-2xl p-16 text-center shadow-inner relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 pointer-events-none" />
+          <div className="absolute inset-0 bg-linear-to-b from-transparent to-black/20 pointer-events-none" />
           <div className="relative z-10 max-w-md mx-auto">
             <CalendarIcon className="w-12 h-12 text-white/20 mx-auto mb-4" />
             <h3 className="text-white font-semibold text-lg mb-1">No Matches Scheduled</h3>

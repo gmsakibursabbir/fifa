@@ -112,24 +112,24 @@ export default function MatchCard({ match, index = 0, compact = false }: MatchCa
           )}
         >
           {/* Pitch watermark lines */}
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none -z-20" />
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-size-[24px_24px] pointer-events-none -z-20" />
 
           {/* Styled status backdrop glows */}
           <div className={cn(
-            "absolute inset-0 bg-gradient-to-br transition-all duration-300 opacity-[0.02] group-hover:opacity-[0.06] pointer-events-none -z-10",
+            "absolute inset-0 bg-linear-to-br transition-all duration-300 opacity-[0.02] group-hover:opacity-[0.06] pointer-events-none -z-10",
             live ? "from-red-500 via-transparent to-transparent" : "from-cyan-500 via-transparent to-transparent"
           )} />
 
           {/* Subtle live indicator stripe at the top */}
           {live && (
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500 to-pink-500 animate-pulse" />
+            <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-red-500 to-pink-500 animate-pulse" />
           )}
 
           {/* Header */}
           <div className="flex items-center justify-between mb-4 relative z-10">
             <div className="flex items-center gap-2">
               {(match.competition.emblem || getCompetitionEmblem(match.competition.code)) && (
-                <div className="w-5 h-5 opacity-80 flex items-center justify-center flex-shrink-0">
+                <div className="w-5 h-5 opacity-80 flex items-center justify-center shrink-0">
                   <img
                     src={match.competition.emblem || getCompetitionEmblem(match.competition.code)}
                     alt={match.competition.name}
@@ -180,7 +180,7 @@ export default function MatchCard({ match, index = 0, compact = false }: MatchCa
             </div>
 
             {/* Score / Time */}
-            <div className="flex-shrink-0 text-center mx-1">
+            <div className="shrink-0 text-center mx-1">
               {showScore ? (
                 <div className="flex items-center gap-1.5 sm:gap-2 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg font-bold text-base sm:text-lg bg-white/5 border border-white/5 shadow-inner">
                   <span className={cn(homeScore !== null && homeScore !== undefined && awayScore !== null && awayScore !== undefined && homeScore > awayScore ? "text-white" : "text-white/40")}>

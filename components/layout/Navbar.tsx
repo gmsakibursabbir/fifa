@@ -22,7 +22,7 @@ export default function Navbar() {
       {/* Brand Icon */}
       <Link
         href="/"
-        className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black border border-white/10 hover:border-white/20 transition-all overflow-hidden flex-shrink-0 group"
+        className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black border border-white/10 hover:border-white/20 transition-all overflow-hidden shrink-0 group"
       >
         <img
           src="/mascots.png"
@@ -32,7 +32,7 @@ export default function Navbar() {
       </Link>
 
       {/* Separator line */}
-      <div className="w-px h-4 sm:h-5 bg-white/10 self-center flex-shrink-0" />
+      <div className="w-px h-4 sm:h-5 bg-white/10 self-center shrink-0" />
 
       {/* Nav items */}
       <nav className="flex items-center gap-0.5 sm:gap-1">
@@ -47,7 +47,7 @@ export default function Navbar() {
               key={item.href}
               href={item.href}
               className={cn(
-                "relative flex items-center justify-center py-2 px-2.5 sm:py-2.5 sm:px-3.5 md:px-5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-wider transition-all duration-300 select-none flex-shrink-0",
+                "relative flex items-center justify-center py-2 px-2.5 sm:py-2.5 sm:px-3.5 md:px-5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-wider transition-all duration-300 select-none shrink-0",
                 active ? "text-black" : "text-white/60 hover:text-white hover:bg-white/5"
               )}
             >
@@ -59,7 +59,7 @@ export default function Navbar() {
                 />
               )}
               <span className="relative z-10 flex items-center gap-1.5 sm:gap-2">
-                <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+                <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                 <span className="hidden md:inline">{item.label}</span>
               </span>
               {item.href === "/matches" && (

@@ -117,7 +117,7 @@ export default function MatchDetailPage({ params }: Props) {
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-2">
             {(match.competition.emblem || getCompetitionEmblem(match.competition.code)) && (
-              <div className="w-6 h-6 flex items-center justify-center flex-shrink-0">
+              <div className="w-6 h-6 flex items-center justify-center shrink-0">
                 <img
                   src={match.competition.emblem || getCompetitionEmblem(match.competition.code)}
                   alt={match.competition.name}
@@ -243,7 +243,7 @@ export default function MatchDetailPage({ params }: Props) {
                 return (
                   <div key={i} className={cn("flex items-center gap-3", !isHome && "flex-row-reverse")}>
                     <div className={cn(
-                      "w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0",
+                      "w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0",
                       goal.type === "OWN_GOAL" ? "bg-red-500/20 text-red-400 border border-red-500/30"
                         : goal.type === "PENALTY" ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
                         : "bg-green-500/20 text-green-400 border border-green-500/30"
@@ -281,10 +281,10 @@ export default function MatchDetailPage({ params }: Props) {
               {match.bookings.map((b, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <span className={cn(
-                    "w-4 h-5 rounded-sm flex-shrink-0",
+                    "w-4 h-5 rounded-sm shrink-0",
                     b.card === "YELLOW_CARD" ? "bg-yellow-400"
                       : b.card === "RED_CARD" ? "bg-red-500"
-                      : "bg-gradient-to-b from-yellow-400 to-red-500"
+                      : "bg-linear-to-b from-yellow-400 to-red-500"
                   )} />
                   <span className="text-white text-sm">{b.player.name}</span>
                   <span className="text-gray-500 text-xs">{b.minute}&apos;</span>

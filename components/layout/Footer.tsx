@@ -71,7 +71,7 @@ export default function Footer() {
                     href="/standings"
                     className="flex items-center gap-2 hover:text-white transition-colors duration-200"
                   >
-                    <div className="w-4 h-4 flex-shrink-0 flex items-center justify-center">
+                    <div className="w-4 h-4 shrink-0 flex items-center justify-center">
                       <img
                         src={getCompetitionEmblem(comp.code)}
                         alt={comp.label}
