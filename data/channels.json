@@ -78,15 +78,5 @@
     "isLive": true,
     "quality": "HD",
     "featured": true
-  },
-  {
-    "id": 9,
-    "name": "TUDN 1080 (FIFA)",
-    "logo": "",
-    "stream": "http://162.19.255.233:8080/play/UNbAl57p9hXZClOu56FCTVL9TbgOeYnXUEC2UjoDBYk/m3u8",
-    "category": "Sports",
-    "isLive": true,
-    "quality": "HD",
-    "featured": true
   }
 ]
