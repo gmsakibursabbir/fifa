@@ -7,7 +7,7 @@ import ChannelCard from "@/components/channels/ChannelCard";
 import WorldCupGroups from "@/components/home/WorldCupGroups";
 import LoadingSkeleton from "@/components/common/LoadingSkeleton";
 import { getLiveMatches, getUpcomingMatches } from "@/lib/api";
-import channelsData from "@/data/channels.json";
+import { loadChannels } from "@/lib/channels";
 import type { Channel } from "@/types/channel";
 
 export const revalidate = 60;
@@ -51,7 +51,8 @@ async function LiveMatchesSection() {
 }
 
 async function LiveChannelsSection() {
-  const channels = (channelsData as Channel[]).filter((c) => c.isLive || c.featured);
+  const channelsData = await loadChannels();
+  const channels = channelsData.filter((c) => c.isLive || c.featured);
 
   return (
     <section className="py-6 border-b border-white/5">

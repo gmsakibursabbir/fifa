@@ -1,30 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
-import { readFileSync, writeFileSync } from "fs";
-import { join } from "path";
+import { loadChannels, saveChannels } from "@/lib/channels";
 import type { Channel } from "@/types/channel";
 
 export const dynamic = "force-dynamic";
-
-const DATA_PATH = join(process.cwd(), "data", "channels.json");
-
-function loadChannels(): Channel[] {
-  try {
-    return JSON.parse(readFileSync(DATA_PATH, "utf-8")) as Channel[];
-  } catch {
-    return [];
-  }
-}
-
-function saveChannels(channels: Channel[]): void {
-  writeFileSync(DATA_PATH, JSON.stringify(channels, null, 2), "utf-8");
-}
 
 function authCheck(request: NextRequest): boolean {
   return request.headers.get("x-admin-token") === process.env.ADMIN_PASSWORD;
 }
 
 export async function GET() {
-  return NextResponse.json(loadChannels());
+  return NextResponse.json(await loadChannels());
 }
 
 // POST — single channel OR bulk array insert
@@ -34,7 +19,7 @@ export async function POST(request: NextRequest) {
   }
 
   const body = await request.json() as Partial<Channel> | Partial<Channel>[];
-  const channels = loadChannels();
+  const channels = await loadChannels();
 
   if (Array.isArray(body)) {
     // Bulk insert
@@ -54,7 +39,7 @@ export async function POST(request: NextRequest) {
       featured: ch.featured ?? false,
     }));
     channels.push(...newChannels);
-    saveChannels(channels);
+    await saveChannels(channels);
     return NextResponse.json(newChannels, { status: 201 });
   }
 
@@ -74,7 +59,7 @@ export async function POST(request: NextRequest) {
     featured: body.featured ?? false,
   };
   channels.push(newChannel);
-  saveChannels(channels);
+  await saveChannels(channels);
   return NextResponse.json(newChannel, { status: 201 });
 }
 
@@ -84,11 +69,11 @@ export async function PUT(request: NextRequest) {
   }
 
   const body = await request.json() as Channel;
-  const channels = loadChannels();
+  const channels = await loadChannels();
   const idx = channels.findIndex((c) => c.id === body.id);
   if (idx === -1) return NextResponse.json({ error: "Not found" }, { status: 404 });
   channels[idx] = { ...channels[idx], ...body };
-  saveChannels(channels);
+  await saveChannels(channels);
   return NextResponse.json(channels[idx]);
 }
 
@@ -103,22 +88,22 @@ export async function DELETE(request: NextRequest) {
   const idsParam = searchParams.get("ids");
   const idParam = searchParams.get("id");
 
-  let channels = loadChannels();
+  let channels = await loadChannels();
 
   if (all) {
-    saveChannels([]);
+    await saveChannels([]);
     return NextResponse.json({ success: true, deleted: channels.length });
   }
 
   if (idsParam) {
     const ids = new Set(idsParam.split(",").map((s) => parseInt(s, 10)).filter(Boolean));
     channels = channels.filter((c) => !ids.has(c.id));
-    saveChannels(channels);
+    await saveChannels(channels);
     return NextResponse.json({ success: true, deleted: ids.size });
   }
 
   const id = parseInt(idParam || "0", 10);
   channels = channels.filter((c) => c.id !== id);
-  saveChannels(channels);
+  await saveChannels(channels);
   return NextResponse.json({ success: true });
 }
