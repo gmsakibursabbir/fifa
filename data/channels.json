@@ -68,15 +68,5 @@
     "isLive": true,
     "quality": "HD",
     "featured": true
-  },
-  {
-    "id": 8,
-    "name": "TUDN HD (FIFA)",
-    "logo": "",
-    "stream": "http://74.208.30.121/a192/mono.m3u8",
-    "category": "Sports",
-    "isLive": true,
-    "quality": "HD",
-    "featured": true
   }
 ]
