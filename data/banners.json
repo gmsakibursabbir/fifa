@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1",
+    "tag": "FIFA World Cup 2026",
+    "title": "United States, Canada & Mexico",
+    "description": "Follow the journey of 48 nations competing in North America. Track live scores, fixtures, and group standings in real time.",
+    "image": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1600&auto=format&fit=crop",
+    "cta": "Explore Standings",
+    "ctaLink": "/standings"
+  },
+  {
+    "id": "2",
+    "tag": "IPTV Live Streaming",
+    "title": "Watch Every Live Match HD",
+    "description": "Access premium sports streaming channels in high definition. Completely free, no registration required.",
+    "image": "https://images.unsplash.com/photo-1518091043644-c1d445eb9634?q=80&w=1600&auto=format&fit=crop",
+    "cta": "Stream TV Now",
+    "ctaLink": "/watch"
+  },
+  {
+    "id": "3",
+    "tag": "Real-time Live Scores",
+    "title": "Every Kick, Card & Goal Live",
+    "description": "Instant updates from Premier League, Champions League, La Liga, and World Cup Qualifiers.",
+    "image": "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1600&auto=format&fit=crop",
+    "cta": "View Live Scores",
+    "ctaLink": "/matches"
+  }
+]

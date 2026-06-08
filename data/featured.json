@@ -1,0 +1,29 @@
+[
+  {
+    "id": "feat-1",
+    "title": "Premier League Live",
+    "subtitle": "Top of the table clash — Every goal, every moment",
+    "image": "/images/featured-pl.jpg",
+    "link": "/matches",
+    "type": "match",
+    "badge": "LIVE"
+  },
+  {
+    "id": "feat-2",
+    "title": "Champions League Final",
+    "subtitle": "The biggest night in club football",
+    "image": "/images/featured-cl.jpg",
+    "link": "/matches",
+    "type": "match",
+    "badge": "Tonight"
+  },
+  {
+    "id": "feat-3",
+    "title": "Watch Live Now",
+    "subtitle": "10 premium channels streaming now",
+    "image": "/images/featured-tv.jpg",
+    "link": "/watch",
+    "type": "channel",
+    "badge": "Live TV"
+  }
+]
