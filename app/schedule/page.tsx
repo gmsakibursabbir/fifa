@@ -8,7 +8,13 @@ import MatchCard from "@/components/matches/MatchCard";
 import LoadingSkeleton from "@/components/common/LoadingSkeleton";
 import type { Match } from "@/types/football";
 
-const fetcher = (url: string) => fetch(url).then((r) => r.json()) as Promise<Match[]>;
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch matches: ${res.status}`);
+  }
+  return res.json() as Promise<Match[]>;
+};
 
 export default function SchedulePage() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);

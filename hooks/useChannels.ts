@@ -4,8 +4,13 @@ import useSWR from "swr";
 import { useState, useCallback } from "react";
 import type { Channel } from "@/types/channel";
 
-const fetcher = (url: string) =>
-  fetch(url).then((r) => r.json()) as Promise<Channel[]>;
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch channels: ${res.status}`);
+  }
+  return res.json() as Promise<Channel[]>;
+};
 
 export function useChannels() {
   const { data, error, isLoading, mutate } = useSWR<Channel[]>(

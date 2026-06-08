@@ -10,8 +10,23 @@ import type {
   Team,
 } from "@/types/football";
 
-const BASE_URL = process.env.FOOTBALL_API_BASE || "https://api.football-data.org/v4";
-const API_KEY  = process.env.FOOTBALL_API_KEY || "";
+function getBaseUrl(): string {
+  const envUrl = process.env.FOOTBALL_API_BASE;
+  if (envUrl && (envUrl.trim().startsWith("http://") || envUrl.trim().startsWith("https://"))) {
+    return envUrl.trim().replace(/['"\r\n]/g, "");
+  }
+  return "https://api.football-data.org/v4";
+}
+const BASE_URL = getBaseUrl();
+
+function getApiKey(): string {
+  const key = process.env.FOOTBALL_API_KEY;
+  if (!key || key === "your_football_data_api_key_here" || key.trim() === "") {
+    return "";
+  }
+  return key.trim().replace(/['"\r\n]/g, "");
+}
+const API_KEY = getApiKey();
 
 function headers() {
   return {
@@ -22,28 +37,41 @@ function headers() {
 
 async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
   // Skip the real API call if no key is configured — use mock data instead
-  if (!API_KEY || API_KEY === "your_football_data_api_key_here") {
+  if (!API_KEY) {
     throw new Error("NO_API_KEY");
   }
 
-  const res = await fetch(`${BASE_URL}${path}`, {
-    ...init,
-    headers: headers(),
-    next: { revalidate: 60 }, // Cache 60s server-side
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 seconds timeout
 
-  if (!res.ok) {
-    // 400/401/403 all indicate auth or request issues — fall back to mock data
-    if (res.status === 400 || res.status === 401 || res.status === 403) {
-      throw new Error("INVALID_API_KEY");
+  try {
+    const res = await fetch(`${BASE_URL}${path}`, {
+      ...init,
+      headers: headers(),
+      signal: controller.signal,
+      next: { revalidate: 60 }, // Cache 60s server-side
+    });
+
+    if (!res.ok) {
+      // 400/401/403 all indicate auth or request issues — fall back to mock data
+      if (res.status === 400 || res.status === 401 || res.status === 403) {
+        throw new Error("INVALID_API_KEY");
+      }
+      if (res.status === 429) {
+        throw new Error("RATE_LIMITED");
+      }
+      throw new Error(`API Error: ${res.status} ${res.statusText}`);
     }
-    if (res.status === 429) {
-      throw new Error("RATE_LIMITED");
+
+    return await res.json() as T;
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
+      throw new Error("TIMEOUT");
     }
-    throw new Error(`API Error: ${res.status} ${res.statusText}`);
+    throw error;
+  } finally {
+    clearTimeout(timeoutId);
   }
-
-  return res.json() as Promise<T>;
 }
 
 // Helper to handle API fetch errors cleanly without dumping scary stack traces in dev console
@@ -62,7 +90,10 @@ function handleApiError(context: string, error: unknown) {
 export async function getLiveMatches(): Promise<Match[]> {
   try {
     const data = await apiFetch<MatchesResponse>("/matches?status=IN_PLAY,PAUSED");
-    return data.matches;
+    if (data.matches && data.matches.length > 0) {
+      return data.matches;
+    }
+    return getMockMatches("IN_PLAY");
   } catch (e) {
     handleApiError("getLiveMatches", e);
     return getMockMatches("IN_PLAY");
@@ -73,7 +104,10 @@ export async function getTodayMatches(): Promise<Match[]> {
   try {
     const today = new Date().toISOString().split("T")[0];
     const data = await apiFetch<MatchesResponse>(`/matches?dateFrom=${today}&dateTo=${today}`);
-    return data.matches;
+    if (data.matches && data.matches.length > 0) {
+      return data.matches;
+    }
+    return getMockTodayMatches();
   } catch (e) {
     handleApiError("getTodayMatches", e);
     return getMockTodayMatches();
@@ -83,7 +117,10 @@ export async function getTodayMatches(): Promise<Match[]> {
 export async function getMatchesByStatus(status: string): Promise<Match[]> {
   try {
     const data = await apiFetch<MatchesResponse>(`/matches?status=${status}`);
-    return data.matches;
+    if (data.matches && data.matches.length > 0) {
+      return data.matches;
+    }
+    return getMockMatches(status);
   } catch (e) {
     handleApiError("getMatchesByStatus", e);
     return getMockMatches(status);
@@ -92,7 +129,9 @@ export async function getMatchesByStatus(status: string): Promise<Match[]> {
 
 export async function getMatchById(id: string): Promise<Match | null> {
   try {
-    return await apiFetch<Match>(`/matches/${id}`);
+    const match = await apiFetch<Match>(`/matches/${id}`);
+    if (match) return match;
+    return getMockMatchDetail(id);
   } catch (e) {
     handleApiError("getMatchById", e);
     return getMockMatchDetail(id);
@@ -103,7 +142,10 @@ export async function getCompetitionMatches(code: string, status?: string): Prom
   try {
     const qs = status ? `?status=${status}` : "";
     const data = await apiFetch<MatchesResponse>(`/competitions/${code}/matches${qs}`);
-    return data.matches;
+    if (data.matches && data.matches.length > 0) {
+      return data.matches;
+    }
+    return getMockMatches("SCHEDULED");
   } catch (e) {
     handleApiError("getCompetitionMatches", e);
     return getMockMatches("SCHEDULED");
@@ -118,7 +160,10 @@ export async function getUpcomingMatches(): Promise<Match[]> {
     const from = today.toISOString().split("T")[0];
     const to   = in7.toISOString().split("T")[0];
     const data = await apiFetch<MatchesResponse>(`/matches?status=SCHEDULED,TIMED&dateFrom=${from}&dateTo=${to}`);
-    return data.matches.slice(0, 20);
+    if (data.matches && data.matches.length > 0) {
+      return data.matches.slice(0, 20);
+    }
+    return getMockMatches("SCHEDULED");
   } catch (e) {
     handleApiError("getUpcomingMatches", e);
     return getMockMatches("SCHEDULED");
@@ -129,7 +174,11 @@ export async function getUpcomingMatches(): Promise<Match[]> {
 
 export async function getStandings(code: string): Promise<StandingsResponse | null> {
   try {
-    return await apiFetch<StandingsResponse>(`/competitions/${code}/standings`);
+    const standings = await apiFetch<StandingsResponse>(`/competitions/${code}/standings`);
+    if (standings && standings.standings && standings.standings.length > 0) {
+      return standings;
+    }
+    return getMockStandings(code);
   } catch (e) {
     handleApiError("getStandings", e);
     return getMockStandings(code);
@@ -246,93 +295,96 @@ const WC2026_GROUPS = [
   ]}
 ];
 
-const MOCK_FIXTURES: Match[] = [
-  // Official FIFA World Cup 2026 opening matches
-  {
-    id: 202601,
-    status: "SCHEDULED",
-    utcDate: "2026-06-11T19:00:00Z", // June 11, 19:00 UTC (June 12, 01:00 AM BD)
-    homeTeam: makeMockTeam(762, "Mexico", "MEX"),
-    awayTeam: makeMockTeam(9901, "South Africa", "RSA"),
-    score: { fullTime: { home: null, away: null }, halfTime: { home: null, away: null } },
-    competition: { id: 2000, name: "FIFA World Cup 2026", code: "WC", type: "CUP", emblem: "", area: { id: 2000, name: "North America", code: "NA" } },
-    stage: "GROUP_STAGE",
-    lastUpdated: "2026-06-08T00:00:00Z",
-    venue: "Estadio Azteca, Mexico City"
-  },
-  {
-    id: 202602,
-    status: "SCHEDULED",
-    utcDate: "2026-06-12T19:00:00Z", // June 12, 19:00 UTC (June 13, 01:00 AM BD)
-    homeTeam: makeMockTeam(766, "Canada", "CAN"),
-    awayTeam: makeMockTeam(9902, "Bosnia & Herzegovina", "BIH"),
-    score: { fullTime: { home: null, away: null }, halfTime: { home: null, away: null } },
-    competition: { id: 2000, name: "FIFA World Cup 2026", code: "WC", type: "CUP", emblem: "", area: { id: 2000, name: "North America", code: "NA" } },
-    stage: "GROUP_STAGE",
-    lastUpdated: "2026-06-08T00:00:00Z",
-    venue: "BMO Field, Toronto"
-  },
-  {
-    id: 202603,
-    status: "SCHEDULED",
-    utcDate: "2026-06-13T01:00:00Z", // June 12, 18:00 PT (June 13, 07:00 AM BD)
-    homeTeam: makeMockTeam(764, "United States", "USA"),
-    awayTeam: makeMockTeam(9903, "Paraguay", "PAR"),
-    score: { fullTime: { home: null, away: null }, halfTime: { home: null, away: null } },
-    competition: { id: 2000, name: "FIFA World Cup 2026", code: "WC", type: "CUP", emblem: "", area: { id: 2000, name: "North America", code: "NA" } },
-    stage: "GROUP_STAGE",
-    lastUpdated: "2026-06-08T00:00:00Z",
-    venue: "SoFi Stadium, Los Angeles"
-  },
-  // Friendly / Live matches happening today (June 8, 2026) for testing live UI components
-  {
-    id: 202604,
-    status: "IN_PLAY",
-    utcDate: new Date(Date.now() - 35 * 60000).toISOString(),
-    homeTeam: makeMockTeam(773, "France", "FRA"),
-    awayTeam: makeMockTeam(768, "England", "ENG"),
-    score: { fullTime: { home: null, away: null }, halfTime: { home: null, away: null } },
-    competition: { id: 2001, name: "International Friendlies", code: "FRIENDLY", type: "CUP", emblem: "", area: { id: 2000, name: "Europe", code: "EU" } },
-    stage: "FRIENDLY",
-    minute: 35,
-    lastUpdated: new Date().toISOString(),
-    venue: "Stade de France, Paris"
-  },
-  {
-    id: 202605,
-    status: "IN_PLAY",
-    utcDate: new Date(Date.now() - 70 * 60000).toISOString(),
-    homeTeam: makeMockTeam(760, "Brazil", "BRA"),
-    awayTeam: makeMockTeam(765, "Portugal", "POR"),
-    score: { fullTime: { home: null, away: null }, halfTime: { home: null, away: null } },
-    competition: { id: 2001, name: "International Friendlies", code: "FRIENDLY", type: "CUP", emblem: "", area: { id: 2000, name: "South America", code: "SA" } },
-    stage: "FRIENDLY",
-    minute: 70,
-    lastUpdated: new Date().toISOString(),
-    venue: "Maracanã, Rio de Janeiro"
-  },
-  // Finished matches ( La Liga )
-  {
-    id: 202606,
-    status: "FINISHED",
-    utcDate: new Date(Date.now() - 24 * 3600000).toISOString(),
-    homeTeam: makeMockTeam(86, "Real Madrid", "RMA"),
-    awayTeam: makeMockTeam(81, "Barcelona", "BAR"),
-    score: { fullTime: { home: 3, away: 2 }, halfTime: { home: 1, away: 1 } },
-    competition: { id: 2014, name: "La Liga", code: "PD", type: "LEAGUE", emblem: "", area: { id: 2224, name: "Spain", code: "ESP" } },
-    stage: "REGULAR_SEASON",
-    lastUpdated: new Date().toISOString(),
-    venue: "Santiago Bernabéu, Madrid"
-  }
-];
+function getDynamicMockFixtures(): Match[] {
+  return [
+    // Official FIFA World Cup 2026 opening matches
+    {
+      id: 202601,
+      status: "SCHEDULED",
+      utcDate: "2026-06-11T19:00:00Z", // June 11, 19:00 UTC (June 12, 01:00 AM BD)
+      homeTeam: makeMockTeam(762, "Mexico", "MEX"),
+      awayTeam: makeMockTeam(9901, "South Africa", "RSA"),
+      score: { fullTime: { home: null, away: null }, halfTime: { home: null, away: null } },
+      competition: { id: 2000, name: "FIFA World Cup 2026", code: "WC", type: "CUP", emblem: "", area: { id: 2000, name: "North America", code: "NA" } },
+      stage: "GROUP_STAGE",
+      lastUpdated: "2026-06-08T00:00:00Z",
+      venue: "Estadio Azteca, Mexico City"
+    },
+    {
+      id: 202602,
+      status: "SCHEDULED",
+      utcDate: "2026-06-12T19:00:00Z", // June 12, 19:00 UTC (June 13, 01:00 AM BD)
+      homeTeam: makeMockTeam(766, "Canada", "CAN"),
+      awayTeam: makeMockTeam(9902, "Bosnia & Herzegovina", "BIH"),
+      score: { fullTime: { home: null, away: null }, halfTime: { home: null, away: null } },
+      competition: { id: 2000, name: "FIFA World Cup 2026", code: "WC", type: "CUP", emblem: "", area: { id: 2000, name: "North America", code: "NA" } },
+      stage: "GROUP_STAGE",
+      lastUpdated: "2026-06-08T00:00:00Z",
+      venue: "BMO Field, Toronto"
+    },
+    {
+      id: 202603,
+      status: "SCHEDULED",
+      utcDate: "2026-06-13T01:00:00Z", // June 12, 18:00 PT (June 13, 07:00 AM BD)
+      homeTeam: makeMockTeam(764, "United States", "USA"),
+      awayTeam: makeMockTeam(9903, "Paraguay", "PAR"),
+      score: { fullTime: { home: null, away: null }, halfTime: { home: null, away: null } },
+      competition: { id: 2000, name: "FIFA World Cup 2026", code: "WC", type: "CUP", emblem: "", area: { id: 2000, name: "North America", code: "NA" } },
+      stage: "GROUP_STAGE",
+      lastUpdated: "2026-06-08T00:00:00Z",
+      venue: "SoFi Stadium, Los Angeles"
+    },
+    // Friendly / Live matches happening today (June 8, 2026) for testing live UI components
+    {
+      id: 202604,
+      status: "IN_PLAY",
+      utcDate: new Date(Date.now() - 35 * 60000).toISOString(),
+      homeTeam: makeMockTeam(773, "France", "FRA"),
+      awayTeam: makeMockTeam(768, "England", "ENG"),
+      score: { fullTime: { home: null, away: null }, halfTime: { home: null, away: null } },
+      competition: { id: 2001, name: "International Friendlies", code: "FRIENDLY", type: "CUP", emblem: "", area: { id: 2000, name: "Europe", code: "EU" } },
+      stage: "FRIENDLY",
+      minute: 35,
+      lastUpdated: new Date().toISOString(),
+      venue: "Stade de France, Paris"
+    },
+    {
+      id: 202605,
+      status: "IN_PLAY",
+      utcDate: new Date(Date.now() - 70 * 60000).toISOString(),
+      homeTeam: makeMockTeam(760, "Brazil", "BRA"),
+      awayTeam: makeMockTeam(765, "Portugal", "POR"),
+      score: { fullTime: { home: null, away: null }, halfTime: { home: null, away: null } },
+      competition: { id: 2001, name: "International Friendlies", code: "FRIENDLY", type: "CUP", emblem: "", area: { id: 2000, name: "South America", code: "SA" } },
+      stage: "FRIENDLY",
+      minute: 70,
+      lastUpdated: new Date().toISOString(),
+      venue: "Maracanã, Rio de Janeiro"
+    },
+    // Finished matches ( La Liga )
+    {
+      id: 202606,
+      status: "FINISHED",
+      utcDate: new Date(Date.now() - 24 * 3600000).toISOString(),
+      homeTeam: makeMockTeam(86, "Real Madrid", "RMA"),
+      awayTeam: makeMockTeam(81, "Barcelona", "BAR"),
+      score: { fullTime: { home: 3, away: 2 }, halfTime: { home: 1, away: 1 } },
+      competition: { id: 2014, name: "La Liga", code: "PD", type: "LEAGUE", emblem: "", area: { id: 2224, name: "Spain", code: "ESP" } },
+      stage: "REGULAR_SEASON",
+      lastUpdated: new Date().toISOString(),
+      venue: "Santiago Bernabéu, Madrid"
+    }
+  ];
+}
 
 export function getMockMatches(status: string): Match[] {
   const statuses = status.split(",");
-  return MOCK_FIXTURES.filter(m => statuses.includes(m.status));
+  return getDynamicMockFixtures().filter(m => statuses.includes(m.status));
 }
 
 export function getMockMatchDetail(id: string): Match {
-  const match = MOCK_FIXTURES.find(m => String(m.id) === id) || MOCK_FIXTURES[0];
+  const fixtures = getDynamicMockFixtures();
+  const match = fixtures.find(m => String(m.id) === id) || fixtures[0];
   const hasStarted = match.status === "FINISHED" || match.status === "IN_PLAY" || match.status === "PAUSED";
   return {
     ...match,
@@ -347,7 +399,7 @@ export function getMockMatchDetail(id: string): Match {
 
 export function getMockTodayMatches(): Match[] {
   const todayStr = new Date().toDateString();
-  return MOCK_FIXTURES.filter(m => new Date(m.utcDate).toDateString() === todayStr);
+  return getDynamicMockFixtures().filter(m => new Date(m.utcDate).toDateString() === todayStr);
 }
 
 function getMockStandings(code: string): StandingsResponse {

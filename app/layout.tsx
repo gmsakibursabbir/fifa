@@ -44,7 +44,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className={`${inter.variable} antialiased bg-[#000000] min-h-screen`}>
+      <body className={`${inter.variable} antialiased bg-[#000000] min-h-screen`} suppressHydrationWarning={true}>
         <TooltipProvider>
           <Navbar />
           <main className="min-h-screen">{children}</main>

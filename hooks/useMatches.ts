@@ -4,7 +4,13 @@ import useSWR from "swr";
 import type { Match } from "@/types/football";
 import type { FilterStatus } from "@/types/football";
 
-const fetcher = (url: string) => fetch(url).then((r) => r.json()) as Promise<Match[]>;
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch matches: ${res.status}`);
+  }
+  return res.json() as Promise<Match[]>;
+};
 
 export function useMatches(filter: FilterStatus = "TODAY") {
   const actionMap: Record<FilterStatus, string> = {
@@ -36,7 +42,13 @@ export function useMatches(filter: FilterStatus = "TODAY") {
 export function useMatchDetail(id: string) {
   const { data, error, isLoading } = useSWR<Match>(
     id ? `/api/football?action=match&id=${id}` : null,
-    (url: string) => fetch(url).then((r) => r.json()) as Promise<Match>,
+    async (url: string) => {
+      const res = await fetch(url);
+      if (!res.ok) {
+        throw new Error(`Failed to fetch match detail: ${res.status}`);
+      }
+      return res.json() as Promise<Match>;
+    },
     { refreshInterval: 10000 } // 10s refresh for detail view
   );
 

@@ -3,8 +3,13 @@
 import useSWR from "swr";
 import type { StandingsResponse } from "@/types/football";
 
-const fetcher = (url: string) =>
-  fetch(url).then((r) => r.json()) as Promise<StandingsResponse>;
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch standings: ${res.status}`);
+  }
+  return res.json() as Promise<StandingsResponse>;
+};
 
 export function useStandings(competition: string = "PL") {
   const { data, error, isLoading, mutate } = useSWR<StandingsResponse>(
