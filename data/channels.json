@@ -102,5 +102,18 @@
     "isLive": true,
     "quality": "HD",
     "featured": false
+  },
+  {
+    "id": 1781332938262,
+    "name": "Somoy TV",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/c/c4/SOMOY_TV_Logo.svg",
+    "stream": "http://10.30.30.30:8088/SOMOY.TV.HD/index.m3u8?token=37b631150e0c9a8b3e8e7715a865d44a86683b67-425ac62a25c1151d3faa4dec0c3dbea6-1781343355-1781332555&remote=no_check_ip",
+    "category": "News",
+    "description": "FIFA/NEWS",
+    "language": "Bangla",
+    "country": "Bangladesh",
+    "isLive": true,
+    "quality": "HD",
+    "featured": false
   }
 ]
