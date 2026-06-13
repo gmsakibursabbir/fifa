@@ -76,5 +76,18 @@
     "isLive": true,
     "quality": "HD",
     "featured": false
+  },
+  {
+    "id": 1781332260309,
+    "name": "T Sports (BDIX-2)",
+    "logo": "https://tsportscdn.s3.ap-southeast-1.amazonaws.com/uploads/settings/logo.png",
+    "stream": "http://10.99.99.99:8082/ATN.BANGLA.HD/index.m3u8?token=6f62f4abd4bbb9fb93f9894de43a7c3fe170dca3-d28e867d245ffe948f46bd367179ac95-1781342675-1781331875&remote=no_check_ip",
+    "category": "Sports",
+    "description": "FIFA ",
+    "language": "Bangla",
+    "country": "Bangladesh",
+    "isLive": true,
+    "quality": "HD",
+    "featured": false
   }
 ]
