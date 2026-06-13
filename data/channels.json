@@ -39,6 +39,19 @@
     "featured": false
   },
   {
+    "id": 1781332675633,
+    "name": "T Sports (BDIX-1)",
+    "logo": "https://tsportscdn.s3.ap-southeast-1.amazonaws.com/uploads/settings/logo.png",
+    "stream": "http://10.99.99.99:8082/T-SPORTS-HD/tracks-v1a1/mono.m3u8?token=84fd556f2f285a220f352b49fc7e4604e38f59c5-b148e629f6be9b3f82faa946a84370e2-1781343034-1781332234",
+    "category": "Sports",
+    "description": "FIFA ",
+    "language": "Bangla",
+    "country": "Bangladesh",
+    "isLive": true,
+    "quality": "HD",
+    "featured": false
+  },
+  {
     "id": 1781331303003,
     "name": "T Sports",
     "logo": "https://tsportscdn.s3.ap-southeast-1.amazonaws.com/uploads/settings/logo.png",
@@ -86,19 +99,6 @@
     "description": "FIFA ",
     "language": "Urdu",
     "country": "Pakistan",
-    "isLive": true,
-    "quality": "HD",
-    "featured": false
-  },
-  {
-    "id": 1781332675633,
-    "name": "T Sports (BDIX-1)",
-    "logo": "https://tsportscdn.s3.ap-southeast-1.amazonaws.com/uploads/settings/logo.png",
-    "stream": "http://10.99.99.99:8082/T-SPORTS-HD/tracks-v1a1/mono.m3u8?token=84fd556f2f285a220f352b49fc7e4604e38f59c5-b148e629f6be9b3f82faa946a84370e2-1781343034-1781332234",
-    "category": "Sports",
-    "description": "FIFA ",
-    "language": "Bangla",
-    "country": "Bangladesh",
     "isLive": true,
     "quality": "HD",
     "featured": false
