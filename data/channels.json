@@ -128,5 +128,15 @@
     "isLive": true,
     "quality": "HD",
     "featured": false
+  },
+  {
+    "id": 1781339101692,
+    "name": "formula-3",
+    "logo": "",
+    "stream": "https://lb12.strmd.st/secure/kTpElDhEkoIiVxyCWiMAcVDKUeCBNQhD/echo/stream/formula-3-spain-r4-formula-2-spain-r5-game-19996/1/playlist.m3u8",
+    "category": "Sports",
+    "isLive": true,
+    "quality": "HD",
+    "featured": false
   }
 ]
