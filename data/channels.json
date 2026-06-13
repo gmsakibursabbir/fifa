@@ -50,5 +50,18 @@
     "isLive": true,
     "quality": "HD",
     "featured": false
+  },
+  {
+    "id": 1781331737241,
+    "name": "Caze TV",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/6/64/Caz%C3%A9TV_logo.svg",
+    "stream": "https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/1080p-vtt/index.m3u8",
+    "category": "Sports",
+    "description": "FIFA ",
+    "language": "Spanish",
+    "country": "Brazilian",
+    "isLive": true,
+    "quality": "FHD",
+    "featured": true
   }
 ]
