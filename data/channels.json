@@ -91,6 +91,19 @@
     "featured": false
   },
   {
+    "id": 1781355961770,
+    "name": "DAZN",
+    "logo": "",
+    "stream": "https://1nyaler.streamhostingcdn.top/stream/94/index.m3u8",
+    "category": "Football",
+    "description": "FIFA ",
+    "language": "Spanish",
+    "country": "Brazilian",
+    "isLive": true,
+    "quality": "HD",
+    "featured": false
+  },
+  {
     "id": 1781331667219,
     "name": "Win Sports",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/5/58/Win_Sports_nuevo_logo.svg",
@@ -148,19 +161,6 @@
     "logo": "",
     "stream": "https://lb12.strmd.st/secure/kTpElDhEkoIiVxyCWiMAcVDKUeCBNQhD/echo/stream/formula-3-spain-r4-formula-2-spain-r5-game-19996/1/playlist.m3u8",
     "category": "Sports",
-    "isLive": true,
-    "quality": "HD",
-    "featured": false
-  },
-  {
-    "id": 1781355961770,
-    "name": "DAZN",
-    "logo": "",
-    "stream": "https://1nyaler.streamhostingcdn.top/stream/94/index.m3u8",
-    "category": "Football",
-    "description": "FIFA ",
-    "language": "Spanish",
-    "country": "Brazilian",
     "isLive": true,
     "quality": "HD",
     "featured": false
