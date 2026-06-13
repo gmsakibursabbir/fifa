@@ -17,6 +17,10 @@ export async function GET(
       return new Response("Channel not found", { status: 404 });
     }
 
+    // Check if we are requesting a sub-playlist directory path (e.g., ?path=tracks-v1a1/mono.m3u8)
+    const { searchParams } = new URL(request.url);
+    const subPath = searchParams.get("path");
+
     // Hotlink protection: check referer/origin headers
     const referer = request.headers.get("referer");
     const origin = request.headers.get("origin");
@@ -42,15 +46,27 @@ export async function GET(
       return new Response("Access Denied: Hotlinking forbidden", { status: 403 });
     }
 
-    const streamUrl = channel.stream;
-    
-    // Check if the stream is an HLS playlist (usually ends in .m3u8 or contains m3u8)
-    const cleanUrl = streamUrl.split("?")[0].toLowerCase();
-    const isHls = cleanUrl.endsWith(".m3u8") || streamUrl.includes("m3u8");
+    const baseStreamUrl = channel.stream;
+    const parsedBaseUrl = new URL(baseStreamUrl);
+    const originUrl = parsedBaseUrl.origin;
+    const lastSlashIdx = parsedBaseUrl.pathname.lastIndexOf("/");
+    const basePath = lastSlashIdx !== -1 ? parsedBaseUrl.pathname.substring(0, lastSlashIdx + 1) : "/";
+
+    // Resolve target URL to fetch (either base index or subpath)
+    let targetUrl = baseStreamUrl;
+    if (subPath) {
+      if (subPath.startsWith("/")) {
+        targetUrl = originUrl + subPath;
+      } else {
+        targetUrl = originUrl + basePath + subPath;
+      }
+    }
+
+    const cleanUrl = targetUrl.split("?")[0].toLowerCase();
+    const isHls = cleanUrl.endsWith(".m3u8") || targetUrl.includes("m3u8");
 
     if (!isHls) {
-      // Direct redirect for MPEG-TS or other streams
-      return NextResponse.redirect(streamUrl);
+      return NextResponse.redirect(targetUrl);
     }
 
     // Attempt to proxy/rewrite the playlist manifest
@@ -58,7 +74,7 @@ export async function GET(
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 4000); // 4-second timeout
 
-      const res = await fetch(streamUrl, {
+      const res = await fetch(targetUrl, {
         signal: controller.signal,
         headers: {
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)",
@@ -69,35 +85,44 @@ export async function GET(
 
       if (!res.ok) {
         console.warn(`Manifest proxy failed with status ${res.status}, falling back to redirect.`);
-        return NextResponse.redirect(streamUrl);
+        return NextResponse.redirect(targetUrl);
       }
 
       const text = await res.text();
-      
-      const parsedUrl = new URL(streamUrl);
-      const originUrl = parsedUrl.origin;
-      const lastSlashIdx = parsedUrl.pathname.lastIndexOf("/");
-      const basePath = lastSlashIdx !== -1 ? parsedUrl.pathname.substring(0, lastSlashIdx + 1) : "/";
-      const searchParams = parsedUrl.search; // e.g. ?token=xyz
-
-      // Rewrite relative URLs inside the playlist manifest
       const lines = text.split("\n");
+      
       const rewrittenLines = lines.map((line) => {
         const trimmed = line.trim();
         if (trimmed && !trimmed.startsWith("#")) {
-          // If relative URL (no http:// or https://)
-          if (!trimmed.startsWith("http://") && !trimmed.startsWith("https://")) {
-            let absoluteUrl = "";
-            if (trimmed.startsWith("/")) {
-              absoluteUrl = originUrl + trimmed;
-            } else {
-              absoluteUrl = originUrl + basePath + trimmed;
+          // If this is a sub-playlist (.m3u8), route it back through this proxy
+          if (trimmed.endsWith(".m3u8") || trimmed.includes(".m3u8")) {
+            let relativePath = trimmed;
+            if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
+              try {
+                const u = new URL(trimmed);
+                if (u.origin === originUrl) {
+                  relativePath = u.pathname.substring(basePath.length);
+                }
+              } catch {}
             }
+            return `/api/stream/${channelId}/playlist.m3u8?path=${encodeURIComponent(relativePath)}`;
+          }
+
+          // If relative URL (no http:// or https://) for video segments (.ts)
+          if (!trimmed.startsWith("http://") && !trimmed.startsWith("https://")) {
+            let currentDir = basePath;
+            if (subPath) {
+              const lastSubSlash = subPath.lastIndexOf("/");
+              if (lastSubSlash !== -1) {
+                currentDir = basePath + subPath.substring(0, lastSubSlash + 1);
+              }
+            }
+            let absoluteUrl = originUrl + currentDir + trimmed;
             
-            // Forward search parameters/credentials to the segment requests
-            if (searchParams) {
+            const baseParams = parsedBaseUrl.search;
+            if (baseParams) {
               const separator = absoluteUrl.includes("?") ? "&" : "?";
-              absoluteUrl = absoluteUrl + separator + searchParams.substring(1);
+              absoluteUrl = absoluteUrl + separator + baseParams.substring(1);
             }
             return absoluteUrl;
           }
@@ -117,7 +142,7 @@ export async function GET(
 
     } catch (err) {
       console.error("Manifest proxy error, falling back to redirect:", err);
-      return NextResponse.redirect(streamUrl);
+      return NextResponse.redirect(targetUrl);
     }
 
   } catch (error) {
