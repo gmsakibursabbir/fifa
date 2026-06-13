@@ -74,7 +74,7 @@ export default function ChannelCard({
           )}
 
           {/* Logo container */}
-          <div className="relative shrink-0 w-12 h-12 overflow-hidden bg-white/5 border border-white/10 transition-transform duration-300 group-hover:scale-105 flex items-center justify-center">
+          <div className="relative shrink-0 w-12 h-12 overflow-hidden bg-white border border-white/10 transition-transform duration-300 group-hover:scale-105 flex items-center justify-center">
             <img
               src={channel.logo || `/api/logo?name=${encodeURIComponent(channel.name)}`}
               alt={channel.name}
@@ -86,7 +86,7 @@ export default function ChannelCard({
               }}
             />
             <div className="logo-fallback hidden w-full h-full flex items-center justify-center absolute inset-0">
-              <Tv className="w-5 h-5 text-white/30" aria-hidden="true" />
+              <Tv className="w-5 h-5 text-black/40" aria-hidden="true" />
             </div>
             {/* Play overlay on hover */}
             <div

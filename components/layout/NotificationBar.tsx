@@ -58,13 +58,22 @@ export default function NotificationBar() {
       </div>
 
       {/* Infinite marquee */}
-      <div className="flex-1 overflow-hidden relative">
-        <div className="animate-marquee hover:pause-marquee whitespace-nowrap flex gap-16">
-          <span>{config.text}</span>
-          <span>{config.text}</span>
-          <span>{config.text}</span>
-          <span>{config.text}</span>
-          <span>{config.text}</span>
+      <div className="flex-1 overflow-hidden relative flex items-center">
+        <div className="animate-marquee hover:pause-marquee whitespace-nowrap flex">
+          {/* First scrolling set */}
+          <div className="flex gap-16 shrink-0 pr-16">
+            <span>{config.text}</span>
+            <span>{config.text}</span>
+            <span>{config.text}</span>
+            <span>{config.text}</span>
+          </div>
+          {/* Second scrolling set (identical clone for perfect infinite scroll) */}
+          <div className="flex gap-16 shrink-0 pr-16" aria-hidden="true">
+            <span>{config.text}</span>
+            <span>{config.text}</span>
+            <span>{config.text}</span>
+            <span>{config.text}</span>
+          </div>
         </div>
       </div>
 

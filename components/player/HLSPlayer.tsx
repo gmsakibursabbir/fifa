@@ -86,6 +86,15 @@ function HLSPlayerInner({
   const [retryKey,      setRetryKey]      = useState(0);
   const [isFullscreen,  setIsFullscreen]  = useState(false);
 
+  const loadingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearLoadingTimeout = useCallback(() => {
+    if (loadingTimeoutRef.current) {
+      clearTimeout(loadingTimeoutRef.current);
+      loadingTimeoutRef.current = null;
+    }
+  }, []);
+
   // Quality
   const [levels,         setLevels]         = useState<{ index: number; name: string }[]>([]);
   const [currentLevel,   setCurrentLevel]   = useState(-1);
@@ -123,13 +132,17 @@ function HLSPlayerInner({
 
   /* ── Player setup ───────────────────────────────────────────── */
   const retry = useCallback(() => {
-    setError(""); setLoading(true); setRetryKey((p) => p + 1);
-  }, []);
+    setError("");
+    clearLoadingTimeout();
+    setLoading(true);
+    setRetryKey((p) => p + 1);
+  }, [clearLoadingTimeout]);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video || !activeSrc) return;
 
+    clearLoadingTimeout();
     setLoading(true); setError(""); setPlaying(false);
 
     let onMeta: (() => void) | null = null;
@@ -140,6 +153,11 @@ function HLSPlayerInner({
       if (!video) return;
       const type = getStreamType(activeSrc);
       setLevels([]); setCurrentLevel(-1); setShowQualityMenu(false);
+
+      if (loadingTimeoutRef.current) {
+        clearTimeout(loadingTimeoutRef.current);
+        loadingTimeoutRef.current = null;
+      }
 
       if (hlsRef.current)   { hlsRef.current.destroy(); hlsRef.current = null; }
       if (mpegtsRef.current) {
@@ -166,10 +184,19 @@ function HLSPlayerInner({
       } else if (type === "hls") {
         const Hls = (await import("hls.js")).default;
         if (Hls.isSupported()) {
-          const hls = new Hls({ enableWorker: true, lowLatencyMode: true, backBufferLength: 90 });
+          const isMobile = typeof window !== "undefined" && (window.innerWidth < 640 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+          const hls = new Hls({
+            enableWorker: true,
+            lowLatencyMode: true,
+            backBufferLength: isMobile ? 15 : 90,
+            maxBufferLength: isMobile ? 10 : 30,
+            maxMaxBufferLength: isMobile ? 20 : 600,
+            capLevelToPlayerSize: true,
+          });
           hlsRef.current = hls;
           hls.loadSource(activeSrc); hls.attachMedia(video);
           hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            clearLoadingTimeout();
             setLoading(false);
             recoveryRef.current = { media: 0, network: 0, recreate: 0 };
             const parsed = hls.levels.map((l: any, i: number) => ({
@@ -200,17 +227,37 @@ function HLSPlayerInner({
           });
         } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
           video.src = activeSrc;
-          onMetaHls = () => { setLoading(false); recoveryRef.current = { media:0,network:0,recreate:0 }; if (autoPlay) video.play().catch(()=>{}); };
+          onMetaHls = () => {
+            clearLoadingTimeout();
+            setLoading(false);
+            recoveryRef.current = { media:0,network:0,recreate:0 };
+            if (autoPlay) video.play().catch(()=>{});
+          };
           video.addEventListener("loadedmetadata", onMetaHls);
-        } else { setError("HLS not supported."); setLoading(false); }
+        } else {
+          setError("HLS not supported.");
+          clearLoadingTimeout();
+          setLoading(false);
+        }
 
       } else {
         video.src = activeSrc; video.load();
-        onMeta = () => { setLoading(false); recoveryRef.current = {media:0,network:0,recreate:0}; if (autoPlay) video.play().catch(()=>{}); };
+        onMeta = () => {
+          clearLoadingTimeout();
+          setLoading(false);
+          recoveryRef.current = {media:0,network:0,recreate:0};
+          if (autoPlay) video.play().catch(()=>{});
+        };
         video.addEventListener("loadedmetadata", onMeta);
         onErr = () => {
-          if (recoveryRef.current.recreate < 2) { recoveryRef.current.recreate++; retry(); }
-          else { setError("Unsupported format or stream offline."); setLoading(false); }
+          if (recoveryRef.current.recreate < 2) {
+            recoveryRef.current.recreate++;
+            retry();
+          } else {
+            setError("Unsupported format or stream offline.");
+            clearLoadingTimeout();
+            setLoading(false);
+          }
         };
         video.addEventListener("error", onErr);
       }
@@ -219,6 +266,10 @@ function HLSPlayerInner({
     setup().catch((e) => { console.error(e); setError("Failed to load stream."); setLoading(false); });
 
     return () => {
+      if (loadingTimeoutRef.current) {
+        clearTimeout(loadingTimeoutRef.current);
+        loadingTimeoutRef.current = null;
+      }
       if (onMeta)    video.removeEventListener("loadedmetadata", onMeta);
       if (onErr)     video.removeEventListener("error", onErr);
       if (onMetaHls) video.removeEventListener("loadedmetadata", onMetaHls);
@@ -230,29 +281,52 @@ function HLSPlayerInner({
         mpegtsRef.current = null;
       }
     };
-  }, [activeSrc, autoPlay, retryKey, retry]);
+  }, [activeSrc, autoPlay, retryKey, retry, clearLoadingTimeout]);
 
   /* ── Video event listeners ──────────────────────────────────── */
   useEffect(() => {
     const v = videoRef.current; if (!v) return;
     const onPlay    = () => setPlaying(true);
     const onPause   = () => setPlaying(false);
-    const onWaiting = () => setLoading(true);
-    const onPlaying = () => { setLoading(false); recoveryRef.current = {media:0,network:0,recreate:0}; };
-    const onTime    = () => { if (v.currentTime > 0) { setLoading(false); setPlaying(true); recoveryRef.current = {media:0,network:0,recreate:0}; } };
+    const onWaiting = () => {
+      // If already playing, debounce loading screen to avoid micro-stutter flashes on mobile
+      if (playing) {
+        if (loadingTimeoutRef.current) clearTimeout(loadingTimeoutRef.current);
+        loadingTimeoutRef.current = setTimeout(() => {
+          setLoading(true);
+        }, 400);
+      } else {
+        clearLoadingTimeout();
+        setLoading(true);
+      }
+    };
+    const onPlaying = () => {
+      clearLoadingTimeout();
+      setLoading(false);
+      recoveryRef.current = {media:0,network:0,recreate:0};
+    };
+    const onTime    = () => {
+      if (v.currentTime > 0) {
+        clearLoadingTimeout();
+        setLoading(false);
+        setPlaying(true);
+        recoveryRef.current = {media:0,network:0,recreate:0};
+      }
+    };
     v.addEventListener("play",       onPlay);
     v.addEventListener("pause",      onPause);
     v.addEventListener("waiting",    onWaiting);
     v.addEventListener("playing",    onPlaying);
     v.addEventListener("timeupdate", onTime);
     return () => {
+      clearLoadingTimeout();
       v.removeEventListener("play",       onPlay);
       v.removeEventListener("pause",      onPause);
       v.removeEventListener("waiting",    onWaiting);
       v.removeEventListener("playing",    onPlaying);
       v.removeEventListener("timeupdate", onTime);
     };
-  }, []);
+  }, [playing, clearLoadingTimeout]);
 
   /* ── Controls ───────────────────────────────────────────────── */
   const togglePlay = () => { const v = videoRef.current; if (!v) return; v.paused ? v.play().catch(()=>{}) : v.pause(); };
@@ -299,99 +373,118 @@ function HLSPlayerInner({
 
       {/* ── LOADING ── */}
       {loading && !error && (
-        <div className="absolute inset-0 bg-[#030306]/95 z-30 flex items-center justify-center overflow-hidden">
-          {/* Holographic BG Grid */}
-          <div
-            className="absolute inset-0 opacity-[0.08] pointer-events-none"
-            style={{
-              backgroundImage: "linear-gradient(rgba(0,240,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,240,255,0.08) 1px, transparent 1px)",
-              backgroundSize: "32px 32px",
-            }}
-            aria-hidden="true"
-          />
-
-          {/* Horizontal laser scanline */}
-          <div className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00f0ff] to-transparent opacity-60 animate-laser-sweep pointer-events-none z-10" />
-
-          {/* Corner frames */}
-          <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-[#00f0ff]/30 pointer-events-none" />
-          <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-[#00f0ff]/30 pointer-events-none" />
-          <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-[#00f0ff]/30 pointer-events-none" />
-          <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-[#00f0ff]/30 pointer-events-none" />
-
-          {/* Center console box */}
-          <div
-            className="relative max-w-[280px] w-[90%] bg-black/75 border border-[#00f0ff]/25 p-5 flex flex-col items-center select-none backdrop-blur-md shadow-[0_0_30px_rgba(0,240,255,0.08)]"
-            style={{ clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))" }}
-          >
-            {/* Box Accent brackets */}
-            <div className="absolute top-0 left-0 w-3.5 h-3.5 border-t-2 border-l-2 border-[#fcee0a]" />
-            <div className="absolute bottom-0 right-0 w-3.5 h-3.5 border-b-2 border-r-2 border-[#fcee0a]" />
-
-            {/* Neon flashing indicator */}
-            <div className="absolute -top-3 right-6 bg-[#ff0055] text-white font-cyber font-black text-[7px] tracking-widest px-2 py-0.5 animate-pulse border border-[#ff0055]/30">
-              STREAMS_CONNECT
+        <>
+          {/* Mobile Loading Screen */}
+          <div className="absolute inset-0 bg-[#030306]/85 backdrop-blur-sm z-30 flex sm:hidden flex-col items-center justify-center gap-3">
+            <div className="relative flex items-center justify-center">
+              <Loader2 className="w-9 h-9 text-[#00f0ff] animate-spin" />
+              <div className="absolute w-2 h-2 bg-[#fcee0a] rounded-full animate-ping" />
             </div>
-
-            {/* Rotating target reticle */}
-            <div className="cyber-reticle mb-4" />
-
-            {/* Title */}
-            <div className="font-cyber font-black text-[12px] uppercase tracking-widest text-white mb-0.5">
-              Establishing <span className="neon-cyan shadow-glow text-[#00f0ff]">Neural Link</span>
+            <div className="flex flex-col items-center gap-1 text-center">
+              <span className="font-cyber font-black text-[10px] uppercase tracking-widest text-[#00f0ff] shadow-glow">
+                Loading Stream
+              </span>
+              <span className="text-[7.5px] font-mono text-[#fcee0a] uppercase tracking-wider animate-pulse">
+                [ {channelName || "establishing link"} ]
+              </span>
             </div>
-            <p className="text-[7.5px] font-mono text-[#fcee0a] uppercase tracking-widest mb-4 animate-pulse">
-              [ accessing network stream ]
-            </p>
+          </div>
 
-            {/* Diagnostic readout block */}
-            <div className="w-full bg-[#07070b] border border-[#00f0ff]/15 p-3 font-mono text-[8.5px] text-white/50 space-y-1.5 text-left relative">
-              <div className="absolute top-0 right-0 w-1 h-1 bg-[#00f0ff]/40" />
+          {/* Desktop Loading Screen */}
+          <div className="absolute inset-0 bg-[#030306]/95 z-30 hidden sm:flex items-center justify-center overflow-hidden">
+            {/* Holographic BG Grid */}
+            <div
+              className="absolute inset-0 opacity-[0.08] pointer-events-none"
+              style={{
+                backgroundImage: "linear-gradient(rgba(0,240,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,240,255,0.08) 1px, transparent 1px)",
+                backgroundSize: "32px 32px",
+              }}
+              aria-hidden="true"
+            />
 
-              <div className="flex justify-between items-center">
-                <span>SYSTEM_STATUS</span>
-                <span className="text-[#39ff14] font-bold">ONLINE</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span>DECRYPTION_CORE</span>
-                <span className="text-[#00f0ff] animate-pulse">ESTABLISHED</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span>BITRATE_BUFFER</span>
-                <span className="text-[#fcee0a]">SYNCING...</span>
-              </div>
-              <div className="flex justify-between items-center border-t border-[#00f0ff]/10 pt-1.5 text-white/30 text-[7.5px]">
-                <span>PROTOCOL: MPEG-TS/HLS</span>
-                <span className="truncate max-w-[80px]">CH: {channelName || "IPTV"}</span>
-              </div>
-            </div>
+            {/* Horizontal laser scanline */}
+            <div className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00f0ff] to-transparent opacity-60 animate-laser-sweep pointer-events-none z-10" />
 
-            {/* High-tech segment loading bar */}
-            <div className="w-full mt-4 space-y-1">
-              <div className="flex justify-between text-[8px] font-mono text-white/45 uppercase tracking-wider">
-                <span>Connecting Decryptor</span>
-                <span className="animate-pulse text-[#fcee0a] font-bold">89%</span>
+            {/* Corner frames */}
+            <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-[#00f0ff]/30 pointer-events-none" />
+            <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-[#00f0ff]/30 pointer-events-none" />
+            <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-[#00f0ff]/30 pointer-events-none" />
+            <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-[#00f0ff]/30 pointer-events-none" />
+
+            {/* Center console box */}
+            <div
+              className="relative max-w-[280px] w-[90%] bg-black/75 border border-[#00f0ff]/25 p-5 flex flex-col items-center select-none backdrop-blur-md shadow-[0_0_30px_rgba(0,240,255,0.08)]"
+              style={{ clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))" }}
+            >
+              {/* Box Accent brackets */}
+              <div className="absolute top-0 left-0 w-3.5 h-3.5 border-t-2 border-l-2 border-[#fcee0a]" />
+              <div className="absolute bottom-0 right-0 w-3.5 h-3.5 border-b-2 border-r-2 border-[#fcee0a]" />
+
+              {/* Neon flashing indicator */}
+              <div className="absolute -top-3 right-6 bg-[#ff0055] text-white font-cyber font-black text-[7px] tracking-widest px-2 py-0.5 animate-pulse border border-[#ff0055]/30">
+                STREAMS_CONNECT
               </div>
-              {/* Segmented cells */}
-              <div className="flex gap-[3px] h-2 w-full">
-                {[...Array(12)].map((_, idx) => (
-                  <div
-                    key={idx}
-                    className={cn(
-                      "flex-1 h-full border border-white/5",
-                      idx < 9
-                        ? "bg-[#fcee0a] border-[#fcee0a]/50 shadow-[0_0_3px_#fcee0a]"
-                        : "bg-white/5"
-                    )}
-                    style={{
-                      animation: idx === 8 ? "pulse 0.8s infinite alternate" : "none"
-                    }}
-                  />
-                ))}
+
+              {/* Rotating target reticle */}
+              <div className="cyber-reticle mb-4" />
+
+              {/* Title */}
+              <div className="font-cyber font-black text-[12px] uppercase tracking-widest text-white mb-0.5">
+                Establishing <span className="neon-cyan shadow-glow text-[#00f0ff]">Neural Link</span>
+              </div>
+              <p className="text-[7.5px] font-mono text-[#fcee0a] uppercase tracking-widest mb-4 animate-pulse">
+                [ accessing network stream ]
+              </p>
+
+              {/* Diagnostic readout block */}
+              <div className="w-full bg-[#07070b] border border-[#00f0ff]/15 p-3 font-mono text-[8.5px] text-white/50 space-y-1.5 text-left relative">
+                <div className="absolute top-0 right-0 w-1 h-1 bg-[#00f0ff]/40" />
+
+                <div className="flex justify-between items-center">
+                  <span>SYSTEM_STATUS</span>
+                  <span className="text-[#39ff14] font-bold">ONLINE</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span>DECRYPTION_CORE</span>
+                  <span className="text-[#00f0ff] animate-pulse">ESTABLISHED</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span>BITRATE_BUFFER</span>
+                  <span className="text-[#fcee0a]">SYNCING...</span>
+                </div>
+                <div className="flex justify-between items-center border-t border-[#00f0ff]/10 pt-1.5 text-white/30 text-[7.5px]">
+                  <span>PROTOCOL: MPEG-TS/HLS</span>
+                  <span className="truncate max-w-[80px]">CH: {channelName || "IPTV"}</span>
+                </div>
+              </div>
+
+              {/* High-tech segment loading bar */}
+              <div className="w-full mt-4 space-y-1">
+                <div className="flex justify-between text-[8px] font-mono text-white/45 uppercase tracking-wider">
+                  <span>Connecting Decryptor</span>
+                  <span className="animate-pulse text-[#fcee0a] font-bold">89%</span>
+                </div>
+                {/* Segmented cells */}
+                <div className="flex gap-[3px] h-2 w-full">
+                  {[...Array(12)].map((_, idx) => (
+                    <div
+                      key={idx}
+                      className={cn(
+                        "flex-1 h-full border border-white/5",
+                        idx < 9
+                          ? "bg-[#fcee0a] border-[#fcee0a]/50 shadow-[0_0_3px_#fcee0a]"
+                          : "bg-white/5"
+                      )}
+                      style={{
+                        animation: idx === 8 ? "pulse 0.8s infinite alternate" : "none"
+                      }}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </>
       )}
 
       {/* ── ERROR ── */}
@@ -411,18 +504,18 @@ function HLSPlayerInner({
       {/* ── STREAM PICKER PANEL ── */}
       {showStreamPanel && (
         <div
-          className="absolute inset-y-0 right-0 w-72 sm:w-80 flex flex-col bg-[#07070b]/98 border-l border-[#00f0ff]/20 z-30"
+          className="absolute inset-y-0 right-0 w-3/5 min-w-[200px] max-w-[260px] sm:w-72 flex flex-col bg-[#07070b]/98 border-l border-[#00f0ff]/20 z-30"
           style={{ backdropFilter: "blur(12px)" }}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Panel header */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-[#00f0ff]/15 shrink-0">
-            <div className="flex items-center gap-2">
+          <div className="flex items-center justify-between px-3 py-2.5 sm:px-4 sm:py-3 border-b border-[#00f0ff]/15 shrink-0">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <Tv className="w-3.5 h-3.5 text-[#00f0ff]" />
-              <span className="font-cyber font-bold text-[11px] uppercase tracking-widest text-[#00f0ff]">
+              <span className="font-cyber font-bold text-[10px] sm:text-[11px] uppercase tracking-widest text-[#00f0ff]">
                 Streams
               </span>
-              <span className="text-[9px] font-mono text-white/30 border border-white/15 px-1">
+              <span className="text-[8px] sm:text-[9px] font-mono text-white/30 border border-white/15 px-1">
                 {streams.length}
               </span>
             </div>
@@ -436,14 +529,14 @@ function HLSPlayerInner({
           </div>
 
           {/* Search */}
-          <div className="px-3 py-2 border-b border-[#00f0ff]/10 shrink-0">
+          <div className="px-2.5 py-1.5 sm:px-3 sm:py-2 border-b border-[#00f0ff]/10 shrink-0">
             <input
               type="search"
               value={streamSearch}
               onChange={(e) => setStreamSearch(e.target.value)}
               placeholder="Search channels…"
               aria-label="Search channels"
-              className="w-full px-3 py-1.5 bg-white/5 border border-[#00f0ff]/15 text-white text-[10px] font-mono placeholder:text-white/25 focus:outline-none focus:border-[#00f0ff]/40 transition-colors"
+              className="w-full px-2.5 py-1 bg-white/5 border border-[#00f0ff]/15 text-white text-[9px] sm:text-[10px] font-mono placeholder:text-white/25 focus:outline-none focus:border-[#00f0ff]/40 transition-colors"
             />
           </div>
 
@@ -466,22 +559,22 @@ function HLSPlayerInner({
                       setStreamSearch("");
                     }}
                     className={cn(
-                      "w-full flex items-center gap-3 px-4 py-2.5 text-left border-l-2 transition-colors hover:bg-[#fcee0a]/5",
+                      "w-full flex items-center gap-2 sm:gap-3 px-2.5 py-2 sm:px-4 sm:py-2.5 text-left border-l-2 transition-colors hover:bg-[#fcee0a]/5",
                       isActive
                         ? "border-[#fcee0a] bg-[#fcee0a]/8"
                         : "border-transparent hover:border-[#00f0ff]/40"
                     )}
                   >
                     {/* Logo */}
-                    <div className="w-8 h-8 shrink-0 flex items-center justify-center bg-white/5 border border-white/10 relative">
-                      <img src={ch.logo || `/api/logo?name=${encodeURIComponent(ch.name)}`} alt="" className="w-6 h-6 object-contain"
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 shrink-0 flex items-center justify-center bg-white border border-white/10 relative">
+                      <img src={ch.logo || `/api/logo?name=${encodeURIComponent(ch.name)}`} alt="" className="w-5 h-5 sm:w-6 sm:h-6 object-contain"
                         onError={(e) => {
                           (e.target as HTMLImageElement).style.display = "none";
                           const fallbackIcon = (e.target as HTMLImageElement).parentElement?.querySelector(".logo-fallback");
                           if (fallbackIcon) fallbackIcon.classList.remove("hidden");
                         }} />
                       <div className="logo-fallback hidden absolute inset-0 w-full h-full flex items-center justify-center">
-                        <Tv className="w-4 h-4 text-white/20" />
+                        <Tv className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black/40" />
                       </div>
                     </div>
                     {/* Info */}
@@ -545,7 +638,7 @@ function HLSPlayerInner({
           </button>
           <input type="range" min={0} max={1} step={0.05} value={muted ? 0 : volume}
             onChange={(e) => changeVolume(Number(e.target.value))}
-            className="w-16 sm:w-20 cyber-slider self-center" aria-label="Volume" />
+            className="hidden sm:block w-16 sm:w-20 cyber-slider self-center" aria-label="Volume" />
 
           <div className="flex-1" />
 
@@ -558,14 +651,14 @@ function HLSPlayerInner({
               aria-label="Change stream / channel"
               title="Change Stream"
               className={cn(
-                "flex items-center gap-1.5 px-2.5 py-1.5 border text-[9px] font-cyber font-black uppercase tracking-widest transition-all duration-200",
+                "flex items-center gap-1.5 p-1.5 sm:px-2.5 sm:py-1.5 border text-[9px] font-cyber font-black uppercase tracking-widest transition-all duration-200",
                 showStreamPanel
                   ? "border-[#fcee0a] text-[#fcee0a] bg-[#fcee0a]/12"
                   : "border-[#00f0ff]/50 text-[#00f0ff] hover:border-[#fcee0a] hover:text-[#fcee0a]"
               )}
             >
-              <Tv className="w-3 h-3" />
-              <span>Stream</span>
+              <Tv className="w-3.5 h-3.5 sm:w-3 sm:h-3" />
+              <span className="hidden sm:inline">Stream</span>
             </button>
           )}
 

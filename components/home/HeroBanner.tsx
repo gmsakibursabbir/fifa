@@ -281,7 +281,7 @@ export default function HeroBanner() {
                 className="w-full flex items-center justify-between gap-3 px-4 py-2.5 bg-[#09090d] hover:bg-[#0c0c14] transition-colors text-left group"
               >
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-5 h-5 shrink-0 flex items-center justify-center relative">
+                  <div className="w-5 h-5 shrink-0 flex items-center justify-center relative bg-white border border-white/10">
                     <img
                       src={activeChannel ? (activeChannel.logo || `/api/logo?name=${encodeURIComponent(activeChannel.name)}`) : ""}
                       alt=""
@@ -294,7 +294,7 @@ export default function HeroBanner() {
                       }}
                     />
                     <div className="logo-fallback hidden absolute inset-0 w-full h-full flex items-center justify-center">
-                      <Tv className="w-3.5 h-3.5 text-white/20" />
+                      <Tv className="w-3.5 h-3.5 text-black/40" />
                     </div>
                   </div>
                   <span className="text-white/70 text-[11px] font-cyber font-bold truncate group-hover:text-[#fcee0a] transition-colors">
@@ -355,7 +355,7 @@ export default function HeroBanner() {
                             : "border-transparent"
                         }`}
                       >
-                        <div className="w-5 h-5 shrink-0 flex items-center justify-center relative">
+                        <div className="w-5 h-5 shrink-0 flex items-center justify-center relative bg-white border border-white/10">
                           <img
                             src={ch.logo || `/api/logo?name=${encodeURIComponent(ch.name)}`}
                             alt=""
@@ -368,7 +368,7 @@ export default function HeroBanner() {
                             }}
                           />
                           <div className="logo-fallback hidden absolute inset-0 w-full h-full flex items-center justify-center">
-                            <Tv className="w-3.5 h-3.5 text-white/20" />
+                            <Tv className="w-3.5 h-3.5 text-black/40" />
                           </div>
                         </div>
                         <span

@@ -452,7 +452,13 @@
 .animate-float      { animation: float-up 3s ease-in-out infinite; }
 .animate-score-pop  { animation: score-pop 0.4s ease; }
 .animate-slide-left { animation: slide-in-left 0.4s ease forwards; }
-.animate-marquee    { display: flex; width: max-content; animation: marquee 30s linear infinite; }
+.animate-marquee    {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+}
 .hover\:pause-marquee:hover { animation-play-state: paused; }
 
 /* ── Equalizer bars ── */

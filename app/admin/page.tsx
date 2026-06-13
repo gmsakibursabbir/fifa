@@ -13,6 +13,7 @@ import { useChannels } from "@/hooks/useChannels";
 import { Button } from "@/components/ui/button";
 import type { Channel } from "@/types/channel";
 import { CHANNEL_CATEGORIES } from "@/types/channel";
+import { cn } from "@/lib/utils";
 
 const EMPTY_CHANNEL: Partial<Channel> = {
   name: "", stream: "", logo: "", category: "Sports", quality: "HD", isLive: true, featured: false,
@@ -130,6 +131,9 @@ export default function AdminPage() {
   const [isNew, setIsNew] = useState(false);
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState("");
+
+  const [statuses, setStatuses] = useState<Record<number, "online" | "offline" | "checking">>({});
+  const [checkingAll, setCheckingAll] = useState(false);
 
   // Bulk selection
   const [selected, setSelected] = useState<Set<number>>(new Set());
@@ -497,6 +501,56 @@ export default function AdminPage() {
     }
   };
 
+  const handleCheckAll = async () => {
+    if (!token || checkingAll) return;
+    setCheckingAll(true);
+
+    const initial: Record<number, "online" | "offline" | "checking"> = {};
+    filtered.forEach((ch) => {
+      initial[ch.id] = "checking";
+    });
+    setStatuses((prev) => ({ ...prev, ...initial }));
+
+    try {
+      const res = await fetch("/api/channels/check", {
+        headers: { "x-admin-token": token },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.statuses) {
+          setStatuses((prev) => ({ ...prev, ...data.statuses }));
+          showSuccess("Completed stream health check!");
+        }
+      } else {
+        alert("Failed to run health check.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error checking stream statuses.");
+    } finally {
+      setCheckingAll(false);
+    }
+  };
+
+  const handleCheckSingle = async (id: number) => {
+    if (!token) return;
+    setStatuses((prev) => ({ ...prev, [id]: "checking" }));
+    try {
+      const res = await fetch(`/api/channels/check?id=${id}`, {
+        headers: { "x-admin-token": token },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setStatuses((prev) => ({ ...prev, [id]: data.status }));
+      } else {
+        setStatuses((prev) => ({ ...prev, [id]: "offline" }));
+      }
+    } catch (err) {
+      console.error(err);
+      setStatuses((prev) => ({ ...prev, [id]: "offline" }));
+    }
+  };
+
   const allFilteredSelected = filtered.length > 0 && selected.size === filtered.length;
 
   return (
@@ -594,6 +648,27 @@ export default function AdminPage() {
               >
                 <Zap className="w-3.5 h-3.5 mr-1.5 text-cyan-400" />
                 IPTV Sync
+              </Button>
+
+              {/* Check Health */}
+              <Button
+                id="check-health-btn"
+                onClick={handleCheckAll}
+                disabled={checkingAll || channelList.length === 0}
+                size="sm"
+                className="bg-white/5 hover:bg-white/10 text-white border border-white/5 rounded-full px-3 text-xs"
+              >
+                {checkingAll ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin text-cyan-400" />
+                    Checking Health…
+                  </>
+                ) : (
+                  <>
+                    <RefreshCw className="w-3.5 h-3.5 mr-1.5 text-emerald-400" />
+                    Check Health
+                  </>
+                )}
               </Button>
 
               {/* Notification Bar Settings */}
@@ -754,7 +829,7 @@ export default function AdminPage() {
                         </button>
 
                         {/* Logo */}
-                        <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 relative overflow-hidden">
+                        <div className="w-8 h-8 rounded-lg bg-white border border-white/10 flex items-center justify-center shrink-0 relative overflow-hidden">
                           <img
                             src={ch.logo || `/api/logo?name=${encodeURIComponent(ch.name)}`}
                             alt={ch.name}
@@ -766,13 +841,24 @@ export default function AdminPage() {
                             }}
                           />
                           <div className="logo-fallback hidden absolute inset-0 w-full h-full flex items-center justify-center">
-                            <Tv className="w-3.5 h-3.5 text-white/20" />
+                            <Tv className="w-3.5 h-3.5 text-black/45" />
                           </div>
                         </div>
 
                         {/* Info */}
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-1.5 flex-wrap">
+                            {statuses[ch.id] && (
+                              <div
+                                title={`Stream status: ${statuses[ch.id]}`}
+                                className={cn(
+                                  "w-2 h-2 rounded-full shrink-0",
+                                  statuses[ch.id] === "online" && "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.7)]",
+                                  statuses[ch.id] === "offline" && "bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.7)]",
+                                  statuses[ch.id] === "checking" && "bg-cyan-500 animate-pulse"
+                                )}
+                              />
+                            )}
                             <span className="text-white font-semibold text-sm truncate">{ch.name}</span>
                             <span className="text-[9px] text-white/30 bg-white/5 px-1.5 py-0.5 rounded font-bold uppercase tracking-wider">{ch.category}</span>
                             {ch.quality && (
@@ -790,6 +876,14 @@ export default function AdminPage() {
 
                         {/* Actions — always visible */}
                         <div className="flex items-center gap-1 shrink-0">
+                          <button
+                            onClick={() => handleCheckSingle(ch.id)}
+                            title="Test stream connection"
+                            disabled={statuses[ch.id] === "checking"}
+                            className="p-2 rounded-lg text-white/30 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors disabled:opacity-40"
+                          >
+                            <RefreshCw className={cn("w-3.5 h-3.5", statuses[ch.id] === "checking" && "animate-spin")} />
+                          </button>
                           <button
                             id={`edit-ch-${ch.id}`}
                             onClick={() => { setEditing({ ...ch }); setIsNew(false); setParsedChannels(null); setShowIPTVConfig(false); setShowNotificationConfig(false); }}

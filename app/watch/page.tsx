@@ -119,7 +119,7 @@ export default function WatchPage() {
               {/* Corner accent */}
               <div className="relative">
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="w-14 h-14 shrink-0 border border-white/10 bg-white/5 flex items-center justify-center relative">
+                  <div className="w-14 h-14 shrink-0 border border-white/10 bg-white flex items-center justify-center relative">
                     <img src={activeChannel.logo || `/api/logo?name=${encodeURIComponent(activeChannel.name)}`} alt={activeChannel.name}
                       className="w-10 h-10 object-contain"
                       onError={(e) => {
@@ -128,7 +128,7 @@ export default function WatchPage() {
                         if (fallbackIcon) fallbackIcon.classList.remove("hidden");
                       }} />
                     <div className="logo-fallback hidden absolute inset-0 w-full h-full flex items-center justify-center">
-                      <Tv className="w-6 h-6 text-white/25" />
+                      <Tv className="w-6 h-6 text-black/40" />
                     </div>
                   </div>
                   <div className="flex-1 min-w-0">
@@ -324,7 +324,7 @@ function MiniChannelRow({
         isActive ? "border-[#fcee0a] bg-[#fcee0a]/5" : "border-transparent hover:border-[#00f0ff]/30"
       )}
     >
-      <div className="w-6 h-6 relative shrink-0 flex items-center justify-center">
+      <div className="w-6 h-6 relative shrink-0 flex items-center justify-center bg-white border border-white/10">
         <img src={channel.logo || `/api/logo?name=${encodeURIComponent(channel.name)}`} alt="" className="w-full h-full object-contain opacity-70"
           onError={(e) => {
             (e.target as HTMLImageElement).style.display = "none";
@@ -332,7 +332,7 @@ function MiniChannelRow({
             if (fallbackIcon) fallbackIcon.classList.remove("hidden");
           }} />
         <div className="logo-fallback hidden absolute inset-0 w-full h-full flex items-center justify-center">
-          <Tv className="w-4 h-4 text-white/20 shrink-0" />
+          <Tv className="w-4 h-4 text-black/40 shrink-0" />
         </div>
       </div>
       <span className={cn(
@@ -376,7 +376,7 @@ function ChannelRow({
       {/* Corner */}
       <div className="absolute top-0 left-0 w-1.5 h-1.5 bg-[#fcee0a] opacity-50" />
 
-      <div className="w-10 h-10 shrink-0 flex items-center justify-center bg-white/5 border border-white/8 relative">
+      <div className="w-10 h-10 shrink-0 flex items-center justify-center bg-white border border-white/8 relative">
         <img src={channel.logo || `/api/logo?name=${encodeURIComponent(channel.name)}`} alt="" className="w-8 h-8 object-contain"
           onError={(e) => {
             (e.target as HTMLImageElement).style.display = "none";
@@ -384,7 +384,7 @@ function ChannelRow({
             if (fallbackIcon) fallbackIcon.classList.remove("hidden");
           }} />
         <div className="logo-fallback hidden absolute inset-0 w-full h-full flex items-center justify-center">
-          <Tv className="w-4 h-4 text-white/20" />
+          <Tv className="w-4 h-4 text-black/40" />
         </div>
         {isActive && (
           <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
