@@ -1,6 +1,6 @@
 [
   {
-    "id": 1781368978414,
+    "id": 1781374934075,
     "name": "CazeTv",
     "logo": "https://upload.wikimedia.org/wikipedia/en/6/64/Caz%C3%A9TV_logo.svg",
     "stream": "https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/1080p-vtt/index.m3u8",
@@ -14,7 +14,7 @@
     "isIptv": true
   },
   {
-    "id": 1781368978415,
+    "id": 1781374934076,
     "name": "BeinSports",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/d/d4/BeIN_Sports_logo_%28horizontal_version%29.svg",
     "stream": "https://1nyaler.streamhostingcdn.top/stream/23/index.m3u8",
@@ -28,7 +28,21 @@
     "isIptv": true
   },
   {
-    "id": 1781368978416,
+    "id": 1781374934077,
+    "name": "Bein Sports HDR",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/BeIN_Sports_logo_%28vertical_version%29.svg/3840px-BeIN_Sports_logo_%28vertical_version%29.svg.png",
+    "stream": "http://go8knm.optikl.ink/X/index.php/Besyria3/video.m3u8",
+    "category": "Sports",
+    "description": "IPTV Live Stream",
+    "language": "English",
+    "country": "Global",
+    "isLive": true,
+    "quality": "HD",
+    "featured": false,
+    "isIptv": true
+  },
+  {
+    "id": 1781374934078,
     "name": "Tsports",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/4/4c/T_Sports_logo.svg",
     "stream": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/130714.ts",
@@ -42,7 +56,7 @@
     "isIptv": true
   },
   {
-    "id": 1781368978417,
+    "id": 1781374934079,
     "name": "TSports (BDIX-1)",
     "logo": "https://tsportscdn.s3.ap-southeast-1.amazonaws.com/uploads/settings/logo.png",
     "stream": "http://198.195.239.50:8095/tsports/index.m3u8",
@@ -56,7 +70,7 @@
     "isIptv": true
   },
   {
-    "id": 1781368978418,
+    "id": 1781374934080,
     "name": "Ptv Sports",
     "logo": "https://upload.wikimedia.org/wikipedia/en/e/e4/PTV_Sports.png",
     "stream": "https://tvsen5.aynaott.com/PtvSports/index.m3u8",
@@ -70,7 +84,7 @@
     "isIptv": true
   },
   {
-    "id": 1781368978419,
+    "id": 1781374934081,
     "name": "WIN Sports",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/5/58/Win_Sports_nuevo_logo.svg",
     "stream": "https://1nyaler.streamhostingcdn.top/stream/32/index.m3u8",
@@ -84,7 +98,7 @@
     "isIptv": true
   },
   {
-    "id": 1781368978420,
+    "id": 1781374934082,
     "name": "SportTV 1",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Sport_TV_2023.svg",
     "stream": "https://1nyaler.streamhostingcdn.top/stream/33/index.m3u8",
@@ -98,7 +112,7 @@
     "isIptv": true
   },
   {
-    "id": 1781368978421,
+    "id": 1781374934083,
     "name": "DAZN",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/0/06/DAZN_Logo_Master.svg",
     "stream": "https://1nyaler.streamhostingcdn.top/stream/94/index.m3u8",
@@ -112,7 +126,7 @@
     "isIptv": true
   },
   {
-    "id": 1781368978422,
+    "id": 1781374934084,
     "name": "Tyc Sports",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/8/89/TyC_Sports_Logo.svg",
     "stream": "https://1nyaler.streamhostingcdn.top/stream/84/index.m3u8",
@@ -126,7 +140,7 @@
     "isIptv": true
   },
   {
-    "id": 1781368978423,
+    "id": 1781374934085,
     "name": "Bein Sports Extra SP",
     "logo": "https://static.wikia.nocookie.net/logopedia/images/b/b5/XTRA_2.png",
     "stream": "https://amg01334-beinsportsllc-beinxtraesp-localnow-aekzc.amagi.tv/playlistR576p.m3u8",
@@ -140,7 +154,7 @@
     "isIptv": true
   },
   {
-    "id": 1781368978424,
+    "id": 1781374934086,
     "name": "Sport1 Baltic",
     "logo": "https://s4.vcdn.biz/static/f/5719176031/image.jpg/pt/r300x423x4",
     "stream": "https://1nyaler.streamhostingcdn.top/stream/80/index.m3u8",
