@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Tv, Plus, Edit3, Trash2, Check, X, LogOut, Zap, Shield,
   FileDown, Loader2, Search, CheckSquare, Square, Trash,
-  FileUp, BarChart2, AlertTriangle, RefreshCw, GripVertical
+  FileUp, BarChart2, AlertTriangle, RefreshCw, GripVertical, Bell
 } from "lucide-react";
 import { useAdmin } from "@/hooks/useAdmin";
 import { useChannels } from "@/hooks/useChannels";
@@ -159,6 +159,19 @@ export default function AdminPage() {
   const [showIPTVConfig, setShowIPTVConfig] = useState(false);
   const [syncing, setSyncing] = useState(false);
 
+  // Notification settings
+  const [showNotificationConfig, setShowNotificationConfig] = useState(false);
+  const [savingNotification, setSavingNotification] = useState(false);
+  const [notificationSettings, setNotificationSettings] = useState<{
+    text: string;
+    active: boolean;
+    color: string;
+  }>({
+    text: "",
+    active: false,
+    color: "bg-linear-to-r from-cyan-600/90 to-blue-600/90",
+  });
+
   // Drag and Drop ordering
   const [channelList, setChannelList] = useState<Channel[]>([]);
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
@@ -245,6 +258,50 @@ export default function AdminPage() {
     }
   }, [isAuthenticated, token]);
 
+  // Load Notification config on mount
+  useEffect(() => {
+    if (isAuthenticated && token) {
+      fetch("/api/notification")
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && !data.error) {
+            setNotificationSettings({
+              text: data.text || "",
+              active: data.active || false,
+              color: data.color || "bg-linear-to-r from-cyan-600/90 to-blue-600/90",
+            });
+          }
+        })
+        .catch((err) => console.error("Failed to load Notification config:", err));
+    }
+  }, [isAuthenticated, token]);
+
+  const handleSaveNotification = async () => {
+    if (!token) return;
+    setSavingNotification(true);
+    try {
+      const res = await fetch("/api/notification", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-token": token,
+        },
+        body: JSON.stringify(notificationSettings),
+      });
+      const data = await res.json();
+      if (data.error) {
+        alert(data.error);
+      } else {
+        showSuccess("Notification settings saved!");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Failed to save notification settings.");
+    } finally {
+      setSavingNotification(false);
+    }
+  };
+
   const handleSaveIPTVConfig = async (triggerSync = false) => {
     if (!token) return;
     setSyncing(triggerSync);
@@ -302,7 +359,7 @@ export default function AdminPage() {
   // Keyboard shortcuts
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") { setEditing(null); setParsedChannels(null); setConfirmModal(null); setShowIPTVConfig(false); }
+      if (e.key === "Escape") { setEditing(null); setParsedChannels(null); setConfirmModal(null); setShowIPTVConfig(false); setShowNotificationConfig(false); }
       if ((e.metaKey || e.ctrlKey) && e.key === "f") { e.preventDefault(); searchRef.current?.focus(); }
     };
     window.addEventListener("keydown", handleKey);
@@ -531,7 +588,7 @@ export default function AdminPage() {
               {/* IPTV Auto Sync */}
               <Button
                 id="iptv-sync-btn"
-                onClick={() => { setShowIPTVConfig(true); setEditing(null); setParsedChannels(null); }}
+                onClick={() => { setShowIPTVConfig(true); setShowNotificationConfig(false); setEditing(null); setParsedChannels(null); }}
                 size="sm"
                 className="bg-white/5 hover:bg-white/10 text-white border border-white/5 rounded-full px-3 text-xs"
               >
@@ -539,10 +596,21 @@ export default function AdminPage() {
                 IPTV Sync
               </Button>
 
+              {/* Notification Bar Settings */}
+              <Button
+                id="notification-settings-btn"
+                onClick={() => { setShowNotificationConfig(true); setShowIPTVConfig(false); setEditing(null); setParsedChannels(null); }}
+                size="sm"
+                className="bg-white/5 hover:bg-white/10 text-white border border-white/5 rounded-full px-3 text-xs"
+              >
+                <Bell className="w-3.5 h-3.5 mr-1.5 text-yellow-400" />
+                Notification
+              </Button>
+
               {/* Import M3U */}
               <Button
                 id="import-m3u-btn"
-                onClick={() => { document.getElementById("m3u-file-input")?.click(); setShowIPTVConfig(false); }}
+                onClick={() => { document.getElementById("m3u-file-input")?.click(); setShowIPTVConfig(false); setShowNotificationConfig(false); }}
                 size="sm"
                 className="bg-white/5 hover:bg-white/10 text-white border border-white/5 rounded-full px-3 text-xs"
               >
@@ -565,7 +633,7 @@ export default function AdminPage() {
               {/* Add Channel */}
               <Button
                 id="add-channel-btn"
-                onClick={() => { setEditing({ ...EMPTY_CHANNEL }); setIsNew(true); setParsedChannels(null); setShowIPTVConfig(false); }}
+                onClick={() => { setEditing({ ...EMPTY_CHANNEL }); setIsNew(true); setParsedChannels(null); setShowIPTVConfig(false); setShowNotificationConfig(false); }}
                 size="sm"
                 className="bg-cyan-500 hover:bg-cyan-400 text-white rounded-full px-3 text-xs"
               >
@@ -721,7 +789,7 @@ export default function AdminPage() {
                         <div className="flex items-center gap-1 shrink-0">
                           <button
                             id={`edit-ch-${ch.id}`}
-                            onClick={() => { setEditing({ ...ch }); setIsNew(false); setParsedChannels(null); setShowIPTVConfig(false); }}
+                            onClick={() => { setEditing({ ...ch }); setIsNew(false); setParsedChannels(null); setShowIPTVConfig(false); setShowNotificationConfig(false); }}
                             title="Edit channel"
                             className="p-2 rounded-lg text-white/30 hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors"
                           >
@@ -812,6 +880,94 @@ export default function AdminPage() {
                       {importing ? <><Loader2 className="w-3.5 h-3.5 mr-1 animate-spin" />Importing</> : "Import All"}
                     </Button>
                   </div>
+                </motion.div>
+              ) : showNotificationConfig ? (
+                <motion.div
+                  key="notification-panel"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  className="bg-[#0d0d11] border border-white/5 shadow-2xl rounded-2xl p-5 sticky top-24"
+                >
+                  <div className="flex items-center justify-between mb-5">
+                    <h3 className="text-white font-bold text-sm uppercase tracking-wider flex items-center gap-2">
+                      <Bell className="w-4 h-4 text-yellow-400" />
+                      Marquee Notification
+                    </h3>
+                    <button onClick={() => setShowNotificationConfig(false)} className="text-white/40 hover:text-white transition-colors">
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  <div className="space-y-4">
+                    {/* Active Checkbox */}
+                    <div className="flex items-center justify-between pt-2">
+                      <div>
+                        <span className="text-white/60 text-xs font-bold uppercase tracking-wider block">Active Status</span>
+                        <span className="text-[10px] text-white/30 font-semibold block mt-0.5">Show or hide the marquee notification</span>
+                      </div>
+                      <label className="relative flex items-center cursor-pointer select-none">
+                        <div
+                          onClick={() => setNotificationSettings({ ...notificationSettings, active: !notificationSettings.active })}
+                          className={`w-9 h-5 rounded-full transition-colors cursor-pointer ${notificationSettings.active ? "bg-cyan-500" : "bg-white/10"}`}
+                        >
+                          <div className={`w-4 h-4 rounded-full bg-white m-0.5 transition-transform ${notificationSettings.active ? "translate-x-4" : ""}`} />
+                        </div>
+                      </label>
+                    </div>
+
+                    {/* Notification Text */}
+                    <div>
+                      <label className="text-white/40 text-[10px] font-bold uppercase tracking-widest block mb-1">Notification Text</label>
+                      <textarea
+                        id="notification-text"
+                        value={notificationSettings.text}
+                        onChange={(e) => setNotificationSettings({ ...notificationSettings, text: e.target.value })}
+                        placeholder="Enter announcement text..."
+                        rows={4}
+                        className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/5 text-white text-xs placeholder:text-white/20 focus:outline-none focus:bg-white/8 focus:border-cyan-500/40 transition-all resize-none"
+                      />
+                    </div>
+
+                    {/* Notification Color/Gradient */}
+                    <div>
+                      <label className="text-white/40 text-[10px] font-bold uppercase tracking-widest block mb-1">Bar Styling</label>
+                      <select
+                        id="notification-color"
+                        value={notificationSettings.color}
+                        onChange={(e) => setNotificationSettings({ ...notificationSettings, color: e.target.value })}
+                        className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/5 text-white text-xs focus:outline-none focus:border-cyan-500/40 transition-all"
+                      >
+                        <option value="bg-linear-to-r from-cyan-600/95 to-blue-600/95" className="bg-[#0f0f12]">Cyan-Blue Gradient</option>
+                        <option value="bg-linear-to-r from-emerald-600/95 to-teal-600/95" className="bg-[#0f0f12]">Emerald-Teal Gradient</option>
+                        <option value="bg-linear-to-r from-amber-600/95 to-red-600/95" className="bg-[#0f0f12]">Amber-Red Gradient</option>
+                        <option value="bg-linear-to-r from-purple-600/95 to-pink-600/95" className="bg-[#0f0f12]">Purple-Pink Gradient</option>
+                        <option value="bg-red-600/95" className="bg-[#0f0f12]">Solid Red</option>
+                        <option value="bg-cyan-600/95" className="bg-[#0f0f12]">Solid Cyan</option>
+                        <option value="bg-[#0f0f12]" className="bg-[#0f0f12]">Dark Obsidian</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-2 mt-6">
+                    <Button
+                      id="save-notification-btn"
+                      onClick={handleSaveNotification}
+                      disabled={savingNotification || !notificationSettings.text}
+                      className="w-full bg-cyan-500 hover:bg-cyan-400 text-white font-bold uppercase tracking-wider text-xs rounded-full py-2.5 disabled:opacity-50"
+                    >
+                      {savingNotification ? (
+                        <>
+                          <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />
+                          Saving Announcement…
+                        </>
+                      ) : (
+                        "Save Announcement"
+                      )}
+                    </Button>
+                  </div>
+
+                  <p className="text-center text-white/20 text-[10px] font-semibold mt-3">Press Esc to cancel</p>
                 </motion.div>
               ) : showIPTVConfig ? (
                 <motion.div

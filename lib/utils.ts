@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-/** Format UTC date string to local time */
+/** Format UTC date string to Bangladesh time (Asia/Dhaka) */
 export function formatMatchDate(utcDate: string): string {
   const date = new Date(utcDate);
   return date.toLocaleDateString("en-GB", {
@@ -14,17 +14,39 @@ export function formatMatchDate(utcDate: string): string {
     day: "2-digit",
     month: "short",
     year: "numeric",
+    timeZone: "Asia/Dhaka",
   });
 }
 
-/** Format UTC date to local time only */
+/** Format UTC date to Bangladesh time only (Asia/Dhaka) */
 export function formatMatchTime(utcDate: string): string {
   const date = new Date(utcDate);
   return date.toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
     hour12: true,
+    timeZone: "Asia/Dhaka",
   });
+}
+
+/** Get wall-clock Date object in Asia/Dhaka timezone */
+export function getDhakaNow(): Date {
+  const now = new Date();
+  const dhakaStr = now.toLocaleString("en-US", { timeZone: "Asia/Dhaka" });
+  return new Date(dhakaStr);
+}
+
+/** Format any Date or ISO date string to YYYY-MM-DD in Asia/Dhaka timezone */
+export function getDhakaDateString(dateInput: Date | string): string {
+  const date = typeof dateInput === "string" ? new Date(dateInput) : dateInput;
+  if (isNaN(date.getTime())) return "";
+  const formatter = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Dhaka",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+  return formatter.format(date);
 }
 
 /** Format minutes elapsed in a match */

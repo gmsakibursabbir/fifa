@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import NotificationBar from "@/components/layout/NotificationBar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -47,6 +48,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} antialiased bg-[#000000] min-h-screen`} suppressHydrationWarning={true}>
         <TooltipProvider>
+          <NotificationBar />
           <Navbar />
           <main className="min-h-screen">{children}</main>
           <Footer />

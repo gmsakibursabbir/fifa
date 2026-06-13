@@ -44,7 +44,7 @@ export default function WatchPage() {
         <div className="lg:col-span-2 space-y-6">
           <div className="relative w-full aspect-video rounded-lg md:rounded-xl overflow-hidden bg-[#0d0d11] border border-white/5 shadow-2xl shadow-black/95 flex items-center justify-center">
             {/* Grid overlay for video deck */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none -z-10" />
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-size-[32px_32px] pointer-events-none -z-10" />
 
             {activeChannel ? (
               <div className="w-full h-full">
@@ -67,10 +67,10 @@ export default function WatchPage() {
 
           {/* Active Channel Info Card */}
           {activeChannel ? (
-            <div className="bg-white/[0.01] border border-white/5 rounded-xl md:rounded-2xl p-6 md:p-8 shadow-xl space-y-6">
+            <div className="bg-white/1 border border-white/5 rounded-xl md:rounded-2xl p-6 md:p-8 shadow-xl space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/5 pb-6">
                 <div className="flex items-center gap-4">
-                  <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-inner">
+                  <div className="shrink-0 w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-inner">
                     {activeChannel.logo ? (
                       <img
                         src={activeChannel.logo}
@@ -121,7 +121,7 @@ export default function WatchPage() {
                     { label: "Country", value: activeChannel.country || "Global" },
                     { label: "Quality Profile", value: activeChannel.quality || "HD" },
                   ].map(({ label, value }) => (
-                    <div key={label} className="bg-white/[0.01] border border-white/[0.03] rounded-2xl p-4">
+                    <div key={label} className="bg-white/1 border border-white/3 rounded-2xl p-4">
                       <span className="text-white/30 text-[10px] font-bold uppercase tracking-widest block mb-1">{label}</span>
                       <span className="text-white font-bold text-sm">{value}</span>
                     </div>
@@ -130,7 +130,7 @@ export default function WatchPage() {
               </div>
             </div>
           ) : (
-            <div className="bg-white/[0.01] border border-white/5 rounded-3xl p-8 text-center text-white/30">
+            <div className="bg-white/1 border border-white/5 rounded-3xl p-8 text-center text-white/30">
               Select a channel to view channel details.
             </div>
           )}
@@ -230,7 +230,7 @@ export default function WatchPage() {
             </div>
             
             {filtered.length === 0 ? (
-              <div className="bg-white/[0.01] border border-white/5 rounded-2xl p-8 text-center text-white/30 text-xs font-semibold">
+              <div className="bg-white/1 border border-white/5 rounded-2xl p-8 text-center text-white/30 text-xs font-semibold">
                 No matching channels found
               </div>
             ) : (

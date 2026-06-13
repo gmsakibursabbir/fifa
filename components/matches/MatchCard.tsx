@@ -12,6 +12,7 @@ import {
   isMatchLive,
   cn,
   getCompetitionEmblem,
+  getDhakaDateString,
 } from "@/lib/utils";
 import TeamCrest from "@/components/common/TeamCrest";
 
@@ -78,22 +79,35 @@ export default function MatchCard({ match, index = 0, compact = false }: MatchCa
   const homeScore = match.score?.fullTime?.home;
   const awayScore = match.score?.fullTime?.away;
 
-  // Helper to format local start date/time nicely
+  // Helper to format Bangladesh start date/time nicely
   const getLocalStartText = (utcDateString: string) => {
     const date = new Date(utcDateString);
     if (isNaN(date.getTime())) return "Upcoming";
-    const now = new Date();
     
-    const timeStr = date.toLocaleTimeString("en-US", { hour: '2-digit', minute: '2-digit', hour12: true });
-    const isToday = date.toDateString() === now.toDateString();
-    const isTomorrow = new Date(now.getTime() + 24 * 60 * 60 * 1000).toDateString() === date.toDateString();
+    const timeStr = date.toLocaleTimeString("en-US", {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+      timeZone: "Asia/Dhaka"
+    });
     
-    if (isToday) {
+    const dateStrDhaka = getDhakaDateString(date);
+    const todayStrDhaka = getDhakaDateString(new Date());
+    
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const tomorrowStrDhaka = getDhakaDateString(tomorrow);
+    
+    if (dateStrDhaka === todayStrDhaka) {
       return `Today, ${timeStr}`;
-    } else if (isTomorrow) {
+    } else if (dateStrDhaka === tomorrowStrDhaka) {
       return `Tomorrow, ${timeStr}`;
     } else {
-      const dateStr = date.toLocaleDateString([], { day: '2-digit', month: 'short' });
+      const dateStr = date.toLocaleDateString("en-GB", {
+        day: '2-digit',
+        month: 'short',
+        timeZone: "Asia/Dhaka"
+      });
       return `${dateStr}, ${timeStr}`;
     }
   };

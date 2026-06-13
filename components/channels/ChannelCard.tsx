@@ -43,12 +43,12 @@ export default function ChannelCard({
       <Link href={`/watch/${channel.id}`} id={`channel-card-${channel.id}`} onClick={onClick}>
         <div
           className={cn(
-            "relative flex items-center gap-4 p-4 rounded-2xl border bg-white/[0.02] border-white/5 transition-all duration-300 ease-out hover:bg-white/[0.06] hover:border-white/15 hover:translate-x-1 active:scale-[0.99] group",
+            "relative flex items-center gap-4 p-4 rounded-2xl border bg-white/2 border-white/5 transition-all duration-300 ease-out hover:bg-white/6 hover:border-white/15 hover:translate-x-1 active:scale-[0.99] group",
             isActive && "border-cyan-500/40 bg-cyan-500/5 shadow-[0_0_15px_-3px_rgba(6,182,212,0.15)]"
           )}
         >
           {/* Logo container */}
-          <div className="relative flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden bg-white/5 border border-white/10 transition-transform duration-300 group-hover:scale-105">
+          <div className="relative shrink-0 w-12 h-12 rounded-xl overflow-hidden bg-white/5 border border-white/10 transition-transform duration-300 group-hover:scale-105">
             {channel.logo ? (
               <img
                 src={channel.logo}
@@ -93,7 +93,7 @@ export default function ChannelCard({
 
           {/* Right Section: Equalizer Wave or Favorite Icon */}
           {isActive ? (
-            <div className="flex-shrink-0 flex items-end gap-0.5 h-4 px-2" aria-label="Playing stream">
+            <div className="shrink-0 flex items-end gap-0.5 h-4 px-2" aria-label="Playing stream">
               <div className="eq-bar eq-bar-1" />
               <div className="eq-bar eq-bar-2" />
               <div className="eq-bar eq-bar-3" />
@@ -107,7 +107,7 @@ export default function ChannelCard({
                   onFavoriteToggle(channel.id);
                 }}
                 className={cn(
-                  "flex-shrink-0 p-2 rounded-xl transition-all duration-300 hover:scale-110",
+                  "shrink-0 p-2 rounded-xl transition-all duration-300 hover:scale-110",
                   isFavorite
                     ? "text-red-400 bg-red-400/10"
                     : "text-white/20 hover:text-red-400 hover:bg-red-400/10"

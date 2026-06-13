@@ -12,6 +12,7 @@ import {
   Loader2,
   AlertCircle,
   RefreshCw,
+  Settings,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -61,7 +62,7 @@ function HLSPlayerInner({
 }: HLSPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const hlsRef = useRef<{ destroy: () => void } | null>(null);
+  const hlsRef = useRef<any>(null);
   const mpegtsPlayerRef = useRef<any>(null);
   const controlsTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -74,11 +75,19 @@ function HLSPlayerInner({
   const [pipSupported, setPipSupported] = useState(false);
   const [retryKey, setRetryKey] = useState(0);
 
+  // Quality settings
+  const [levels, setLevels] = useState<{ index: number; name: string }[]>([]);
+  const [currentLevel, setCurrentLevel] = useState<number>(-1);
+  const [showQualityMenu, setShowQualityMenu] = useState(false);
+
   const resetControlsTimer = useCallback(() => {
     setShowControls(true);
     if (controlsTimerRef.current) clearTimeout(controlsTimerRef.current);
     controlsTimerRef.current = setTimeout(() => {
-      if (playing) setShowControls(false);
+      if (playing) {
+        setShowControls(false);
+        setShowQualityMenu(false);
+      }
     }, 3000);
   }, [playing]);
 
@@ -96,6 +105,11 @@ function HLSPlayerInner({
 
     async function setup() {
       const type = getStreamType(src);
+
+      // Clear quality levels state
+      setLevels([]);
+      setCurrentLevel(-1);
+      setShowQualityMenu(false);
 
       // Reset existing player instances
       if (hlsRef.current) {
@@ -156,6 +170,12 @@ function HLSPlayerInner({
           hls.attachMedia(video!);
           hls.on(Hls.Events.MANIFEST_PARSED, () => {
             setLoading(false);
+            const parsedLevels = hls.levels.map((level: any, index: number) => ({
+              index,
+              name: level.name || (level.height ? `${level.height}p` : `${Math.round(level.bitrate / 1000)}k`)
+            }));
+            setLevels(parsedLevels);
+            setCurrentLevel(hls.currentLevel);
             if (autoPlay) video!.play().catch(() => {});
           });
           hls.on(Hls.Events.ERROR, (_: unknown, data: { fatal: boolean }) => {
@@ -290,6 +310,15 @@ function HLSPlayerInner({
     setRetryKey((prev) => prev + 1);
   };
 
+  const handleQualityChange = (levelIndex: number) => {
+    const hls = hlsRef.current;
+    if (hls && "currentLevel" in hls) {
+      hls.currentLevel = levelIndex;
+      setCurrentLevel(levelIndex);
+    }
+    setShowQualityMenu(false);
+  };
+
   return (
     <div
       ref={containerRef}
@@ -383,6 +412,56 @@ function HLSPlayerInner({
           />
 
           <div className="flex-1" />
+
+          {/* Quality Settings */}
+          {levels.length > 0 && (
+            <div className="relative">
+              <button
+                id="player-settings"
+                onClick={() => setShowQualityMenu(!showQualityMenu)}
+                className={cn(
+                  "text-white hover:text-cyan-400 transition-colors p-1 flex items-center justify-center rounded-full",
+                  showQualityMenu && "text-cyan-400 rotate-45 transition-transform duration-300"
+                )}
+                title="Quality Settings"
+              >
+                <Settings className="w-5 h-5" />
+              </button>
+
+              {showQualityMenu && (
+                <div className="absolute bottom-10 right-0 mb-2 w-36 bg-black/90 backdrop-blur-md rounded-xl border border-white/10 shadow-2xl py-1 z-50 overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-200">
+                  <div className="px-3 py-1.5 text-xs font-semibold text-white/40 border-b border-white/5 uppercase tracking-wider">
+                    Quality
+                  </div>
+                  <div className="max-h-48 overflow-y-auto">
+                    <button
+                      onClick={() => handleQualityChange(-1)}
+                      className={cn(
+                        "w-full text-left px-3 py-2 text-xs transition-colors hover:bg-white/10 flex items-center justify-between",
+                        currentLevel === -1 ? "text-cyan-400 font-medium" : "text-white/80"
+                      )}
+                    >
+                      <span>Auto</span>
+                      {currentLevel === -1 && <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />}
+                    </button>
+                    {levels.map((level) => (
+                      <button
+                        key={level.index}
+                        onClick={() => handleQualityChange(level.index)}
+                        className={cn(
+                          "w-full text-left px-3 py-2 text-xs transition-colors hover:bg-white/10 flex items-center justify-between",
+                          currentLevel === level.index ? "text-cyan-400 font-medium" : "text-white/80"
+                        )}
+                      >
+                        <span>{level.name}</span>
+                        {currentLevel === level.index && <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* PiP */}
           {pipSupported && (

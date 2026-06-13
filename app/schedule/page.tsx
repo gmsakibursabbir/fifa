@@ -7,6 +7,7 @@ import { Calendar as CalendarIcon, Activity, ChevronRight, AlertCircle, ArrowRig
 import MatchCard from "@/components/matches/MatchCard";
 import LoadingSkeleton from "@/components/common/LoadingSkeleton";
 import type { Match } from "@/types/football";
+import { getDhakaNow, getDhakaDateString } from "@/lib/utils";
 
 const fetcher = async (url: string) => {
   const res = await fetch(url);
@@ -29,10 +30,10 @@ export default function SchedulePage() {
     }
   );
 
-  // Generate a list of 10 consecutive days starting from today (June 8, 2026)
+  // Generate a list of 10 consecutive days starting from today in Dhaka time
   const calendarDates = useMemo(() => {
     const list: Date[] = [];
-    const base = new Date();
+    const base = getDhakaNow();
     for (let i = 0; i < 10; i++) {
       const d = new Date(base.getTime());
       d.setDate(base.getDate() + i);
@@ -48,11 +49,11 @@ export default function SchedulePage() {
     }
   }, [calendarDates, selectedDate]);
 
-  // Map matches to their local calendar dates
+  // Map matches to their Bangladesh calendar dates
   const matchesByDateStr = useMemo(() => {
     const map: Record<string, Match[]> = {};
     matches.forEach((m) => {
-      const dateStr = new Date(m.utcDate).toDateString();
+      const dateStr = getDhakaDateString(m.utcDate);
       if (!map[dateStr]) map[dateStr] = [];
       map[dateStr].push(m);
     });
@@ -62,7 +63,7 @@ export default function SchedulePage() {
   // Filter matches for the selected date
   const filteredMatches = useMemo(() => {
     if (!selectedDate) return [];
-    const key = selectedDate.toDateString();
+    const key = getDhakaDateString(selectedDate);
     return matchesByDateStr[key] || [];
   }, [selectedDate, matchesByDateStr]);
 
@@ -79,16 +80,14 @@ export default function SchedulePage() {
   // Find the first upcoming date with matches relative to the selected date
   const nextMatchDate = useMemo(() => {
     if (!selectedDate) return undefined;
-    // Set hours to 0 to compare dates accurately
-    const selectedTime = new Date(selectedDate.getTime());
-    selectedTime.setHours(0, 0, 0, 0);
+    
+    const selectedDateStr = getDhakaDateString(selectedDate);
 
     return calendarDates.find((date) => {
-      const dateTime = new Date(date.getTime());
-      dateTime.setHours(0, 0, 0, 0);
-      if (dateTime.getTime() <= selectedTime.getTime()) return false;
+      const dateStr = getDhakaDateString(date);
+      if (dateStr <= selectedDateStr) return false;
 
-      const count = matchesByDateStr[date.toDateString()]?.length || 0;
+      const count = matchesByDateStr[dateStr]?.length || 0;
       return count > 0;
     });
   }, [calendarDates, selectedDate, matchesByDateStr]);
@@ -106,6 +105,7 @@ export default function SchedulePage() {
     month: "long",
     day: "numeric",
     year: "numeric",
+    timeZone: "Asia/Dhaka",
   });
 
   return (
@@ -127,14 +127,14 @@ export default function SchedulePage() {
       <div className="mb-12">
         <div className="flex gap-4 overflow-x-auto pb-4 px-2 -mx-2 hide-scrollbar">
           {calendarDates.map((date) => {
-            const isSelected = date.toDateString() === selectedDate.toDateString();
-            const dateMatches = matchesByDateStr[date.toDateString()] || [];
+            const isSelected = getDhakaDateString(date) === getDhakaDateString(selectedDate);
+            const dateMatches = matchesByDateStr[getDhakaDateString(date)] || [];
             const count = dateMatches.length;
             const hasLive = dateMatches.some((m) => m.status === "IN_PLAY" || m.status === "PAUSED");
 
-            const dayName = date.toLocaleDateString("en-US", { weekday: "short" }).toUpperCase();
-            const dayNum = date.toLocaleDateString("en-US", { day: "2-digit" });
-            const monthName = date.toLocaleDateString("en-US", { month: "short" }).toUpperCase();
+            const dayName = date.toLocaleDateString("en-US", { weekday: "short", timeZone: "Asia/Dhaka" }).toUpperCase();
+            const dayNum = date.toLocaleDateString("en-US", { day: "2-digit", timeZone: "Asia/Dhaka" });
+            const monthName = date.toLocaleDateString("en-US", { month: "short", timeZone: "Asia/Dhaka" }).toUpperCase();
 
             return (
               <button
@@ -220,7 +220,7 @@ export default function SchedulePage() {
                 onClick={() => setSelectedDate(nextMatchDate)}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black text-xs font-bold uppercase tracking-wider hover:bg-white/95 transition-all shadow-md"
               >
-                Go to Next Matchday ({nextMatchDate.toLocaleDateString("en-US", { month: "short", day: "numeric" })})
+                Go to Next Matchday ({nextMatchDate.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "Asia/Dhaka" })})
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
             )}
