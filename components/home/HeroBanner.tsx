@@ -45,7 +45,7 @@ export default function HeroBanner() {
   const streamList = channels.map((ch) => ({
     id:       ch.id,
     name:     ch.name,
-    logo:     ch.logo,
+    logo:     ch.logo || `/api/logo?name=${encodeURIComponent(ch.name)}`,
     category: ch.category,
     quality:  ch.quality,
     isLive:   ch.isLive,
@@ -176,7 +176,7 @@ export default function HeroBanner() {
               <HLSPlayer
                 src={getStreamSrc(activeChannel)}
                 channelName={activeChannel.name}
-                poster={activeChannel.logo}
+                poster={activeChannel.logo || `/api/logo?name=${encodeURIComponent(activeChannel.name)}`}
                 autoPlay
                 streams={streamList}
                 activeChannelId={activeChannel.id}
@@ -196,9 +196,9 @@ export default function HeroBanner() {
                 style={{ aspectRatio: "16/9" }}
               >
                 {/* Channel logo bg blur */}
-                {activeChannel?.logo && (
+                {activeChannel && (
                   <img
-                    src={activeChannel.logo}
+                    src={activeChannel.logo || `/api/logo?name=${encodeURIComponent(activeChannel.name)}`}
                     alt=""
                     aria-hidden="true"
                     className="absolute inset-0 w-full h-full object-cover opacity-[0.04] scale-110 blur-sm"
@@ -281,15 +281,22 @@ export default function HeroBanner() {
                 className="w-full flex items-center justify-between gap-3 px-4 py-2.5 bg-[#09090d] hover:bg-[#0c0c14] transition-colors text-left group"
               >
                 <div className="flex items-center gap-2.5 min-w-0">
-                  {activeChannel?.logo && (
+                  <div className="w-5 h-5 shrink-0 flex items-center justify-center relative">
                     <img
-                      src={activeChannel.logo}
+                      src={activeChannel ? (activeChannel.logo || `/api/logo?name=${encodeURIComponent(activeChannel.name)}`) : ""}
                       alt=""
                       aria-hidden="true"
-                      className="w-5 h-5 object-contain opacity-70"
-                      onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                      className="w-full h-full object-contain opacity-70"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = "none";
+                        const fallbackIcon = (e.target as HTMLImageElement).parentElement?.querySelector(".logo-fallback");
+                        if (fallbackIcon) fallbackIcon.classList.remove("hidden");
+                      }}
                     />
-                  )}
+                    <div className="logo-fallback hidden absolute inset-0 w-full h-full flex items-center justify-center">
+                      <Tv className="w-3.5 h-3.5 text-white/20" />
+                    </div>
+                  </div>
                   <span className="text-white/70 text-[11px] font-cyber font-bold truncate group-hover:text-[#fcee0a] transition-colors">
                     {activeChannel?.name || "Select Channel"}
                   </span>
@@ -348,17 +355,22 @@ export default function HeroBanner() {
                             : "border-transparent"
                         }`}
                       >
-                        {ch.logo ? (
+                        <div className="w-5 h-5 shrink-0 flex items-center justify-center relative">
                           <img
-                            src={ch.logo}
+                            src={ch.logo || `/api/logo?name=${encodeURIComponent(ch.name)}`}
                             alt=""
                             aria-hidden="true"
-                            className="w-5 h-5 object-contain opacity-70 shrink-0"
-                            onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                            className="w-full h-full object-contain opacity-70"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).style.display = "none";
+                              const fallbackIcon = (e.target as HTMLImageElement).parentElement?.querySelector(".logo-fallback");
+                              if (fallbackIcon) fallbackIcon.classList.remove("hidden");
+                            }}
                           />
-                        ) : (
-                          <Tv className="w-4 h-4 text-white/20 shrink-0" aria-hidden="true" />
-                        )}
+                          <div className="logo-fallback hidden absolute inset-0 w-full h-full flex items-center justify-center">
+                            <Tv className="w-3.5 h-3.5 text-white/20" />
+                          </div>
+                        </div>
                         <span
                           className={`text-[11px] font-cyber font-bold truncate flex-1 ${
                             activeChannel?.id === ch.id ? "text-[#00f0ff]" : "text-white/60"

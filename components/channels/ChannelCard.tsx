@@ -74,21 +74,20 @@ export default function ChannelCard({
           )}
 
           {/* Logo container */}
-          <div className="relative shrink-0 w-12 h-12 overflow-hidden bg-white/5 border border-white/10 transition-transform duration-300 group-hover:scale-105">
-            {channel.logo ? (
-              <img
-                src={channel.logo}
-                alt={channel.name}
-                className="w-full h-full object-contain p-1.5"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = "none";
-                }}
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <Tv className="w-5 h-5 text-white/30" aria-hidden="true" />
-              </div>
-            )}
+          <div className="relative shrink-0 w-12 h-12 overflow-hidden bg-white/5 border border-white/10 transition-transform duration-300 group-hover:scale-105 flex items-center justify-center">
+            <img
+              src={channel.logo || `/api/logo?name=${encodeURIComponent(channel.name)}`}
+              alt={channel.name}
+              className="w-full h-full object-contain p-1.5"
+              onError={(e) => {
+                (e.target as HTMLImageElement).style.display = "none";
+                const fallbackIcon = (e.target as HTMLImageElement).parentElement?.querySelector(".logo-fallback");
+                if (fallbackIcon) fallbackIcon.classList.remove("hidden");
+              }}
+            />
+            <div className="logo-fallback hidden w-full h-full flex items-center justify-center absolute inset-0">
+              <Tv className="w-5 h-5 text-white/30" aria-hidden="true" />
+            </div>
             {/* Play overlay on hover */}
             <div
               className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"

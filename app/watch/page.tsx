@@ -17,7 +17,7 @@ function toStreamChannel(ch: Channel): StreamChannel {
   return {
     id: ch.id,
     name: ch.name,
-    logo: ch.logo,
+    logo: ch.logo || `/api/logo?name=${encodeURIComponent(ch.name)}`,
     category: ch.category,
     quality: ch.quality,
     isLive: ch.isLive,
@@ -78,7 +78,7 @@ export default function WatchPage() {
             key={activeChannel.id}
             src={primarySrc}
             channelName={activeChannel.name}
-            poster={activeChannel.logo}
+            poster={activeChannel.logo || `/api/logo?name=${encodeURIComponent(activeChannel.name)}`}
             autoPlay
             streams={streamList}
             activeChannelId={activeChannel.id}
@@ -119,14 +119,17 @@ export default function WatchPage() {
               {/* Corner accent */}
               <div className="relative">
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="w-14 h-14 shrink-0 border border-white/10 bg-white/5 flex items-center justify-center">
-                    {activeChannel.logo ? (
-                      <img src={activeChannel.logo} alt={activeChannel.name}
-                        className="w-10 h-10 object-contain"
-                        onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
-                    ) : (
+                  <div className="w-14 h-14 shrink-0 border border-white/10 bg-white/5 flex items-center justify-center relative">
+                    <img src={activeChannel.logo || `/api/logo?name=${encodeURIComponent(activeChannel.name)}`} alt={activeChannel.name}
+                      className="w-10 h-10 object-contain"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = "none";
+                        const fallbackIcon = (e.target as HTMLImageElement).parentElement?.querySelector(".logo-fallback");
+                        if (fallbackIcon) fallbackIcon.classList.remove("hidden");
+                      }} />
+                    <div className="logo-fallback hidden absolute inset-0 w-full h-full flex items-center justify-center">
                       <Tv className="w-6 h-6 text-white/25" />
-                    )}
+                    </div>
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
@@ -313,12 +316,17 @@ function MiniChannelRow({
         isActive ? "border-[#fcee0a] bg-[#fcee0a]/5" : "border-transparent hover:border-[#00f0ff]/30"
       )}
     >
-      {channel.logo ? (
-        <img src={channel.logo} alt="" className="w-6 h-6 object-contain shrink-0 opacity-70"
-          onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
-      ) : (
-        <Tv className="w-4 h-4 text-white/20 shrink-0" />
-      )}
+      <div className="w-6 h-6 relative shrink-0 flex items-center justify-center">
+        <img src={channel.logo || `/api/logo?name=${encodeURIComponent(channel.name)}`} alt="" className="w-full h-full object-contain opacity-70"
+          onError={(e) => {
+            (e.target as HTMLImageElement).style.display = "none";
+            const fallbackIcon = (e.target as HTMLImageElement).parentElement?.querySelector(".logo-fallback");
+            if (fallbackIcon) fallbackIcon.classList.remove("hidden");
+          }} />
+        <div className="logo-fallback hidden absolute inset-0 w-full h-full flex items-center justify-center">
+          <Tv className="w-4 h-4 text-white/20 shrink-0" />
+        </div>
+      </div>
       <span className={cn(
         "text-[11px] font-cyber font-bold truncate",
         isActive ? "text-[#fcee0a]" : "text-white/55"
@@ -360,14 +368,16 @@ function ChannelRow({
       {/* Corner */}
       <div className="absolute top-0 left-0 w-1.5 h-1.5 bg-[#fcee0a] opacity-50" />
 
-      {/* Logo */}
       <div className="w-10 h-10 shrink-0 flex items-center justify-center bg-white/5 border border-white/8 relative">
-        {channel.logo ? (
-          <img src={channel.logo} alt="" className="w-8 h-8 object-contain"
-            onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
-        ) : (
+        <img src={channel.logo || `/api/logo?name=${encodeURIComponent(channel.name)}`} alt="" className="w-8 h-8 object-contain"
+          onError={(e) => {
+            (e.target as HTMLImageElement).style.display = "none";
+            const fallbackIcon = (e.target as HTMLImageElement).parentElement?.querySelector(".logo-fallback");
+            if (fallbackIcon) fallbackIcon.classList.remove("hidden");
+          }} />
+        <div className="logo-fallback hidden absolute inset-0 w-full h-full flex items-center justify-center">
           <Tv className="w-4 h-4 text-white/20" />
-        )}
+        </div>
         {isActive && (
           <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
             {/* Equalizer bars */}

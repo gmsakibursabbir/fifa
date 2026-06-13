@@ -473,13 +473,16 @@ function HLSPlayerInner({
                     )}
                   >
                     {/* Logo */}
-                    <div className="w-8 h-8 shrink-0 flex items-center justify-center bg-white/5 border border-white/10">
-                      {ch.logo ? (
-                        <img src={ch.logo} alt="" className="w-6 h-6 object-contain"
-                          onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
-                      ) : (
+                    <div className="w-8 h-8 shrink-0 flex items-center justify-center bg-white/5 border border-white/10 relative">
+                      <img src={ch.logo || `/api/logo?name=${encodeURIComponent(ch.name)}`} alt="" className="w-6 h-6 object-contain"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).style.display = "none";
+                          const fallbackIcon = (e.target as HTMLImageElement).parentElement?.querySelector(".logo-fallback");
+                          if (fallbackIcon) fallbackIcon.classList.remove("hidden");
+                        }} />
+                      <div className="logo-fallback hidden absolute inset-0 w-full h-full flex items-center justify-center">
                         <Tv className="w-4 h-4 text-white/20" />
-                      )}
+                      </div>
                     </div>
                     {/* Info */}
                     <div className="flex-1 min-w-0">

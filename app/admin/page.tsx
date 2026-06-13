@@ -754,18 +754,21 @@ export default function AdminPage() {
                         </button>
 
                         {/* Logo */}
-                        {ch.logo ? (
+                        <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 relative overflow-hidden">
                           <img
-                            src={ch.logo}
+                            src={ch.logo || `/api/logo?name=${encodeURIComponent(ch.name)}`}
                             alt={ch.name}
-                            className="w-8 h-8 rounded-lg object-contain bg-white/5 border border-white/10 shrink-0"
-                            onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                            className="w-full h-full object-contain p-0.5"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).style.display = "none";
+                              const fallbackIcon = (e.target as HTMLImageElement).parentElement?.querySelector(".logo-fallback");
+                              if (fallbackIcon) fallbackIcon.classList.remove("hidden");
+                            }}
                           />
-                        ) : (
-                          <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                          <div className="logo-fallback hidden absolute inset-0 w-full h-full flex items-center justify-center">
                             <Tv className="w-3.5 h-3.5 text-white/20" />
                           </div>
-                        )}
+                        </div>
 
                         {/* Info */}
                         <div className="flex-1 min-w-0">
