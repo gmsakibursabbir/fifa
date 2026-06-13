@@ -37,5 +37,18 @@
     "isLive": true,
     "quality": "HD",
     "featured": false
+  },
+  {
+    "id": 1781331573929,
+    "name": "Bein Sports 1",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/d/d6/BeIN_Sports_logo_%28vertical_version%29.svg",
+    "stream": "https://1nyaler.streamhostingcdn.top/stream/23/index.m3u8",
+    "category": "Sports",
+    "description": "FIFA ",
+    "language": "Arabic",
+    "country": "Qatar",
+    "isLive": true,
+    "quality": "FHD",
+    "featured": false
   }
 ]
