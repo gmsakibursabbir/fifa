@@ -1,24 +1,38 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { useMemo } from "react";
-import { Tv, Heart, Clock, Search } from "lucide-react";
-import HLSPlayer from "@/components/player/HLSPlayer";
+import { useMemo, useState } from "react";
+import { Tv, Heart, Clock, Search, Globe, Languages, Signal, Radio } from "lucide-react";
+import HLSPlayer, { type StreamChannel } from "@/components/player/HLSPlayer";
 import { useChannels } from "@/hooks/useChannels";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useRecentlyWatched } from "@/hooks/useRecentlyWatched";
 import LivePulseBadge from "@/components/common/LivePulseBadge";
-import ChannelCard from "@/components/channels/ChannelCard";
 import { CHANNEL_CATEGORIES } from "@/types/channel";
+import type { Channel } from "@/types/channel";
+import { cn } from "@/lib/utils";
+
+/* Convert Channel → StreamChannel for the in-player Stream picker */
+function toStreamChannel(ch: Channel): StreamChannel {
+  return {
+    id: ch.id,
+    name: ch.name,
+    logo: ch.logo,
+    category: ch.category,
+    quality: ch.quality,
+    isLive: ch.isLive,
+    src: `/api/stream/${ch.id}/playlist.m3u8`,
+  };
+}
 
 export default function WatchPage() {
-  const params = useParams<{ id?: string }>();
-  const router = useRouter();
+  const params    = useParams<{ id?: string }>();
+  const router    = useRouter();
   const channelId = params?.id ? parseInt(params.id) : null;
 
   const { channels, filtered, isLoading, search, setSearch, category, setCategory } = useChannels();
   const { favorites, toggle, isFavorite } = useFavorites();
-  const { recentIds, addRecent } = useRecentlyWatched();
+  const { recentIds, addRecent }           = useRecentlyWatched();
 
   const activeChannel = useMemo(
     () => channels.find((c) => c.id === channelId) || channels[0] || null,
@@ -30,228 +44,377 @@ export default function WatchPage() {
     [channels, recentIds]
   );
 
-  const handlePlay = (id: number) => {
+  // All channels as StreamChannel[] for the in-player Stream picker
+  const streamList = useMemo(() => channels.map(toStreamChannel), [channels]);
+
+  const handleChannelClick = (id: number) => {
     addRecent(id);
     router.push(`/watch/${id}`);
   };
 
+  const handleStreamChange = (stream: StreamChannel) => {
+    handleChannelClick(stream.id);
+  };
+
+  const primarySrc = activeChannel ? `/api/stream/${activeChannel.id}/playlist.m3u8` : "";
+
   return (
-    <div className="max-w-[1600px] mx-auto px-8 md:px-16 pt-16 pb-32 min-h-screen bg-black">
-      {/* 2-Column YouTube-Style Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-        
-        {/* Left Side: Video Player & Metadata Details */}
-        <div className="lg:col-span-2 space-y-6">
-          <div className="relative w-full aspect-video rounded-lg md:rounded-xl overflow-hidden bg-[#0d0d11] border border-white/5 shadow-2xl shadow-black/95 flex items-center justify-center">
-            {/* Grid overlay for video deck */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-size-[32px_32px] pointer-events-none -z-10" />
+    <div className="min-h-screen flex flex-col">
 
-            {activeChannel ? (
-              <div className="w-full h-full">
-                <HLSPlayer
-                  key={activeChannel.id}
-                  src={activeChannel.stream}
-                  channelName={activeChannel.name}
-                  autoPlay
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            ) : (
-              <div className="text-center p-8">
-                <Tv className="w-16 h-16 text-white/20 mx-auto mb-4" />
-                <h3 className="text-white font-bold text-lg mb-1">Select a Channel</h3>
-                <p className="text-white/40 text-sm">Choose from the available channels list to start streaming</p>
-              </div>
-            )}
+      {/* ══════════════════════════════════════════════════════
+          HERO: Full-width player
+      ══════════════════════════════════════════════════════ */}
+      <div
+        className="w-full relative border-b border-[#00f0ff]/12"
+        style={{ background: "#030306" }}
+      >
+        {/* Corner accents */}
+        <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#fcee0a] z-20 pointer-events-none" aria-hidden="true" />
+        <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#00f0ff] z-20 pointer-events-none" aria-hidden="true" />
+        <div className="absolute bottom-0 right-0 w-8 h-[2px] bg-[#ff0055] z-20 pointer-events-none" aria-hidden="true" />
+
+        {activeChannel ? (
+          <HLSPlayer
+            key={activeChannel.id}
+            src={primarySrc}
+            channelName={activeChannel.name}
+            poster={activeChannel.logo}
+            autoPlay
+            streams={streamList}
+            activeChannelId={activeChannel.id}
+            onStreamChange={handleStreamChange}
+            className="w-full max-h-[75vh] lg:max-h-[calc(100vh-180px)]"
+          />
+        ) : (
+          <div
+            className="w-full flex flex-col items-center justify-center text-center py-24 sm:py-32"
+            style={{
+              backgroundImage: "linear-gradient(rgba(0,240,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,0.04) 1px,transparent 1px)",
+              backgroundSize: "28px 28px",
+            }}
+            aria-label="No channel selected"
+          >
+            <Radio className="w-12 h-12 text-white/10 mx-auto mb-4" aria-hidden="true" />
+            <h2 className="font-cyber font-black text-xl uppercase tracking-widest text-white/30 mb-2">
+              No Channel Selected
+            </h2>
+            <p className="text-white/20 text-xs font-mono">
+              {isLoading ? "Loading channels…" : "Pick a channel from the list below"}
+            </p>
           </div>
+        )}
+      </div>
 
-          {/* Active Channel Info Card */}
-          {activeChannel ? (
-            <div className="bg-white/1 border border-white/5 rounded-xl md:rounded-2xl p-6 md:p-8 shadow-xl space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/5 pb-6">
-                <div className="flex items-center gap-4">
-                  <div className="shrink-0 w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-inner">
+      {/* ══════════════════════════════════════════════════════
+          CHANNEL INFO + LIST
+      ══════════════════════════════════════════════════════ */}
+      <div className="max-w-[1600px] mx-auto w-full px-4 sm:px-8 md:px-16 py-6 pb-32 flex flex-col lg:flex-row gap-6 lg:gap-10">
+
+        {/* ── Channel Info ── */}
+        {activeChannel && (
+          <div className="lg:w-72 xl:w-80 shrink-0 space-y-4">
+
+            {/* Info card */}
+            <div className="bg-[#09090d] border border-[#00f0ff]/15 p-5">
+              {/* Corner accent */}
+              <div className="relative">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-14 h-14 shrink-0 border border-white/10 bg-white/5 flex items-center justify-center">
                     {activeChannel.logo ? (
-                      <img
-                        src={activeChannel.logo}
-                        alt={activeChannel.name}
+                      <img src={activeChannel.logo} alt={activeChannel.name}
                         className="w-10 h-10 object-contain"
-                        onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-                      />
+                        onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
                     ) : (
-                      <Tv className="w-6 h-6 text-white/40" />
+                      <Tv className="w-6 h-6 text-white/25" />
                     )}
                   </div>
-                  <div>
-                    <div className="flex items-center gap-2.5 mb-1.5">
-                      <h2 className="text-white font-extrabold text-xl md:text-2xl tracking-tight leading-none">{activeChannel.name}</h2>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1 flex-wrap">
+                      <h2 className="font-cyber font-black text-base text-white uppercase tracking-wide leading-none">
+                        {activeChannel.name}
+                      </h2>
                       {activeChannel.isLive && <LivePulseBadge size="sm" />}
                     </div>
-                    <p className="text-white/40 text-xs font-bold uppercase tracking-widest">
-                      {activeChannel.category} · <span className="text-cyan-400">{activeChannel.quality}</span>
+                    <p className="text-[9px] font-mono text-white/30 uppercase tracking-widest">
+                      {activeChannel.category}
+                      {activeChannel.quality && <span className="text-[#00f0ff] ml-1.5">· {activeChannel.quality}</span>}
                     </p>
                   </div>
                 </div>
 
-                <button
-                  id={`watch-fav-btn-${activeChannel.id}`}
-                  onClick={() => toggle(activeChannel.id)}
-                  className={`flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
-                    isFavorite(activeChannel.id)
-                      ? "bg-red-500/20 text-red-400 border border-red-500/20 shadow-lg"
-                      : "bg-white/5 border border-white/5 text-white/60 hover:text-white hover:bg-white/10"
-                  }`}
-                >
-                  <Heart className={`w-4 h-4 ${isFavorite(activeChannel.id) ? "fill-current" : ""}`} />
-                  {isFavorite(activeChannel.id) ? "Saved to Favourites" : "Add to Favourites"}
-                </button>
-              </div>
+                {activeChannel.description && (
+                  <p className="text-white/40 text-xs font-sans leading-relaxed mb-4">
+                    {activeChannel.description}
+                  </p>
+                )}
 
-              {/* Description & Additional Info */}
-              <div className="space-y-4">
-                <h3 className="text-white font-bold text-sm uppercase tracking-wider">About this channel</h3>
-                <p className="text-white/60 text-sm leading-relaxed max-w-2xl">
-                  {activeChannel.description || 
-                    `Watch live sports, high-definition action and real-time coverage on ${activeChannel.name}. Streaming live continuously with free access.`}
-                </p>
-
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4">
+                {/* Meta grid */}
+                <div className="grid grid-cols-1 gap-2">
                   {[
-                    { label: "Language", value: activeChannel.language || "Multilingual" },
-                    { label: "Country", value: activeChannel.country || "Global" },
-                    { label: "Quality Profile", value: activeChannel.quality || "HD" },
-                  ].map(({ label, value }) => (
-                    <div key={label} className="bg-white/1 border border-white/3 rounded-2xl p-4">
-                      <span className="text-white/30 text-[10px] font-bold uppercase tracking-widest block mb-1">{label}</span>
-                      <span className="text-white font-bold text-sm">{value}</span>
+                    { icon: Languages, label: "Language", value: activeChannel.language || "Multilingual" },
+                    { icon: Globe,     label: "Country",  value: activeChannel.country  || "Global" },
+                    { icon: Signal,    label: "Quality",  value: activeChannel.quality  || "Auto" },
+                  ].map(({ icon: Icon, label, value }) => (
+                    <div key={label} className="flex items-center gap-3 border-b border-white/5 pb-2">
+                      <Icon className="w-3.5 h-3.5 text-[#00f0ff]/40 shrink-0" aria-hidden="true" />
+                      <span className="text-white/25 text-[9px] font-mono uppercase tracking-wider w-16 shrink-0">{label}</span>
+                      <span className="text-white font-cyber font-bold text-[10px]">{value}</span>
                     </div>
                   ))}
                 </div>
+
+                {/* Favorite button */}
+                <button
+                  onClick={() => toggle(activeChannel.id)}
+                  aria-pressed={isFavorite(activeChannel.id)}
+                  aria-label={isFavorite(activeChannel.id) ? "Remove from favourites" : "Save to favourites"}
+                  className={cn(
+                    "mt-4 w-full flex items-center justify-center gap-2 py-2.5 text-[10px] font-cyber font-bold uppercase tracking-widest border transition-all duration-200",
+                    isFavorite(activeChannel.id)
+                      ? "bg-[#ff0055]/12 text-[#ff0055] border-[#ff0055]/35"
+                      : "bg-transparent text-white/40 border-white/15 hover:text-[#ff0055] hover:border-[#ff0055]/30"
+                  )}
+                >
+                  <Heart className={cn("w-3.5 h-3.5", isFavorite(activeChannel.id) && "fill-current")} />
+                  {isFavorite(activeChannel.id) ? "Saved to Favourites" : "Add to Favourites"}
+                </button>
               </div>
             </div>
-          ) : (
-            <div className="bg-white/1 border border-white/5 rounded-3xl p-8 text-center text-white/30">
-              Select a channel to view channel details.
+
+            {/* Recently watched */}
+            {recentChannels.length > 0 && (
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Clock className="w-3 h-3 text-white/25" />
+                  <span className="text-[9px] font-cyber font-bold text-white/30 uppercase tracking-widest">Recently Watched</span>
+                </div>
+                <div className="space-y-1">
+                  {recentChannels.slice(0, 5).map((ch) => ch && (
+                    <MiniChannelRow
+                      key={ch.id}
+                      channel={ch}
+                      isActive={activeChannel.id === ch.id}
+                      onClick={() => handleChannelClick(ch.id)}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── Full Channel List ── */}
+        <div className="flex-1 min-w-0 space-y-4">
+
+          {/* Header + Search + Filters */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <div className="flex items-center gap-2 shrink-0">
+              <div className="w-0.5 h-5 bg-[#00f0ff]" aria-hidden="true" />
+              <h3 className="font-cyber font-black text-base uppercase tracking-widest text-white">
+                All Channels
+              </h3>
+              <span className="text-[9px] font-mono text-white/25 border border-white/10 px-1.5 py-0.5">
+                {filtered.length}
+              </span>
             </div>
-          )}
-        </div>
-
-        {/* Right Side: Scrollable Channel List & Navigation */}
-        <div className="space-y-6 lg:h-[calc(100vh-200px)] lg:overflow-y-auto hide-scrollbar pr-1 lg:sticky lg:top-28">
-          {/* Section Header */}
-          <div className="px-1">
-            <h3 className="text-white font-extrabold text-lg uppercase tracking-wider">Live Channels</h3>
-            <p className="text-white/40 text-xs mt-1">Browse and switch between matches</p>
+            <div className="flex-1" />
+            <div className="relative w-full sm:w-56">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/25" />
+              <input
+                type="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search streams…"
+                aria-label="Search channels"
+                className="w-full pl-9 pr-3 py-2 bg-[#09090d] border border-[#00f0ff]/15 text-white text-[11px] font-mono placeholder:text-white/20 focus:outline-none focus:border-[#00f0ff]/40 transition-colors"
+              />
+            </div>
           </div>
 
-          {/* Search Bar */}
-          <div className="relative">
-            <Search className="absolute left-4 top-3.5 w-4 h-4 text-white/30" />
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search live streams..."
-              className="w-full pl-11 pr-4 py-3 rounded-full bg-white/5 border border-white/5 text-white text-xs font-semibold tracking-wide placeholder:text-white/25 focus:outline-none focus:bg-white/10 focus:border-white/10 transition-all shadow-inner"
-            />
-          </div>
-
-          {/* Category Selector Pills */}
-          <div className="flex gap-2 overflow-x-auto pb-2 hide-scrollbar">
+          {/* Category pills */}
+          <div className="flex gap-1.5 overflow-x-auto pb-1 hide-scrollbar" role="tablist">
             {["All", ...CHANNEL_CATEGORIES].map((cat) => (
-              <button
-                key={cat}
+              <button key={cat} role="tab" aria-selected={category === cat}
                 onClick={() => setCategory(cat)}
-                className={`px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all whitespace-nowrap border ${
+                className={cn(
+                  "px-3 py-1.5 text-[9px] font-cyber font-bold uppercase tracking-widest whitespace-nowrap border transition-all shrink-0",
                   category === cat
-                    ? "bg-white text-black border-white"
-                    : "bg-white/5 border-white/5 text-white/60 hover:text-white hover:bg-white/10"
-                }`}
-              >
+                    ? "bg-[#fcee0a] text-black border-[#fcee0a]"
+                    : "bg-transparent border-[#00f0ff]/18 text-white/40 hover:text-[#00f0ff] hover:border-[#00f0ff]/40"
+                )}>
                 {cat}
               </button>
             ))}
           </div>
 
-          {/* Favourites (if any exist) */}
+          {/* Favourites row */}
           {favorites.size > 0 && (
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 px-1">
-                <Heart className="w-3.5 h-3.5 text-red-400" />
-                <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Saved Favourites</span>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 pt-1">
+                <Heart className="w-3 h-3 text-[#ff0055]" />
+                <span className="text-[9px] font-cyber font-bold text-white/30 uppercase tracking-widest">Favourites</span>
               </div>
-              <div className="grid grid-cols-1 gap-3">
-                {channels
-                  .filter((c) => favorites.has(c.id))
-                  .map((ch) => (
-                    <ChannelCard
-                      key={ch.id}
-                      channel={ch}
-                      isFavorite
-                      onFavoriteToggle={toggle}
-                      isActive={activeChannel?.id === ch.id}
-                      compact
-                      onClick={() => addRecent(ch.id)}
-                    />
-                  ))}
-              </div>
-            </div>
-          )}
-
-          {/* Recently Watched (if any exist) */}
-          {recentChannels.length > 0 && (
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 px-1">
-                <Clock className="w-3.5 h-3.5 text-white/40" />
-                <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Recently Watched</span>
-              </div>
-              <div className="grid grid-cols-1 gap-3">
-                {recentChannels.slice(0, 3).map((ch) => ch && (
-                  <ChannelCard
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2">
+                {channels.filter((c) => favorites.has(c.id)).map((ch) => (
+                  <ChannelRow
                     key={ch.id}
                     channel={ch}
-                    isFavorite={favorites.has(ch.id)}
-                    onFavoriteToggle={toggle}
                     isActive={activeChannel?.id === ch.id}
-                    compact
-                    onClick={() => addRecent(ch.id)}
+                    isFav
+                    onFavToggle={() => toggle(ch.id)}
+                    onClick={() => handleChannelClick(ch.id)}
                   />
                 ))}
               </div>
             </div>
           )}
 
-          {/* All Channels List */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between px-1 border-t border-white/5 pt-4">
-              <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">
-                {category} Channels ({filtered.length})
-              </span>
+          {/* All channels grid */}
+          {isLoading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2">
+              {[...Array(9)].map((_, i) => (
+                <div key={i} className="h-16 bg-[#09090d] border border-[#00f0ff]/8 skeleton-shimmer" />
+              ))}
             </div>
-            
-            {filtered.length === 0 ? (
-              <div className="bg-white/1 border border-white/5 rounded-2xl p-8 text-center text-white/30 text-xs font-semibold">
-                No matching channels found
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 gap-3">
-                {filtered.map((ch) => (
-                  <ChannelCard
-                    key={ch.id}
-                    channel={ch}
-                    isFavorite={favorites.has(ch.id)}
-                    onFavoriteToggle={toggle}
-                    isActive={activeChannel?.id === ch.id}
-                    compact
-                    onClick={() => addRecent(ch.id)}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
+          ) : filtered.length === 0 ? (
+            <div className="bg-[#09090d] border border-[#00f0ff]/10 p-10 text-center">
+              <Tv className="w-8 h-8 text-white/10 mx-auto mb-3" />
+              <p className="text-white/25 text-xs font-mono">No channels found</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2">
+              {filtered.map((ch) => (
+                <ChannelRow
+                  key={ch.id}
+                  channel={ch}
+                  isActive={activeChannel?.id === ch.id}
+                  isFav={favorites.has(ch.id)}
+                  onFavToggle={() => toggle(ch.id)}
+                  onClick={() => handleChannelClick(ch.id)}
+                />
+              ))}
+            </div>
+          )}
         </div>
-
       </div>
+    </div>
+  );
+}
+
+/* ── Mini channel row (sidebar) ────────────────────────────────── */
+function MiniChannelRow({
+  channel, isActive, onClick,
+}: { channel: Channel; isActive: boolean; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        "w-full flex items-center gap-3 px-3 py-2 border-l-2 transition-colors text-left hover:bg-[#fcee0a]/5",
+        isActive ? "border-[#fcee0a] bg-[#fcee0a]/5" : "border-transparent hover:border-[#00f0ff]/30"
+      )}
+    >
+      {channel.logo ? (
+        <img src={channel.logo} alt="" className="w-6 h-6 object-contain shrink-0 opacity-70"
+          onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
+      ) : (
+        <Tv className="w-4 h-4 text-white/20 shrink-0" />
+      )}
+      <span className={cn(
+        "text-[11px] font-cyber font-bold truncate",
+        isActive ? "text-[#fcee0a]" : "text-white/55"
+      )}>
+        {channel.name}
+      </span>
+      {channel.isLive && (
+        <span className="ml-auto shrink-0 text-[7px] font-cyber font-black text-[#ff0055] border border-[#ff0055]/35 px-1">LIVE</span>
+      )}
+    </button>
+  );
+}
+
+/* ── Full channel row (grid) ───────────────────────────────────── */
+function ChannelRow({
+  channel, isActive, isFav, onFavToggle, onClick,
+}: {
+  channel: Channel; isActive: boolean; isFav: boolean;
+  onFavToggle: () => void; onClick: () => void;
+}) {
+  return (
+    <div
+      className={cn(
+        "relative flex items-center gap-3 px-4 py-3 border bg-[#09090d] group cursor-pointer transition-all duration-200 overflow-hidden",
+        isActive
+          ? "border-[#00f0ff]/50 shadow-[0_0_16px_rgba(0,240,255,0.08)]"
+          : "border-[#00f0ff]/12 hover:border-[#fcee0a]/40 hover:bg-[#fcee0a]/3"
+      )}
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      aria-label={`Watch ${channel.name}`}
+      onKeyDown={(e) => e.key === "Enter" && onClick()}
+    >
+      {/* Active indicator */}
+      {isActive && (
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#00f0ff] to-[#fcee0a]" />
+      )}
+      {/* Corner */}
+      <div className="absolute top-0 left-0 w-1.5 h-1.5 bg-[#fcee0a] opacity-50" />
+
+      {/* Logo */}
+      <div className="w-10 h-10 shrink-0 flex items-center justify-center bg-white/5 border border-white/8 relative">
+        {channel.logo ? (
+          <img src={channel.logo} alt="" className="w-8 h-8 object-contain"
+            onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
+        ) : (
+          <Tv className="w-4 h-4 text-white/20" />
+        )}
+        {isActive && (
+          <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+            {/* Equalizer bars */}
+            <div className="flex items-end gap-[2px] h-4">
+              <div className="eq-bar eq-bar-1 w-[2px]" />
+              <div className="eq-bar eq-bar-2 w-[2px]" />
+              <div className="eq-bar eq-bar-3 w-[2px]" />
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Info */}
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-1.5 mb-0.5">
+          <span className={cn(
+            "text-[11px] font-cyber font-bold truncate",
+            isActive ? "text-[#00f0ff]" : "text-white/70 group-hover:text-[#fcee0a]"
+          )}>
+            {channel.name}
+          </span>
+          {channel.isLive && <LivePulseBadge size="sm" className="shrink-0" />}
+        </div>
+        <div className="flex items-center gap-1.5">
+          <span className="text-[8px] font-mono text-white/25 uppercase">{channel.category}</span>
+          {channel.quality && (
+            <span className="text-[8px] font-mono text-[#00f0ff]/40 border border-[#00f0ff]/15 px-1">
+              {channel.quality}
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Fav button */}
+      <button
+        onClick={(e) => { e.stopPropagation(); onFavToggle(); }}
+        aria-label={isFav ? `Remove ${channel.name} from favourites` : `Add ${channel.name} to favourites`}
+        aria-pressed={isFav}
+        className={cn(
+          "shrink-0 p-1.5 border border-transparent transition-all",
+          isFav
+            ? "text-[#ff0055] bg-[#ff0055]/10 border-[#ff0055]/25"
+            : "text-white/20 hover:text-[#ff0055] hover:bg-[#ff0055]/8"
+        )}
+      >
+        <Heart className={cn("w-3.5 h-3.5", isFav && "fill-current")} />
+      </button>
     </div>
   );
 }

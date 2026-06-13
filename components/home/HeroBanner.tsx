@@ -2,185 +2,390 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, Tv, Activity, Globe } from "lucide-react";
+import {
+  Tv, Play, ChevronDown, Maximize2, Zap, Radio, Signal,
+  Activity, Globe, Trophy
+} from "lucide-react";
+import type { Channel } from "@/types/channel";
 
-interface Banner {
-  id: string;
-  tag: string;
-  title: string;
-  description: string;
-  cta: string;
-  ctaLink: string;
-  image: string;
-}
-
-const FALLBACK_BANNERS: Banner[] = [
-  {
-    id: "1",
-    tag: "FIFA World Cup 2026",
-    title: "United States, Canada & Mexico",
-    description: "Follow the journey of 48 nations competing in North America. Track live scores, fixtures, and group standings in real time.",
-    cta: "Explore Standings",
-    ctaLink: "/standings",
-    image: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1600&auto=format&fit=crop",
-  },
-];
+const HLSPlayer = dynamic(() => import("@/components/player/HLSPlayer"), { ssr: false });
 
 export default function HeroBanner() {
-  const [banners, setBanners] = useState<Banner[]>(FALLBACK_BANNERS);
-  const [current, setCurrent] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [channels, setChannels] = useState<Channel[]>([]);
+  const [activeChannel, setActiveChannel] = useState<Channel | null>(null);
+  const [showChannelPicker, setShowChannelPicker] = useState(false);
+  const [playerStarted, setPlayerStarted] = useState(false);
+  const [channelsLoading, setChannelsLoading] = useState(true);
 
   useEffect(() => {
-    async function loadBanners() {
+    async function loadChannels() {
       try {
-        const res = await fetch("/api/banners");
+        const res = await fetch("/api/channels");
         if (res.ok) {
-          const data = await res.json() as Banner[];
-          if (data && data.length > 0) {
-            setBanners(data);
-          }
+          const data = (await res.json()) as Channel[];
+          const liveChannels = data.filter((c) => c.isLive || c.featured).slice(0, 20);
+          setChannels(liveChannels);
+          if (liveChannels.length > 0) setActiveChannel(liveChannels[0]);
         }
       } catch (err) {
-        console.error("Failed to fetch banners from API:", err);
+        console.error("Failed to load channels:", err);
       } finally {
-        setLoading(false);
+        setChannelsLoading(false);
       }
     }
-    loadBanners();
+    loadChannels();
   }, []);
 
-  useEffect(() => {
-    if (banners.length <= 1) return;
-    const timer = setInterval(() => {
-      setCurrent((p) => (p + 1) % banners.length);
-    }, 8000);
-    return () => clearInterval(timer);
-  }, [banners]);
+  const getStreamSrc = (ch: Channel) =>
+    ch.stream ? `/api/stream/${ch.id}/playlist.m3u8` : "";
 
-  const banner = banners[current] || FALLBACK_BANNERS[0];
+  // Build stream list for in-player channel picker
+  const streamList = channels.map((ch) => ({
+    id:       ch.id,
+    name:     ch.name,
+    logo:     ch.logo,
+    category: ch.category,
+    quality:  ch.quality,
+    isLive:   ch.isLive,
+    src:      `/api/stream/${ch.id}/playlist.m3u8`,
+  }));
 
   return (
-    <div className="relative min-h-[360px] sm:min-h-[440px] md:min-h-[500px] flex items-center overflow-hidden rounded-2xl sm:rounded-3xl border border-white/5 bg-black shadow-2xl">
-      {/* Background Image Carousel with AnimatePresence */}
-      <div className="absolute inset-0 z-0">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={banner.image}
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 0.65, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 1, ease: "easeInOut" }}
-            className="relative w-full h-full"
-          >
-            <img
-              src={banner.image}
-              alt={banner.title}
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-          </motion.div>
-        </AnimatePresence>
+    <div
+      className="w-full p-[1px] bg-[#00f0ff]/18"
+      style={{
+        clipPath: "polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))",
+      }}
+    >
+      <section
+        aria-label="Live IPTV player"
+        className="relative w-full bg-[#030306] overflow-hidden"
+        style={{
+          clipPath: "polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px))",
+        }}
+      >
+      {/* Corner accents */}
+      <div className="absolute top-0 left-0 w-5 h-5 border-t-2 border-l-2 border-[#fcee0a] z-20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute top-0 right-0 w-5 h-5 border-t-2 border-r-2 border-[#00f0ff] z-20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-0 left-0 w-5 h-5 border-b-2 border-l-2 border-[#00f0ff] z-20 pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-0 right-0 w-8 h-[2px] bg-[#ff0055] z-20 pointer-events-none" aria-hidden="true" />
 
-        {/* Cinematic Apple TV dark gradient overlays */}
-        <div className="absolute inset-0 bg-linear-to-r from-black via-black/70 to-transparent z-10" />
-        <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent z-10" />
-        {/* Subtle grid watermark */}
-        <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-size-[4rem_4rem] z-10" />
-      </div>
+      <div className="flex flex-col lg:flex-row">
 
-      {/* Content */}
-      <div className="relative z-20 w-full px-5 py-10 sm:px-8 sm:py-14 md:px-16 md:py-16">
-        <div className="max-w-2xl">
-          {/* Live indicator / Tag */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`tag-${banner.id}`}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-              className="flex items-center gap-2 mb-4"
-            >
-              <span className="text-[10px] font-bold tracking-widest text-white/50 uppercase bg-white/10 px-3 py-1.5 rounded-full border border-white/5">
-                {banner.tag}
-              </span>
-            </motion.div>
-          </AnimatePresence>
+        {/* ── LEFT: Info panel ── */}
+        <div
+          className="relative flex flex-col justify-between px-6 py-8 sm:px-8 sm:py-10 lg:w-72 xl:w-80 shrink-0 border-b lg:border-b-0 lg:border-r border-[#00f0ff]/10 overflow-hidden"
+        >
+          {/* BG grid */}
+          <div
+            className="absolute inset-0 pointer-events-none opacity-25"
+            style={{
+              backgroundImage: "linear-gradient(rgba(0,240,255,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,0.06) 1px,transparent 1px)",
+              backgroundSize: "24px 24px",
+            }}
+            aria-hidden="true"
+          />
 
-          {/* Animated title */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`content-${banner.id}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5, ease: [0.25, 0.8, 0.25, 1] }}
-            >
-              <h1 className="font-extrabold text-2xl sm:text-4xl md:text-6xl text-white mb-3 sm:mb-4 leading-tight tracking-tight font-sans">
-                {banner.title}
-              </h1>
-              <p className="text-white/60 text-sm sm:text-base md:text-lg mb-6 sm:mb-8 leading-relaxed font-sans max-w-xl font-medium">
-                {banner.description}
-              </p>
-            </motion.div>
-          </AnimatePresence>
+          {/* Top: branding */}
+          <div className="relative z-10">
+            <div className="flex items-center gap-2 mb-6">
+              <div className="w-1.5 h-1.5 bg-[#ff0055] animate-ping" aria-hidden="true" />
+              <span className="cyber-tag cyber-tag-magenta">Live TV</span>
+            </div>
 
-          {/* CTAs */}
-          <div className="flex flex-wrap items-center gap-3">
-            <Link
-              href={banner.ctaLink}
-              className="flex items-center gap-2 px-7 py-3 rounded-full bg-white text-black text-xs font-bold uppercase tracking-wider hover:bg-white/90 transition-all active:scale-95 shadow-lg"
-            >
-              {banner.cta}
-              <ChevronRight className="w-4 h-4" />
-            </Link>
+            <h2 className="font-cyber font-black text-xl sm:text-2xl xl:text-3xl text-white uppercase leading-tight mb-3">
+              <span className="neon-cyan">IPTV</span>{" "}
+              <span className="text-white">Stream</span>
+            </h2>
+            <p className="text-white/40 text-xs sm:text-sm font-sans leading-relaxed mb-6">
+              Watch live TV channels directly in your browser. Select a channel below and click play.
+            </p>
+
+            {/* Stats */}
+            <div className="space-y-3">
+              {[
+                { icon: Signal,   label: "Live Channels", value: channels.length > 0 ? `${channels.length} Online` : "Loading…" },
+                { icon: Tv,       label: "Stream Quality", value: activeChannel?.quality || "Auto" },
+                { icon: Activity, label: "Category",       value: activeChannel?.category || "—" },
+              ].map(({ icon: Icon, label, value }) => (
+                <div key={label} className="flex items-center gap-3">
+                  <div className="w-7 h-7 flex items-center justify-center border border-[#00f0ff]/20 bg-[#00f0ff]/5 shrink-0">
+                    <Icon className="w-3.5 h-3.5 text-[#00f0ff]/60" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <div className="text-white font-cyber font-bold text-xs leading-none">{value}</div>
+                    <div className="text-white/30 text-[9px] uppercase tracking-widest mt-0.5 font-mono">{label}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Bottom: quick links */}
+          <div className="relative z-10 mt-8 pt-6 border-t border-[#00f0ff]/10 flex flex-col gap-2">
             <Link
               href="/watch"
-              className="flex items-center gap-2 px-7 py-3 rounded-full bg-white/5 border border-white/5 text-white text-xs font-bold uppercase tracking-wider hover:bg-white/15 transition-all active:scale-95"
+              aria-label="Browse all channels"
+              className="cyber-btn cyber-btn-cyan w-full justify-center text-[10px]"
             >
-              <Tv className="w-4 h-4" />
-              Watch Live TV
+              <Tv className="w-3.5 h-3.5" aria-hidden="true" />
+              All Channels
+            </Link>
+            <Link
+              href="/matches"
+              aria-label="View live matches"
+              className="cyber-btn w-full justify-center text-[10px]"
+            >
+              <Activity className="w-3.5 h-3.5" aria-hidden="true" />
+              Live Matches
             </Link>
           </div>
+        </div>
 
-          {/* Bottom stats overview */}
-          <div className="flex items-center gap-4 sm:gap-8 mt-8 sm:mt-12 pt-4 sm:pt-6 border-t border-white/5 overflow-x-auto pb-1 hide-scrollbar">
-            {[
-              { icon: Globe, label: "Groups A to L", value: "48 Teams" },
-              { icon: Activity, label: "Opening Matchday", value: "WC 2026" },
-              { icon: Tv, label: "HD Video Streams", value: "IPTV Channels" },
-            ].map(({ icon: Icon, label, value }) => (
-              <div key={label} className="flex items-center gap-3">
-                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/5 border border-white/5 text-white/50">
-                  <Icon className="w-4 h-4" />
-                </div>
-                <div>
-                  <div className="text-white font-bold text-sm leading-none tracking-wide">{value}</div>
-                  <div className="text-white/30 text-[10px] uppercase font-bold mt-1 tracking-wider">{label}</div>
-                </div>
-              </div>
-            ))}
+        {/* ── RIGHT: Player panel ── */}
+        <div className="flex-1 flex flex-col min-w-0">
+
+          {/* Player header bar */}
+          <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#00f0ff]/10 bg-[#07070b]">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="w-1.5 h-1.5 bg-[#ff0055] animate-ping shrink-0" aria-hidden="true" />
+              <span className="font-cyber text-[10px] font-bold uppercase tracking-widest text-[#00f0ff] truncate">
+                {activeChannel ? activeChannel.name : "No channel selected"}
+              </span>
+              {activeChannel?.isLive && (
+                <span className="cyber-tag cyber-tag-magenta shrink-0">LIVE</span>
+              )}
+            </div>
+            {activeChannel && (
+              <Link
+                href={`/watch/${activeChannel.id}`}
+                aria-label="Open full player"
+                className="flex items-center gap-1.5 text-[9px] font-cyber font-bold uppercase tracking-widest text-[#fcee0a]/70 hover:text-[#fcee0a] transition-colors shrink-0 ml-4"
+              >
+                <Maximize2 className="w-3 h-3" aria-hidden="true" />
+                Full Screen
+              </Link>
+            )}
           </div>
+
+          {/* Video player */}
+          <div className="relative bg-black flex-1">
+            {playerStarted && activeChannel && activeChannel.stream ? (
+              <HLSPlayer
+                src={getStreamSrc(activeChannel)}
+                channelName={activeChannel.name}
+                poster={activeChannel.logo}
+                autoPlay
+                streams={streamList}
+                activeChannelId={activeChannel.id}
+                onStreamChange={(s) => {
+                  const found = channels.find((c) => c.id === s.id);
+                  if (found) {
+                    setActiveChannel(found);
+                    setPlayerStarted(true);
+                  }
+                }}
+                className="w-full"
+              />
+            ) : (
+              /* Splash / idle screen */
+              <div
+                className="relative w-full flex items-center justify-center bg-[#07070b] overflow-hidden"
+                style={{ aspectRatio: "16/9" }}
+              >
+                {/* Channel logo bg blur */}
+                {activeChannel?.logo && (
+                  <img
+                    src={activeChannel.logo}
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 w-full h-full object-cover opacity-[0.04] scale-110 blur-sm"
+                  />
+                )}
+                {/* Grid overlay */}
+                <div
+                  className="absolute inset-0 opacity-25"
+                  style={{
+                    backgroundImage: "linear-gradient(rgba(0,240,255,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,0.07) 1px,transparent 1px)",
+                    backgroundSize: "28px 28px",
+                  }}
+                  aria-hidden="true"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/50" aria-hidden="true" />
+
+                {/* Scanlines */}
+                <div
+                  className="absolute inset-0 pointer-events-none opacity-20"
+                  style={{ backgroundImage: "repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.2) 3px,rgba(0,0,0,0.2) 4px)" }}
+                  aria-hidden="true"
+                />
+
+                {channelsLoading ? (
+                  /* Loading state */
+                  <div className="relative z-10 flex flex-col items-center gap-3">
+                    <div className="w-8 h-8 border-2 border-[#00f0ff]/30 border-t-[#00f0ff] animate-spin" aria-label="Loading channels" />
+                    <span className="font-cyber text-[10px] font-bold uppercase tracking-widest text-[#00f0ff]/60">
+                      Loading channels…
+                    </span>
+                  </div>
+                ) : channels.length > 0 ? (
+                  /* Play button */
+                  <button
+                    onClick={() => setPlayerStarted(true)}
+                    aria-label={`Play ${activeChannel?.name || "live stream"}`}
+                    className="relative z-10 flex flex-col items-center gap-4 group"
+                  >
+                    <motion.div
+                      whileHover={{ scale: 1.08 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="relative w-20 h-20 flex items-center justify-center border-2 border-[#00f0ff]/40 group-hover:border-[#fcee0a] transition-all duration-300 bg-black/50"
+                      style={{ clipPath: "polygon(50% 0, 100% 50%, 50% 100%, 0 50%)" }}
+                    >
+                      <Play className="w-8 h-8 text-[#fcee0a] fill-[#fcee0a] ml-1.5" aria-hidden="true" />
+                    </motion.div>
+                    <div className="text-center">
+                      <div className="text-white font-cyber font-black text-base sm:text-lg">{activeChannel?.name}</div>
+                      <div className="text-[#00f0ff]/60 text-[10px] font-mono uppercase tracking-widest mt-1">
+                        Click to start stream
+                      </div>
+                    </div>
+                  </button>
+                ) : (
+                  /* No channels configured */
+                  <div className="relative z-10 text-center px-6">
+                    <Radio className="w-10 h-10 text-white/15 mx-auto mb-3" aria-hidden="true" />
+                    <p className="text-white/30 text-sm font-cyber font-bold uppercase tracking-wider mb-2">No Live Channels</p>
+                    <p className="text-white/20 text-xs font-mono mb-4">Add channels from the admin panel to watch live TV</p>
+                    <Link
+                      href="/admin"
+                      className="cyber-btn cyber-btn-cyan text-[10px]"
+                    >
+                      Configure IPTV →
+                    </Link>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Channel selector bar */}
+          {channels.length > 1 && (
+            <div className="relative border-t border-[#00f0ff]/10">
+              <button
+                onClick={() => setShowChannelPicker(!showChannelPicker)}
+                aria-expanded={showChannelPicker}
+                aria-controls="channel-picker"
+                aria-label="Select a channel"
+                className="w-full flex items-center justify-between gap-3 px-4 py-2.5 bg-[#09090d] hover:bg-[#0c0c14] transition-colors text-left group"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  {activeChannel?.logo && (
+                    <img
+                      src={activeChannel.logo}
+                      alt=""
+                      aria-hidden="true"
+                      className="w-5 h-5 object-contain opacity-70"
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                    />
+                  )}
+                  <span className="text-white/70 text-[11px] font-cyber font-bold truncate group-hover:text-[#fcee0a] transition-colors">
+                    {activeChannel?.name || "Select Channel"}
+                  </span>
+                  {activeChannel?.quality && (
+                    <span className="text-[8px] font-mono text-[#00f0ff]/50 border border-[#00f0ff]/20 px-1 shrink-0">
+                      {activeChannel.quality}
+                    </span>
+                  )}
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="text-[9px] font-mono text-white/25 hidden sm:block">
+                    {channels.length} channels
+                  </span>
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 text-[#00f0ff]/50 transition-transform duration-200 ${showChannelPicker ? "rotate-180" : ""}`}
+                    aria-hidden="true"
+                  />
+                </div>
+              </button>
+
+              {/* Dropdown */}
+              <AnimatePresence>
+                {showChannelPicker && (
+                  <motion.div
+                    id="channel-picker"
+                    role="listbox"
+                    aria-label="Channel list"
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 6 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute bottom-full left-0 right-0 bg-[#09090d] border border-[#00f0ff]/20 z-30 max-h-56 overflow-y-auto scrollbar-cyber shadow-[0_-8px_30px_rgba(0,0,0,0.8)]"
+                  >
+                    {/* Header */}
+                    <div className="px-4 py-2 border-b border-[#00f0ff]/10 flex items-center justify-between">
+                      <span className="text-[9px] font-cyber font-bold uppercase tracking-widest text-[#00f0ff]/50">
+                        Select Channel
+                      </span>
+                      <span className="text-[9px] font-mono text-white/20">{channels.length} available</span>
+                    </div>
+
+                    {channels.map((ch) => (
+                      <button
+                        key={ch.id}
+                        role="option"
+                        aria-selected={activeChannel?.id === ch.id}
+                        onClick={() => {
+                          setActiveChannel(ch);
+                          setPlayerStarted(false);
+                          setShowChannelPicker(false);
+                          setTimeout(() => setPlayerStarted(true), 80);
+                        }}
+                        className={`w-full flex items-center gap-3 px-4 py-2.5 text-left transition-colors hover:bg-[#fcee0a]/5 border-l-2 ${
+                          activeChannel?.id === ch.id
+                            ? "border-[#00f0ff] bg-[#00f0ff]/6"
+                            : "border-transparent"
+                        }`}
+                      >
+                        {ch.logo ? (
+                          <img
+                            src={ch.logo}
+                            alt=""
+                            aria-hidden="true"
+                            className="w-5 h-5 object-contain opacity-70 shrink-0"
+                            onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                          />
+                        ) : (
+                          <Tv className="w-4 h-4 text-white/20 shrink-0" aria-hidden="true" />
+                        )}
+                        <span
+                          className={`text-[11px] font-cyber font-bold truncate flex-1 ${
+                            activeChannel?.id === ch.id ? "text-[#00f0ff]" : "text-white/60"
+                          }`}
+                        >
+                          {ch.name}
+                        </span>
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          {ch.isLive && (
+                            <span className="text-[8px] font-cyber font-black text-[#ff0055] border border-[#ff0055]/30 px-1 leading-tight">
+                              LIVE
+                            </span>
+                          )}
+                          {ch.quality && (
+                            <span className="text-[8px] font-mono text-white/25">{ch.quality}</span>
+                          )}
+                        </div>
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )}
         </div>
       </div>
-
-      {/* Slide indicators (Apple TV dots style) */}
-      {banners.length > 1 && (
-        <div className="absolute bottom-8 right-8 flex gap-2 z-20">
-          {banners.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              className={`h-1.5 rounded-full transition-all duration-400 ${
-                current === i ? "w-6 bg-white" : "w-1.5 bg-white/35 hover:bg-white/50"
-              }`}
-              aria-label={`Go to slide ${i + 1}`}
-            />
-          ))}
-        </div>
-      )}
-    </div>
+    </section>
+  </div>
   );
 }

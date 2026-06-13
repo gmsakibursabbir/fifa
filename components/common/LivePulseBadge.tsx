@@ -14,22 +14,24 @@ export default function LivePulseBadge({
   className,
 }: LivePulseBadgeProps) {
   const sizeClasses = {
-    sm: "text-[10px] px-2 py-0.5 gap-1",
-    md: "text-xs px-2.5 py-1 gap-1.5",
-    lg: "text-sm px-3 py-1.5 gap-2",
+    sm: "text-[8px] px-1.5 py-0.5 gap-1",
+    md: "text-[9px] px-2 py-0.5 gap-1.5",
+    lg: "text-[11px] px-2.5 py-1 gap-2",
   };
 
   const dotSizes = {
-    sm: "w-1.5 h-1.5",
-    md: "w-2 h-2",
-    lg: "w-2.5 h-2.5",
+    sm: "w-1 h-1",
+    md: "w-1.5 h-1.5",
+    lg: "w-2 h-2",
   };
 
   return (
     <span
+      role="status"
+      aria-label={`${label} indicator`}
       className={cn(
-        "inline-flex items-center rounded-full font-bold tracking-wider",
-        "bg-red-500/15 text-red-400 border border-red-500/20",
+        "inline-flex items-center font-cyber font-black tracking-widest uppercase",
+        "bg-[#ff0055]/10 text-[#ff0055] border border-[#ff0055]/40",
         sizeClasses[size],
         className
       )}
@@ -38,12 +40,12 @@ export default function LivePulseBadge({
       <span className={cn("relative flex", dotSizes[size])}>
         <span
           className={cn(
-            "animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"
+            "absolute inline-flex h-full w-full bg-[#ff0055] opacity-75 animate-ping"
           )}
         />
         <span
           className={cn(
-            "relative inline-flex rounded-full bg-red-500",
+            "relative inline-flex bg-[#ff0055]",
             dotSizes[size]
           )}
         />

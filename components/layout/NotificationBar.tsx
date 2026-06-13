@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import { X } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { X, Zap } from "lucide-react";
 
 interface NotificationConfig {
   text: string;
@@ -41,18 +40,26 @@ export default function NotificationBar() {
     return null;
   }
 
-  const barColor = config.color || "bg-linear-to-r from-cyan-600/90 to-blue-600/90";
-
   return (
     <div
-      className={cn(
-        "relative w-full overflow-hidden py-2.5 text-[11px] font-extrabold uppercase tracking-wider text-white flex items-center border-b border-white/5 select-none shadow-md z-40",
-        barColor
-      )}
+      role="banner"
+      aria-label="Site notification"
+      className="relative w-full overflow-hidden py-2 text-[10px] font-cyber font-bold uppercase tracking-widest text-black flex items-center z-40 select-none"
+      style={{
+        background: "linear-gradient(90deg, #fcee0a 0%, #00f0ff 50%, #fcee0a 100%)",
+        backgroundSize: "200% 100%",
+        animation: "shimmer 4s linear infinite",
+      }}
     >
+      {/* Left accent */}
+      <div className="shrink-0 flex items-center gap-1.5 pl-4 pr-3 border-r border-black/20">
+        <Zap className="w-3 h-3 fill-current" />
+        <span>ALERT</span>
+      </div>
+
+      {/* Infinite marquee */}
       <div className="flex-1 overflow-hidden relative">
-        {/* Infinite marquee */}
-        <div className="animate-marquee hover:pause-marquee whitespace-nowrap flex gap-16 md:gap-24">
+        <div className="animate-marquee hover:pause-marquee whitespace-nowrap flex gap-16">
           <span>{config.text}</span>
           <span>{config.text}</span>
           <span>{config.text}</span>
@@ -63,11 +70,11 @@ export default function NotificationBar() {
 
       <button
         onClick={handleClose}
-        className="shrink-0 p-1.5 mr-4 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors duration-200"
+        className="shrink-0 p-1 mr-3 bg-black/15 hover:bg-black/30 text-black transition-colors duration-200"
         title="Close Notification"
         aria-label="Close Notification"
       >
-        <X className="w-3.5 h-3.5" />
+        <X className="w-3 h-3" />
       </button>
     </div>
   );

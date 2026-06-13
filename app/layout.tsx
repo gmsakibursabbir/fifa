@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -7,17 +6,10 @@ import NotificationBar from "@/components/layout/NotificationBar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  themeColor: "#030306",
 };
 
 export const metadata: Metadata = {
@@ -42,15 +34,19 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className={`${inter.variable} antialiased bg-[#000000] min-h-screen`} suppressHydrationWarning={true}>
+      <body className="antialiased min-h-screen text-white relative" suppressHydrationWarning={true}>
+        {/* Holographic matrix background grid */}
+        <div className="cyber-grid fixed inset-0 pointer-events-none -z-50" aria-hidden="true" />
+        {/* CRT scanlines overlay */}
+        <div className="cyber-scanlines pointer-events-none fixed inset-0 z-[9999] mix-blend-multiply" aria-hidden="true" />
         <TooltipProvider>
           <NotificationBar />
           <Navbar />
-          <main className="min-h-screen">{children}</main>
+          <main id="main-content" className="min-h-screen">{children}</main>
           <Footer />
         </TooltipProvider>
         <SpeedInsights />

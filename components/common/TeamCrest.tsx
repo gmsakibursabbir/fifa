@@ -28,7 +28,7 @@ export default function TeamCrest({
   return (
     <div
       className={cn(
-        "relative rounded-full overflow-hidden bg-white/5 border border-white/10 flex-shrink-0 flex items-center justify-center font-sans select-none",
+        "relative overflow-hidden bg-white/5 border border-white/10 flex-shrink-0 flex items-center justify-center font-sans select-none",
         className
       )}
       style={{ width: size, height: size }}
