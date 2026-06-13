@@ -11,5 +11,18 @@
     "isLive": true,
     "quality": "FHD",
     "featured": true
+  },
+  {
+    "id": 1781331303003,
+    "name": "T Sports",
+    "logo": "https://tsportscdn.s3.ap-southeast-1.amazonaws.com/uploads/settings/logo.png",
+    "stream": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/130714.ts",
+    "category": "Sports",
+    "description": "FIFA ",
+    "language": "Bangla",
+    "country": "Bangladesh",
+    "isLive": true,
+    "quality": "HD",
+    "featured": false
   }
 ]
