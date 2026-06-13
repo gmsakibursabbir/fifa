@@ -115,5 +115,18 @@
     "isLive": true,
     "quality": "HD",
     "featured": false
+  },
+  {
+    "id": 1781333263177,
+    "name": "Unite 8 Sports",
+    "logo": "https://img-cdn.publive.online/fit-in/1280x960/filters:format(webp)/bmi/media/media_files/2026/06/02/unite8-sports-logo-2026-06-02-11-18-06.jpg",
+    "stream": "http://10.30.30.30:8088/ZEE.CAFE.HD/tracks-v1a1/mono.m3u8?token=2cafa815488fb5c30def42d8d82d184744fa0ea4-89a2b2d601856eb89ab71cf4ddec312d-1781343546-1781332746",
+    "category": "Sports",
+    "description": "FIFA ",
+    "language": "Hindi",
+    "country": "India",
+    "isLive": true,
+    "quality": "HD",
+    "featured": false
   }
 ]
