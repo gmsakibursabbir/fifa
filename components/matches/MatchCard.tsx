@@ -75,7 +75,9 @@ export default function MatchCard({ match, index = 0, compact = false }: MatchCa
   const statusLabel = getStatusLabel(match.status, match.minute);
   
   // Don't show dummy scores for upcoming or live matches
-  const showScore = match.status === "FINISHED" && match.score?.fullTime?.home !== null && match.score?.fullTime?.away !== null;
+  const showScore = (match.status === "FINISHED" || match.status === "IN_PLAY" || match.status === "PAUSED") &&
+    match.score?.fullTime?.home !== null &&
+    match.score?.fullTime?.away !== null;
   const homeScore = match.score?.fullTime?.home;
   const awayScore = match.score?.fullTime?.away;
 
@@ -198,11 +200,11 @@ export default function MatchCard({ match, index = 0, compact = false }: MatchCa
               {showScore ? (
                 <div className="flex items-center gap-1.5 sm:gap-2 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg font-bold text-base sm:text-lg bg-white/5 border border-white/5 shadow-inner">
                   <span className={cn(homeScore !== null && homeScore !== undefined && awayScore !== null && awayScore !== undefined && homeScore > awayScore ? "text-white" : "text-white/40")}>
-                    {homeScore}
+                    {homeScore ?? 0}
                   </span>
                   <span className="text-white/20 text-xs sm:text-sm font-normal">–</span>
                   <span className={cn(homeScore !== null && homeScore !== undefined && awayScore !== null && awayScore !== undefined && awayScore > homeScore ? "text-white" : "text-white/40")}>
-                    {awayScore}
+                    {awayScore ?? 0}
                   </span>
                 </div>
               ) : (

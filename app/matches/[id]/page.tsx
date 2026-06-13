@@ -22,6 +22,8 @@ import {
   formatMatchTime,
   cn,
   getCompetitionEmblem,
+  getDhakaDateString,
+  getDhakaNow,
 } from "@/lib/utils";
 
 interface Props {
@@ -65,6 +67,39 @@ export default function MatchDetailPage({ params }: Props) {
   const { id } = use(params);
   const { match, isLoading } = useMatchDetail(id);
 
+  // Helper to format Bangladesh start date/time nicely
+  const getLocalStartText = (utcDateString: string) => {
+    const date = new Date(utcDateString);
+    if (isNaN(date.getTime())) return "Upcoming";
+    
+    const timeStr = date.toLocaleTimeString("en-US", {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+      timeZone: "Asia/Dhaka"
+    });
+    
+    const dateStrDhaka = getDhakaDateString(date);
+    const todayStrDhaka = getDhakaDateString(getDhakaNow());
+    
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const tomorrowStrDhaka = getDhakaDateString(tomorrow);
+    
+    if (dateStrDhaka === todayStrDhaka) {
+      return `Today, ${timeStr}`;
+    } else if (dateStrDhaka === tomorrowStrDhaka) {
+      return `Tomorrow, ${timeStr}`;
+    } else {
+      const dateStr = date.toLocaleDateString("en-GB", {
+        day: '2-digit',
+        month: 'short',
+        timeZone: "Asia/Dhaka"
+      });
+      return `${dateStr}, ${timeStr}`;
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="max-w-4xl mx-auto px-4 pt-16 pb-32 space-y-4">
@@ -86,8 +121,10 @@ export default function MatchDetailPage({ params }: Props) {
   const live = isMatchLive(match.status);
   const statusLabel = getStatusLabel(match.status, match.minute);
   
-  // Only show score if the match is finished
-  const showScore = match.status === "FINISHED" && match.score?.fullTime?.home !== null && match.score?.fullTime?.away !== null;
+  // Only show score if the match has finished or is live
+  const showScore = (match.status === "FINISHED" || match.status === "IN_PLAY" || match.status === "PAUSED") &&
+    match.score?.fullTime?.home !== null &&
+    match.score?.fullTime?.away !== null;
   const homeScore = match.score?.fullTime?.home;
   const awayScore = match.score?.fullTime?.away;
   const htHome   = match.score?.halfTime?.home;
@@ -114,7 +151,7 @@ export default function MatchDetailPage({ params }: Props) {
         )}
       >
         {/* Competition */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-8">
           <div className="flex items-center gap-2">
             {(match.competition.emblem || getCompetitionEmblem(match.competition.code)) && (
               <div className="w-6 h-6 flex items-center justify-center shrink-0">
@@ -126,12 +163,21 @@ export default function MatchDetailPage({ params }: Props) {
                 />
               </div>
             )}
-            <span className="text-gray-400 font-medium">{match.competition.name}</span>
+            <span className="text-gray-400 font-medium">
+              {match.competition.name}
+              {!live && (match.status === "SCHEDULED" || match.status === "TIMED") && (
+                <span className="text-gray-500 text-sm ml-2 font-normal">
+                  · {getLocalStartText(match.utcDate)}
+                </span>
+              )}
+            </span>
           </div>
           {live ? (
             <LivePulseBadge label={statusLabel} size="md" />
           ) : (
-            <span className="text-gray-500 text-sm">{statusLabel}</span>
+            !(match.status === "SCHEDULED" || match.status === "TIMED") && (
+              <span className="text-gray-500 text-sm">{statusLabel}</span>
+            )
           )}
         </div>
 
@@ -160,11 +206,11 @@ export default function MatchDetailPage({ params }: Props) {
               <>
                 <div className="flex items-center gap-3">
                   <span className={cn("text-6xl font-black", homeScore !== null && homeScore !== undefined && awayScore !== null && awayScore !== undefined && homeScore > awayScore ? "text-cyan-400" : "text-white")}>
-                    {homeScore}
+                    {homeScore ?? 0}
                   </span>
                   <span className="text-gray-500 text-4xl">–</span>
                   <span className={cn("text-6xl font-black", homeScore !== null && homeScore !== undefined && awayScore !== null && awayScore !== undefined && awayScore > homeScore ? "text-cyan-400" : "text-white")}>
-                    {awayScore}
+                    {awayScore ?? 0}
                   </span>
                 </div>
                 {htHome !== null && htAway !== null && (
@@ -173,14 +219,9 @@ export default function MatchDetailPage({ params }: Props) {
               </>
             ) : (
               <div className="text-center">
-                <div className="text-cyan-400 font-bold text-2xl tracking-wide">{formatMatchTime(match.utcDate)}</div>
-                <div className="text-gray-400 text-sm font-semibold mt-1">{formatMatchDate(match.utcDate)}</div>
-                {live && (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 text-xs font-bold uppercase tracking-wider mt-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping" />
-                    Live ({statusLabel})
-                  </span>
-                )}
+                <span className="text-gray-500 font-extrabold text-xl uppercase tracking-wider bg-white/5 px-4 py-1.5 rounded-full border border-white/5 select-none">
+                  vs
+                </span>
               </div>
             )}
           </div>
