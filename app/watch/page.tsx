@@ -184,6 +184,14 @@ export default function WatchPage() {
               </div>
             </div>
 
+            {/* Disclaimer card */}
+            <div className="bg-[#09090d]/60 border border-[#ff0055]/15 p-4 space-y-1.5">
+              <span className="text-[#ff0055] font-cyber font-bold uppercase tracking-wider text-[9px] block">Stream Disclaimer</span>
+              <p className="text-[10px] font-sans text-white/35 leading-relaxed">
+                This stream is sourced directly from external 3rd-party media providers. FIFA Live Hub does not host, upload, or transmit any video stream content. All liability resides with the respective 3rd-party hosts.
+              </p>
+            </div>
+
             {/* Recently watched */}
             {recentChannels.length > 0 && (
               <div className="space-y-2">

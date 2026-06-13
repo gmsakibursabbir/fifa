@@ -136,21 +136,26 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div
-          className="mt-14 pt-8 flex flex-col md:flex-row items-center justify-between gap-6 text-[9px] font-cyber font-bold uppercase tracking-widest"
+          className="mt-14 pt-8 flex flex-col md:flex-row items-start justify-between gap-6 text-[9px] font-cyber font-bold uppercase tracking-widest"
           style={{ borderTop: "1px solid rgba(0,240,255,0.08)" }}
         >
-          <p className="text-white/30">
-            © {new Date().getFullYear()} FIFA Live Hub — Data:{" "}
-            <a
-              href="https://www.football-data.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#00f0ff]/70 hover:text-[#00f0ff] transition-colors underline"
-            >
-              football-data.org
-            </a>
-          </p>
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="space-y-3 max-w-2xl">
+            <p className="text-white/30">
+              © {new Date().getFullYear()} FIFA Live Hub — Data:{" "}
+              <a
+                href="https://www.football-data.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#00f0ff]/70 hover:text-[#00f0ff] transition-colors underline"
+              >
+                football-data.org
+              </a>
+            </p>
+            <p className="text-[10px] font-sans normal-case text-white/20 leading-relaxed font-normal">
+              Disclaimer: FIFA Live Hub does not host, upload, or store any media or live streams. All video content, channels, and streams are sourced from external third-party servers and directories. The site owner/developer is not responsible for the availability, legality, or content of these external services.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-4 shrink-0 md:self-center">
             <span className="flex items-center gap-1.5 text-white/50">
               Built with{" "}
               <Heart className="w-3 h-3 text-[#ff0055] fill-[#ff0055] animate-pulse" aria-hidden="true" />
