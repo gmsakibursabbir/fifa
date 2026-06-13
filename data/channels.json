@@ -1,11 +1,11 @@
 [
   {
-    "id": 1781360435190,
+    "id": 1781368978414,
     "name": "CazeTv",
     "logo": "https://upload.wikimedia.org/wikipedia/en/6/64/Caz%C3%A9TV_logo.svg",
     "stream": "https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/1080p-vtt/index.m3u8",
     "category": "Sports",
-    "description": "IPTV Stream from http://m3u4u.com/m3u/dqr6yw4wdgtwmqjpnx1w",
+    "description": "IPTV Live Stream",
     "language": "English",
     "country": "Global",
     "isLive": true,
@@ -14,12 +14,12 @@
     "isIptv": true
   },
   {
-    "id": 1781360435191,
+    "id": 1781368978415,
     "name": "BeinSports",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/d/d4/BeIN_Sports_logo_%28horizontal_version%29.svg",
     "stream": "https://1nyaler.streamhostingcdn.top/stream/23/index.m3u8",
     "category": "Sports",
-    "description": "IPTV Stream from http://m3u4u.com/m3u/dqr6yw4wdgtwmqjpnx1w",
+    "description": "IPTV Live Stream",
     "language": "English",
     "country": "Global",
     "isLive": true,
@@ -28,12 +28,12 @@
     "isIptv": true
   },
   {
-    "id": 1781360435192,
+    "id": 1781368978416,
     "name": "Tsports",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/4/4c/T_Sports_logo.svg",
     "stream": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/130714.ts",
     "category": "Sports",
-    "description": "IPTV Stream from http://m3u4u.com/m3u/dqr6yw4wdgtwmqjpnx1w",
+    "description": "IPTV Live Stream",
     "language": "English",
     "country": "Global",
     "isLive": true,
@@ -42,12 +42,26 @@
     "isIptv": true
   },
   {
-    "id": 1781360435193,
+    "id": 1781368978417,
+    "name": "TSports (BDIX-1)",
+    "logo": "https://tsportscdn.s3.ap-southeast-1.amazonaws.com/uploads/settings/logo.png",
+    "stream": "http://198.195.239.50:8095/tsports/index.m3u8",
+    "category": "Sports",
+    "description": "IPTV Live Stream",
+    "language": "English",
+    "country": "Global",
+    "isLive": true,
+    "quality": "HD",
+    "featured": false,
+    "isIptv": true
+  },
+  {
+    "id": 1781368978418,
     "name": "Ptv Sports",
     "logo": "https://upload.wikimedia.org/wikipedia/en/e/e4/PTV_Sports.png",
     "stream": "https://tvsen5.aynaott.com/PtvSports/index.m3u8",
     "category": "Sports",
-    "description": "IPTV Stream from http://m3u4u.com/m3u/dqr6yw4wdgtwmqjpnx1w",
+    "description": "IPTV Live Stream",
     "language": "English",
     "country": "Global",
     "isLive": true,
@@ -56,12 +70,12 @@
     "isIptv": true
   },
   {
-    "id": 1781360435194,
+    "id": 1781368978419,
     "name": "WIN Sports",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/5/58/Win_Sports_nuevo_logo.svg",
     "stream": "https://1nyaler.streamhostingcdn.top/stream/32/index.m3u8",
     "category": "Sports",
-    "description": "IPTV Stream from http://m3u4u.com/m3u/dqr6yw4wdgtwmqjpnx1w",
+    "description": "IPTV Live Stream",
     "language": "English",
     "country": "Global",
     "isLive": true,
@@ -70,12 +84,12 @@
     "isIptv": true
   },
   {
-    "id": 1781360435195,
+    "id": 1781368978420,
     "name": "SportTV 1",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Sport_TV_2023.svg",
     "stream": "https://1nyaler.streamhostingcdn.top/stream/33/index.m3u8",
     "category": "Sports",
-    "description": "IPTV Stream from http://m3u4u.com/m3u/dqr6yw4wdgtwmqjpnx1w",
+    "description": "IPTV Live Stream",
     "language": "English",
     "country": "Global",
     "isLive": true,
@@ -84,12 +98,12 @@
     "isIptv": true
   },
   {
-    "id": 1781360435196,
+    "id": 1781368978421,
     "name": "DAZN",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/0/06/DAZN_Logo_Master.svg",
     "stream": "https://1nyaler.streamhostingcdn.top/stream/94/index.m3u8",
     "category": "Sports",
-    "description": "IPTV Stream from http://m3u4u.com/m3u/dqr6yw4wdgtwmqjpnx1w",
+    "description": "IPTV Live Stream",
     "language": "English",
     "country": "Global",
     "isLive": true,
@@ -98,12 +112,12 @@
     "isIptv": true
   },
   {
-    "id": 1781360435197,
+    "id": 1781368978422,
     "name": "Tyc Sports",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/8/89/TyC_Sports_Logo.svg",
     "stream": "https://1nyaler.streamhostingcdn.top/stream/84/index.m3u8",
     "category": "Sports",
-    "description": "IPTV Stream from http://m3u4u.com/m3u/dqr6yw4wdgtwmqjpnx1w",
+    "description": "IPTV Live Stream",
     "language": "English",
     "country": "Global",
     "isLive": true,
@@ -112,12 +126,12 @@
     "isIptv": true
   },
   {
-    "id": 1781360435198,
+    "id": 1781368978423,
     "name": "Bein Sports Extra SP",
     "logo": "https://static.wikia.nocookie.net/logopedia/images/b/b5/XTRA_2.png",
     "stream": "https://amg01334-beinsportsllc-beinxtraesp-localnow-aekzc.amagi.tv/playlistR576p.m3u8",
     "category": "Sports",
-    "description": "IPTV Stream from http://m3u4u.com/m3u/dqr6yw4wdgtwmqjpnx1w",
+    "description": "IPTV Live Stream",
     "language": "English",
     "country": "Global",
     "isLive": true,
@@ -126,12 +140,12 @@
     "isIptv": true
   },
   {
-    "id": 1781360435199,
+    "id": 1781368978424,
     "name": "Sport1 Baltic",
     "logo": "https://s4.vcdn.biz/static/f/5719176031/image.jpg/pt/r300x423x4",
     "stream": "https://1nyaler.streamhostingcdn.top/stream/80/index.m3u8",
     "category": "Sports",
-    "description": "IPTV Stream from http://m3u4u.com/m3u/dqr6yw4wdgtwmqjpnx1w",
+    "description": "IPTV Live Stream",
     "language": "English",
     "country": "Global",
     "isLive": true,
