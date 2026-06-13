@@ -1,18 +1,5 @@
 [
   {
-    "id": 1781331303003,
-    "name": "T Sports",
-    "logo": "https://tsportscdn.s3.ap-southeast-1.amazonaws.com/uploads/settings/logo.png",
-    "stream": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/130714.ts",
-    "category": "Sports",
-    "description": "FIFA ",
-    "language": "Bangla",
-    "country": "Bangladesh",
-    "isLive": true,
-    "quality": "HD",
-    "featured": false
-  },
-  {
     "id": 1781331573929,
     "name": "Bein Sports 1",
     "logo": "https://upload.wikimedia.org/wikipedia/commons/d/d6/BeIN_Sports_logo_%28vertical_version%29.svg",
@@ -23,6 +10,19 @@
     "country": "Qatar",
     "isLive": true,
     "quality": "FHD",
+    "featured": false
+  },
+  {
+    "id": 1781331303003,
+    "name": "T Sports",
+    "logo": "https://tsportscdn.s3.ap-southeast-1.amazonaws.com/uploads/settings/logo.png",
+    "stream": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/130714.ts",
+    "category": "Sports",
+    "description": "FIFA ",
+    "language": "Bangla",
+    "country": "Bangladesh",
+    "isLive": true,
+    "quality": "HD",
     "featured": false
   },
   {
