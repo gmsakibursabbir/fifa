@@ -164,5 +164,18 @@
     "isLive": true,
     "quality": "HD",
     "featured": false
+  },
+  {
+    "id": 1781356072082,
+    "name": "TNT Sports Premium",
+    "logo": "",
+    "stream": "https://1nyaler.streamhostingcdn.top/stream/30/index.m3u8",
+    "category": "Football",
+    "description": "FIFA ",
+    "language": "Spanish",
+    "country": "Brazilian",
+    "isLive": true,
+    "quality": "HD",
+    "featured": false
   }
 ]
