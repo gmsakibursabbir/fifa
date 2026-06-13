@@ -15,6 +15,7 @@ interface ChannelCardProps {
   isActive?: boolean;
   compact?: boolean;
   index?: number;
+  onClick?: () => void;
 }
 
 const QUALITY_COLORS: Record<string, string> = {
@@ -31,6 +32,7 @@ export default function ChannelCard({
   isActive,
   compact = false,
   index = 0,
+  onClick,
 }: ChannelCardProps) {
   return (
     <motion.div
@@ -38,7 +40,7 @@ export default function ChannelCard({
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.3, delay: index * 0.04 }}
     >
-      <Link href={`/watch/${channel.id}`} id={`channel-card-${channel.id}`}>
+      <Link href={`/watch/${channel.id}`} id={`channel-card-${channel.id}`} onClick={onClick}>
         <div
           className={cn(
             "relative flex items-center gap-4 p-4 rounded-2xl border bg-white/[0.02] border-white/5 transition-all duration-300 ease-out hover:bg-white/[0.06] hover:border-white/15 hover:translate-x-1 active:scale-[0.99] group",

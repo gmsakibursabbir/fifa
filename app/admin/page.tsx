@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Tv, Plus, Edit3, Trash2, Check, X, LogOut, Zap, Shield,
   FileDown, Loader2, Search, CheckSquare, Square, Trash,
-  FileUp, BarChart2, AlertTriangle, RefreshCw,
+  FileUp, BarChart2, AlertTriangle, RefreshCw, GripVertical
 } from "lucide-react";
 import { useAdmin } from "@/hooks/useAdmin";
 import { useChannels } from "@/hooks/useChannels";
@@ -123,7 +123,7 @@ function ConfirmModal({
 export default function AdminPage() {
   const router = useRouter();
   const { token, isAuthenticated, logout } = useAdmin();
-  const { channels, isLoading, addChannel, addChannels, updateChannel, deleteChannel, deleteChannels, deleteAllChannels, mutate } = useChannels();
+  const { channels, isLoading, addChannel, addChannels, updateChannel, deleteChannel, deleteChannels, deleteAllChannels, mutate } = useChannels(token || undefined);
 
   const [mounted, setMounted] = useState(false);
   const [editing, setEditing] = useState<Partial<Channel> | null>(null);
@@ -158,6 +158,65 @@ export default function AdminPage() {
   });
   const [showIPTVConfig, setShowIPTVConfig] = useState(false);
   const [syncing, setSyncing] = useState(false);
+
+  // Drag and Drop ordering
+  const [channelList, setChannelList] = useState<Channel[]>([]);
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (channels) {
+      setChannelList(channels);
+    }
+  }, [channels]);
+
+  const handleSaveOrder = async (updatedList: Channel[]) => {
+    if (!token) return;
+    try {
+      const res = await fetch("/api/channels", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-token": token,
+        },
+        body: JSON.stringify(updatedList),
+      });
+      if (res.ok) {
+        showSuccess("Channels reordered successfully!");
+        mutate();
+      } else {
+        alert("Failed to save reordered channels.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error saving reorder.");
+    }
+  };
+
+  const handleDragStart = (e: React.DragEvent, index: number) => {
+    if (search) return;
+    setDraggedIndex(index);
+    e.dataTransfer.effectAllowed = "move";
+  };
+
+  const handleDragOver = (e: React.DragEvent, index: number) => {
+    e.preventDefault();
+    if (search || draggedIndex === null || draggedIndex === index) return;
+
+    const listCopy = [...channelList];
+    const draggedItem = listCopy[draggedIndex];
+    listCopy.splice(draggedIndex, 1);
+    listCopy.splice(index, 0, draggedItem);
+
+    setDraggedIndex(index);
+    setChannelList(listCopy);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedIndex(null);
+    if (!search) {
+      handleSaveOrder(channelList);
+    }
+  };
 
   // Handle mounting client-side
   useEffect(() => {
@@ -253,15 +312,15 @@ export default function AdminPage() {
   if (!mounted || !isAuthenticated) return null;
 
   // ── Filtered channels ────────────────────────────────────────────────────
-  const filtered = channels.filter((ch) =>
+  const filtered = channelList.filter((ch) =>
     !search ||
     ch.name.toLowerCase().includes(search.toLowerCase()) ||
     ch.stream.toLowerCase().includes(search.toLowerCase()) ||
     ch.category.toLowerCase().includes(search.toLowerCase())
   );
 
-  const liveCount = channels.filter((c) => c.isLive).length;
-  const featuredCount = channels.filter((c) => c.featured).length;
+  const liveCount = channelList.filter((c) => c.isLive).length;
+  const featuredCount = channelList.filter((c) => c.featured).length;
 
   // ── Helpers ──────────────────────────────────────────────────────────────
   const showSuccess = (msg: string) => {
@@ -444,7 +503,7 @@ export default function AdminPage() {
 
             {/* Stats bar */}
             <div className="flex flex-wrap items-center gap-2">
-              <StatBadge label="Total" value={channels.length} color="text-white/60 bg-white/5 border-white/5" />
+              <StatBadge label="Total" value={channelList.length} color="text-white/60 bg-white/5 border-white/5" />
               <StatBadge label="Live" value={liveCount} color="text-red-400 bg-red-500/10 border-red-500/20" />
               <StatBadge label="Featured" value={featuredCount} color="text-yellow-400 bg-yellow-500/10 border-yellow-500/20" />
             </div>
@@ -494,9 +553,9 @@ export default function AdminPage() {
               {/* Export M3U */}
               <Button
                 id="export-m3u-btn"
-                onClick={() => exportM3U(channels)}
+                onClick={() => exportM3U(channelList)}
                 size="sm"
-                disabled={channels.length === 0}
+                disabled={channelList.length === 0}
                 className="bg-white/5 hover:bg-white/10 text-white border border-white/5 rounded-full px-3 text-xs disabled:opacity-40"
               >
                 <FileUp className="w-3.5 h-3.5 mr-1.5 text-white/50" />
@@ -514,6 +573,13 @@ export default function AdminPage() {
                 Add Channel
               </Button>
             </div>
+
+            {/* Drag and Drop Tip */}
+            {!search && channelList.length > 1 && (
+              <p className="text-[10px] text-white/35 font-semibold flex items-center gap-1.5 px-1.5 pt-1">
+                <span>💡 Tip: Drag and drop items using the grab handle <GripVertical className="inline w-3 h-3 text-white/40 -mt-0.5" /> to reorder the IPTV list.</span>
+              </p>
+            )}
 
             {/* Bulk action bar */}
             <div className="flex items-center justify-between bg-[#0d0d11] border border-white/5 rounded-xl px-4 py-2.5">
@@ -542,7 +608,7 @@ export default function AdminPage() {
                   </motion.button>
                 )}
 
-                {channels.length > 0 && (
+                {channelList.length > 0 && (
                   <button
                     id="delete-all-btn"
                     onClick={handleDeleteAll}
@@ -586,12 +652,28 @@ export default function AdminPage() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.97 }}
                         transition={{ duration: 0.15 }}
+                        draggable={!search}
+                        onDragStart={(e: any) => handleDragStart(e, channelList.indexOf(ch))}
+                        onDragOver={(e: any) => handleDragOver(e, channelList.indexOf(ch))}
+                        onDragEnd={handleDragEnd}
                         className={`bg-[#0d0d11] border rounded-xl p-3 sm:p-4 flex items-center gap-3 transition-all duration-200 ${
-                          isSelected
+                          draggedIndex === channelList.indexOf(ch)
+                            ? "border-cyan-500/50 bg-cyan-500/10 opacity-50 cursor-grabbing"
+                            : isSelected
                             ? "border-cyan-500/30 bg-cyan-500/5"
                             : "border-white/5 hover:border-white/10"
                         }`}
                       >
+                        {/* Drag Handle */}
+                        {!search && (
+                          <div
+                            className="shrink-0 text-white/20 hover:text-white cursor-grab active:cursor-grabbing p-1 -ml-1 transition-colors"
+                            title="Drag to reorder"
+                          >
+                            <GripVertical className="w-4 h-4" />
+                          </div>
+                        )}
+
                         {/* Checkbox */}
                         <button
                           onClick={() => toggleSelect(ch.id)}
@@ -664,7 +746,7 @@ export default function AdminPage() {
             {/* Result count when searching */}
             {search && filtered.length > 0 && (
               <p className="text-center text-white/25 text-xs font-semibold">
-                Showing {filtered.length} of {channels.length} channels
+                Showing {filtered.length} of {channelList.length} channels
               </p>
             )}
           </div>

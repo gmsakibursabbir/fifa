@@ -9,7 +9,7 @@ function authCheck(request: NextRequest): boolean {
   return request.headers.get("x-admin-token") === process.env.ADMIN_PASSWORD;
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const config = await loadIPTVConfig();
     if (config && config.autoUpdate && config.playlistUrl) {
@@ -25,7 +25,19 @@ export async function GET() {
     console.error("Failed to check background IPTV sync:", error);
   }
 
-  return NextResponse.json(await loadChannels());
+  const channels = await loadChannels();
+  const isAdmin = authCheck(request);
+
+  if (isAdmin) {
+    return NextResponse.json(channels);
+  }
+
+  const maskedChannels = channels.map((ch) => ({
+    ...ch,
+    stream: `/api/stream/${ch.id}/playlist.m3u8`,
+  }));
+
+  return NextResponse.json(maskedChannels);
 }
 
 // POST — single channel OR bulk array insert
@@ -84,11 +96,18 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const body = await request.json() as Channel;
+  const body = await request.json();
+
+  if (Array.isArray(body)) {
+    await saveChannels(body as Channel[]);
+    return NextResponse.json({ success: true, count: body.length });
+  }
+
+  const channel = body as Channel;
   const channels = await loadChannels();
-  const idx = channels.findIndex((c) => c.id === body.id);
+  const idx = channels.findIndex((c) => c.id === channel.id);
   if (idx === -1) return NextResponse.json({ error: "Not found" }, { status: 404 });
-  channels[idx] = { ...channels[idx], ...body };
+  channels[idx] = { ...channels[idx], ...channel };
   await saveChannels(channels);
   return NextResponse.json(channels[idx]);
 }

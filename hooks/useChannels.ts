@@ -4,18 +4,24 @@ import useSWR from "swr";
 import { useState, useCallback } from "react";
 import type { Channel } from "@/types/channel";
 
-const fetcher = async (url: string) => {
-  const res = await fetch(url);
+const customFetcher = async (urlKey: string | [string, string]) => {
+  const url = Array.isArray(urlKey) ? urlKey[0] : urlKey;
+  const token = Array.isArray(urlKey) ? urlKey[1] : undefined;
+  const headers: HeadersInit = {};
+  if (token) {
+    headers["x-admin-token"] = token;
+  }
+  const res = await fetch(url, { headers });
   if (!res.ok) {
     throw new Error(`Failed to fetch channels: ${res.status}`);
   }
   return res.json() as Promise<Channel[]>;
 };
 
-export function useChannels() {
+export function useChannels(adminToken?: string) {
   const { data, error, isLoading, mutate } = useSWR<Channel[]>(
-    "/api/channels",
-    fetcher,
+    adminToken ? ["/api/channels", adminToken] : "/api/channels",
+    customFetcher,
     { revalidateOnFocus: false }
   );
 

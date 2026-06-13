@@ -294,7 +294,7 @@ function HLSPlayerInner({
     <div
       ref={containerRef}
       className={cn(
-        "relative bg-black rounded-2xl overflow-hidden group select-none",
+        "relative bg-black rounded-lg md:rounded-xl overflow-hidden group select-none",
         className
       )}
       onMouseMove={resetControlsTimer}

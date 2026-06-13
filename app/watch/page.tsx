@@ -42,13 +42,14 @@ export default function WatchPage() {
         
         {/* Left Side: Video Player & Metadata Details */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="relative w-full aspect-video rounded-3xl overflow-hidden bg-[#0d0d11] border border-white/5 shadow-2xl shadow-black/95 flex items-center justify-center">
+          <div className="relative w-full aspect-video rounded-lg md:rounded-xl overflow-hidden bg-[#0d0d11] border border-white/5 shadow-2xl shadow-black/95 flex items-center justify-center">
             {/* Grid overlay for video deck */}
             <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none -z-10" />
 
             {activeChannel ? (
               <div className="w-full h-full">
                 <HLSPlayer
+                  key={activeChannel.id}
                   src={activeChannel.stream}
                   channelName={activeChannel.name}
                   autoPlay
@@ -66,7 +67,7 @@ export default function WatchPage() {
 
           {/* Active Channel Info Card */}
           {activeChannel ? (
-            <div className="bg-white/[0.01] border border-white/5 rounded-3xl p-6 md:p-8 shadow-xl space-y-6">
+            <div className="bg-white/[0.01] border border-white/5 rounded-xl md:rounded-2xl p-6 md:p-8 shadow-xl space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/5 pb-6">
                 <div className="flex items-center gap-4">
                   <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-inner">
@@ -183,15 +184,15 @@ export default function WatchPage() {
                 {channels
                   .filter((c) => favorites.has(c.id))
                   .map((ch) => (
-                    <div key={ch.id} onClick={() => handlePlay(ch.id)} className="cursor-pointer">
-                      <ChannelCard
-                        channel={ch}
-                        isFavorite
-                        onFavoriteToggle={toggle}
-                        isActive={activeChannel?.id === ch.id}
-                        compact
-                      />
-                    </div>
+                    <ChannelCard
+                      key={ch.id}
+                      channel={ch}
+                      isFavorite
+                      onFavoriteToggle={toggle}
+                      isActive={activeChannel?.id === ch.id}
+                      compact
+                      onClick={() => addRecent(ch.id)}
+                    />
                   ))}
               </div>
             </div>
@@ -206,15 +207,15 @@ export default function WatchPage() {
               </div>
               <div className="grid grid-cols-1 gap-3">
                 {recentChannels.slice(0, 3).map((ch) => ch && (
-                  <div key={ch.id} onClick={() => handlePlay(ch.id)} className="cursor-pointer">
-                    <ChannelCard
-                      channel={ch}
-                      isFavorite={favorites.has(ch.id)}
-                      onFavoriteToggle={toggle}
-                      isActive={activeChannel?.id === ch.id}
-                      compact
-                    />
-                  </div>
+                  <ChannelCard
+                    key={ch.id}
+                    channel={ch}
+                    isFavorite={favorites.has(ch.id)}
+                    onFavoriteToggle={toggle}
+                    isActive={activeChannel?.id === ch.id}
+                    compact
+                    onClick={() => addRecent(ch.id)}
+                  />
                 ))}
               </div>
             </div>
@@ -235,15 +236,15 @@ export default function WatchPage() {
             ) : (
               <div className="grid grid-cols-1 gap-3">
                 {filtered.map((ch) => (
-                  <div key={ch.id} onClick={() => handlePlay(ch.id)} className="cursor-pointer">
-                    <ChannelCard
-                      channel={ch}
-                      isFavorite={favorites.has(ch.id)}
-                      onFavoriteToggle={toggle}
-                      isActive={activeChannel?.id === ch.id}
-                      compact
-                    />
-                  </div>
+                  <ChannelCard
+                    key={ch.id}
+                    channel={ch}
+                    isFavorite={favorites.has(ch.id)}
+                    onFavoriteToggle={toggle}
+                    isActive={activeChannel?.id === ch.id}
+                    compact
+                    onClick={() => addRecent(ch.id)}
+                  />
                 ))}
               </div>
             )}
