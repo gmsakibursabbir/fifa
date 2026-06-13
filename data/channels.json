@@ -91,6 +91,19 @@
     "featured": false
   },
   {
+    "id": 1781331667219,
+    "name": "Win Sports",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/5/58/Win_Sports_nuevo_logo.svg",
+    "stream": "https://1nyaler.streamhostingcdn.top/stream/32/index.m3u8",
+    "category": "Sports",
+    "description": "FIFA ",
+    "language": "English",
+    "country": "USA",
+    "isLive": true,
+    "quality": "HD",
+    "featured": false
+  },
+  {
     "id": 1781332152298,
     "name": "T Sports (BDIX-1)",
     "logo": "https://tsportscdn.s3.ap-southeast-1.amazonaws.com/uploads/settings/logo.png",
@@ -125,19 +138,6 @@
     "description": "FIFA ",
     "language": "Bangla",
     "country": "Bangladesh",
-    "isLive": true,
-    "quality": "HD",
-    "featured": false
-  },
-  {
-    "id": 1781331667219,
-    "name": "Win Sports",
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/5/58/Win_Sports_nuevo_logo.svg",
-    "stream": "https://1nyaler.streamhostingcdn.top/stream/32/index.m3u8",
-    "category": "Sports",
-    "description": "FIFA ",
-    "language": "English",
-    "country": "USA",
     "isLive": true,
     "quality": "HD",
     "featured": false
