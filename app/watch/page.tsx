@@ -145,7 +145,10 @@ export default function WatchPage() {
                   </div>
                 </div>
 
-                {activeChannel.description && (
+                {activeChannel.description &&
+                 !activeChannel.description.toLowerCase().includes("http://") &&
+                 !activeChannel.description.toLowerCase().includes("https://") &&
+                 !activeChannel.description.toLowerCase().startsWith("iptv stream from") && (
                   <p className="text-white/40 text-xs font-sans leading-relaxed mb-4">
                     {activeChannel.description}
                   </p>

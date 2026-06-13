@@ -141,7 +141,7 @@ export async function syncIPTVPlaylist(): Promise<{ success: boolean; count: num
       logo: ch.logo || "",
       stream: ch.stream || "",
       category: ch.category || "Sports",
-      description: ch.description || `IPTV Stream from ${config.playlistUrl}`,
+      description: ch.description || "IPTV Live Stream",
       language: ch.language || "English",
       country: ch.country || "Global",
       isLive: ch.isLive ?? true,
