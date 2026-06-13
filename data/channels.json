@@ -78,6 +78,19 @@
     "featured": false
   },
   {
+    "id": 1781356072082,
+    "name": "TNT Sports Premium",
+    "logo": "",
+    "stream": "https://1nyaler.streamhostingcdn.top/stream/30/index.m3u8",
+    "category": "Football",
+    "description": "FIFA ",
+    "language": "Spanish",
+    "country": "Brazilian",
+    "isLive": true,
+    "quality": "HD",
+    "featured": false
+  },
+  {
     "id": 1781332675633,
     "name": "T Sports (BDIX-3)",
     "logo": "https://tsportscdn.s3.ap-southeast-1.amazonaws.com/uploads/settings/logo.png",
@@ -161,19 +174,6 @@
     "logo": "",
     "stream": "https://lb12.strmd.st/secure/kTpElDhEkoIiVxyCWiMAcVDKUeCBNQhD/echo/stream/formula-3-spain-r4-formula-2-spain-r5-game-19996/1/playlist.m3u8",
     "category": "Sports",
-    "isLive": true,
-    "quality": "HD",
-    "featured": false
-  },
-  {
-    "id": 1781356072082,
-    "name": "TNT Sports Premium",
-    "logo": "",
-    "stream": "https://1nyaler.streamhostingcdn.top/stream/30/index.m3u8",
-    "category": "Football",
-    "description": "FIFA ",
-    "language": "Spanish",
-    "country": "Brazilian",
     "isLive": true,
     "quality": "HD",
     "featured": false
