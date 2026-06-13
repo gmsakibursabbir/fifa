@@ -24,5 +24,18 @@
     "isLive": true,
     "quality": "HD",
     "featured": false
+  },
+  {
+    "id": 1781331462864,
+    "name": "PTV Sports",
+    "logo": "https://en.wikipedia.org/wiki/PTV_Sports#/media/File:PTV_Sports.png",
+    "stream": "https://tvsen5.aynaott.com/PtvSports/index.m3u8",
+    "category": "Sports",
+    "description": "FIFA ",
+    "language": "Urdu",
+    "country": "Pakistan",
+    "isLive": true,
+    "quality": "HD",
+    "featured": false
   }
 ]
