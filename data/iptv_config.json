@@ -1,7 +1,7 @@
 {
-  "playlistUrl": "https://m3u4u.com/m3u/476rnmk7d5fp4wkdnekg",
+  "playlistUrl": "http://m3u4u.com/m3u/dqr6yw4wdgtwmqjpnx1w",
   "autoUpdate": true,
-  "syncMode": "merge",
-  "lastUpdated": "2026-06-14T07:52:16.845Z",
+  "syncMode": "overwrite",
+  "lastUpdated": "2026-06-14T19:20:32.878Z",
   "channelCount": 13
 }
