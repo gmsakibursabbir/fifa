@@ -1,6 +1,6 @@
 [
   {
-    "id": 1782151277056,
+    "id": 1782233355957,
     "name": "Caze TV",
     "logo": "",
     "stream": "https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/1080p-vtt/index.m3u8",
@@ -14,7 +14,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277057,
+    "id": 1782233355958,
     "name": "BTV 🇧🇩 Bangladesh",
     "logo": "",
     "stream": "https://owrcovcrpy.gpcdn.net/bpk-tv/1709/output/1709-audio_113392_eng=113200-video=2202800.m3u8",
@@ -28,7 +28,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277058,
+    "id": 1782233355959,
     "name": "Bein Sports 1",
     "logo": "",
     "stream": "https://amg01334-beinsportsllc-beinxtraesp-localnow-aekzc.amagi.tv/playlistR1080p.m3u8",
@@ -42,7 +42,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277059,
+    "id": 1782233355960,
     "name": "Bein Sports 1 (2)",
     "logo": "",
     "stream": "https://owrcovcrpy.gpcdn.net/bpk-tv/1709/output/index.m3u8",
@@ -56,7 +56,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277060,
+    "id": 1782233355961,
     "name": "Zee Bangla Chinena",
     "logo": "",
     "stream": "http://str2.v3v3v.xyz:2082/live/rokhsi25_951396/POm6KqnW/277428.ts",
@@ -70,7 +70,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277061,
+    "id": 1782233355962,
     "name": "Projapoti 2",
     "logo": "",
     "stream": "http://103.203.93.4/Tollywood%20(Kolkata)/2026/Projapati%202%202025%20Bengali%20Zee5%20WEB-DL%20H264%20AAC%20720p/Projapati%202%202025%20Bengali%20Zee5%20WEB-DL%20H264%20AAC%20720p.mkv",
@@ -84,7 +84,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277062,
+    "id": 1782233355963,
     "name": "T sports 1",
     "logo": "",
     "stream": "http://198.195.239.50:8095/tsports/index.m3u8",
@@ -98,7 +98,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277063,
+    "id": 1782233355964,
     "name": "T sports 2",
     "logo": "",
     "stream": "http://rgkkw.live/live/1Aoen7elp5/IgMJ60tmAa/130714.ts",
@@ -112,7 +112,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277064,
+    "id": 1782233355965,
     "name": "Somoi Tv",
     "logo": "",
     "stream": "http://103.151.60.188:1111/Somoy-TV-SD-700kb/tracks-v1a1/mono.m3u8",
@@ -126,7 +126,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277065,
+    "id": 1782233355966,
     "name": "World Cup HD 1",
     "logo": "",
     "stream": "http://starhub.pro/live/farhat-3379/67897-913379/742610.ts",
@@ -140,7 +140,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277066,
+    "id": 1782233355967,
     "name": "World Cup FHD 3",
     "logo": "",
     "stream": "http://vca.easy747.com:80/live/donad220/8U01MGV/1438202.ts",
@@ -154,7 +154,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277067,
+    "id": 1782233355968,
     "name": "World Cup 4k 4",
     "logo": "",
     "stream": "http://starhub.pro/live/farhat-3379/67897-913379/745269.ts",
@@ -168,7 +168,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277068,
+    "id": 1782233355969,
     "name": "World Cup 4k 5",
     "logo": "",
     "stream": "http://starhub.pro/live/farhat-3379/67897-913379/745270.ts",
@@ -182,7 +182,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277069,
+    "id": 1782233355970,
     "name": "World Cup 6",
     "logo": "",
     "stream": "http://rgkkw.live/live/1Aoen7elp5/IgMJ60tmAa/745149.ts",
@@ -196,7 +196,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277070,
+    "id": 1782233355971,
     "name": "World Cup 7",
     "logo": "",
     "stream": "http://rgkkw.live/live/1Aoen7elp5/IgMJ60tmAa/741566.ts",
@@ -210,7 +210,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277071,
+    "id": 1782233355972,
     "name": "beIN SPORTS 4k",
     "logo": "",
     "stream": "http://go8knm.optikl.ink/X/index.php/Besyria3/video.m3u8",
@@ -224,7 +224,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277072,
+    "id": 1782233355973,
     "name": "Star Sports 1 HD",
     "logo": "",
     "stream": "http://41.205.93.154/STARSPORTS1/index.m3u8",
@@ -238,7 +238,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277073,
+    "id": 1782233355974,
     "name": "REAL MADRID TV",
     "logo": "",
     "stream": "https://rmtv.akamaized.net/hls/live/2043153/rmtv-es-web/bitrate_3.m3u8",
@@ -252,7 +252,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277074,
+    "id": 1782233355975,
     "name": "BEIN SPORT EXTRA Ñ 🇪🇸",
     "logo": "",
     "stream": "https://bein-esp-xumo.amagi.tv/playlistR1080p.m3u8",
@@ -266,7 +266,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277075,
+    "id": 1782233355976,
     "name": "BEIN SPORT EXTRA Ñ 🇪🇸 (2)",
     "logo": "",
     "stream": "https://bein-esp-xumo.amagi.tv/playlistR720P.m3u8",
@@ -280,7 +280,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277076,
+    "id": 1782233355977,
     "name": "IDMANTV 🇹🇷",
     "logo": "",
     "stream": "https://str2.yodacdn.net/idman_300_to_small/tracks-v1a1/mono.m3u8",
@@ -294,7 +294,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277077,
+    "id": 1782233355978,
     "name": "SKY SPORTS ACTION",
     "logo": "",
     "stream": "http://sewv654wfcsdwfi87fwvgbngh.siauliairsavlt.pw/iptv/VCQ4ADX96VH4G8PY7URBWRQU/9155/index.m3u8",
@@ -308,7 +308,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277078,
+    "id": 1782233355979,
     "name": "SKY SPORT LALIGA 🇲🇽",
     "logo": "",
     "stream": "http://179.60.224.196:8000/play/a0i7/index.m3u8",
@@ -322,7 +322,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277079,
+    "id": 1782233355980,
     "name": "Hub Sports 2 HD",
     "logo": "",
     "stream": "http://tv-premium-pro.com/live/wezqqszfr2/i7481xvrdf/280823.m3u8",
@@ -336,7 +336,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277080,
+    "id": 1782233355981,
     "name": "2TV Sport 🇳🇴",
     "logo": "",
     "stream": "https://tv.cdn.xsg.ge/gpb-2tv/index.m3u8",
@@ -350,7 +350,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277081,
+    "id": 1782233355982,
     "name": "FGN",
     "logo": "",
     "stream": "http://103.175.73.12:8080/live/856/856_0.m3u8",
@@ -364,7 +364,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277082,
+    "id": 1782233355983,
     "name": "GO 3 sport 1 hd",
     "logo": "",
     "stream": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/18000/index.m3u8",
@@ -378,7 +378,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277083,
+    "id": 1782233355984,
     "name": "GO 3 sport 2 hd",
     "logo": "",
     "stream": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/18001/index.m3u8",
@@ -392,7 +392,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277084,
+    "id": 1782233355985,
     "name": "Football World Cup 2026 (BEIN SPORTS)",
     "logo": "",
     "stream": "http://starhub.pro/live/farhat-3379/67897-913379/744517.ts",
@@ -406,7 +406,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277085,
+    "id": 1782233355986,
     "name": "SONY LIV",
     "logo": "",
     "stream": "http://live.balajibroadband.com:3500/live/524.m3u8",
@@ -420,7 +420,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277086,
+    "id": 1782233355987,
     "name": "SONY LIV (2)",
     "logo": "",
     "stream": "http://live.balajibroadband.com:3500/live/891.m3u8",
@@ -434,7 +434,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277087,
+    "id": 1782233355988,
     "name": "SONY LIV (3)",
     "logo": "",
     "stream": "http://live.balajibroadband.com:3500/live/155.m3u8",
@@ -448,7 +448,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277088,
+    "id": 1782233355989,
     "name": "SONY LIV (4)",
     "logo": "",
     "stream": "http://live.balajibroadband.com:3500/live/162.m3u8",
@@ -462,7 +462,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277089,
+    "id": 1782233355990,
     "name": "SONY LIV (5)",
     "logo": "",
     "stream": "http://live.balajibroadband.com:3500/live/892.m3u8",
@@ -476,7 +476,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277090,
+    "id": 1782233355991,
     "name": "CIGNAL TV",
     "logo": "",
     "stream": "https://qp-pldt-live-bpk-ucd-prod.akamaized.net/bpk-tv/ch299/default/index.mpd",
@@ -490,7 +490,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277091,
+    "id": 1782233355992,
     "name": "DSPORTS FHD",
     "logo": "",
     "stream": "https://otte.live.fly.ww.aiv-cdn.net/gru-nitro/live/clients/dash/enc/ubehitlwzo/out/v1/8e09c381a51f4366a19e979418112e8f/cenc.mpd",
@@ -504,7 +504,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277092,
+    "id": 1782233355993,
     "name": "Caze TV BR",
     "logo": "",
     "stream": "https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/Caze_TV.m3u8",
@@ -518,7 +518,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277093,
+    "id": 1782233355994,
     "name": "Football World Cup 2026 link hindi",
     "logo": "",
     "stream": "http://starhub.pro/live/farhat-3379/67897-913379/741567.ts",
@@ -532,7 +532,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277094,
+    "id": 1782233355995,
     "name": "Football World Cup 2026 Sky",
     "logo": "",
     "stream": "https://d1211whpimeups.cloudfront.net/smil:rtbgo/chunklist.m3u8",
@@ -546,7 +546,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277095,
+    "id": 1782233355996,
     "name": "Football World Cup 2026 (FOX SPORTS)",
     "logo": "",
     "stream": "https://otte-tim.live.pv-cdn.net/pdx-nitro/live/clients/dash/enc/ajfoeddkbz/out/v1/b78800b9b2304879b15843f455836829/cenc.mpd",
@@ -560,7 +560,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277096,
+    "id": 1782233355997,
     "name": "Football World Cup 2026 1",
     "logo": "",
     "stream": "http://202.70.146.135:8000/play/a06s/index.m3u8",
@@ -574,7 +574,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277097,
+    "id": 1782233355998,
     "name": "Football World Cup 2026 (4K)",
     "logo": "",
     "stream": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/6408/index.m3u8",
@@ -588,7 +588,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277098,
+    "id": 1782233355999,
     "name": "PSL 2026 GEO SUPER",
     "logo": "",
     "stream": "http://stalker.hakunamata.workers.dev/play/1100/index.m3u8",
@@ -602,7 +602,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277099,
+    "id": 1782233356000,
     "name": "FANCODE",
     "logo": "",
     "stream": "https://abfjk4haaaaaaaampv6ofhkihi4r6.bia-cf.live.pv-cdn.net/iad-nitro/live/clients/dash/enc/fdb3pubmek/out/v1/aefca6420f944a9482e117f315de535f/cenc.mpd",
@@ -616,7 +616,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277100,
+    "id": 1782233356001,
     "name": "FANCODE (2)",
     "logo": "",
     "stream": "https://otte.cache.aiv-cdn.net/iad-nitro/live/clients/dash/enc/fdb3pubmek/out/v1/aefca6420f944a9482e117f315de535f/cenc.mpd",
@@ -630,7 +630,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277101,
+    "id": 1782233356002,
     "name": "FANCODE (3)",
     "logo": "",
     "stream": "https://otte.live.fly.ww.aiv-cdn.net/sin-nitro/live/clients/dash-sd/enc/v8g0dlo4z8/out/v1/946019f85dc64ae99ff9ce64a9727a62/cenc-sd.mpd",
@@ -644,7 +644,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277102,
+    "id": 1782233356003,
     "name": "Willow SPORTS",
     "logo": "",
     "stream": "https://otte.cache.aiv-cdn.net/bom-nitro/live/clients/dash/enc/tll6uwepxa/out/v1/a7f67cbb33df46539312956427343886/cenc.mpd",
@@ -658,7 +658,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277103,
+    "id": 1782233356004,
     "name": "Unknown",
     "logo": "",
     "stream": "https://otte.live.fly.ww.aiv-cdn.net/pdx-nitro/live/clients/dash/enc/3b7qwiqzk3/out/v1/9f14895badca43e6a716db021dcd0c31/cenc.mpd",
@@ -672,7 +672,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277104,
+    "id": 1782233356005,
     "name": "T Sports",
     "logo": "",
     "stream": "http://luckonline.eu/live/y49sz6KMQs/6115263489/1142.ts",
@@ -686,7 +686,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277105,
+    "id": 1782233356006,
     "name": "DAZN FAST+",
     "logo": "",
     "stream": "https://ac-003.live.p7s1video.net/63f8995e/t_003/dazn-fast-hd/cenc-default.mpd",
@@ -700,7 +700,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277106,
+    "id": 1782233356007,
     "name": "DAZN COMBAT",
     "logo": "",
     "stream": "https://dazn-combat-rakuten.amagi.tv/hls/amagi_hls_data_rakutenAA-dazn-combat-rakuten/CDN/master.m3u8",
@@ -714,7 +714,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277107,
+    "id": 1782233356008,
     "name": "Quran",
     "logo": "",
     "stream": "https://vodzong.mjunoon.tv:8087/streamtest/SaudiQuran-142/playlist.m3u8",
@@ -728,7 +728,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277108,
+    "id": 1782233356009,
     "name": "Quran (2)",
     "logo": "",
     "stream": "http://m.live.net.sa:1935/live/quran/playlist.m3u8",
@@ -742,7 +742,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277109,
+    "id": 1782233356010,
     "name": "SUNNAH",
     "logo": "",
     "stream": "https://tiger-hub.vercel.app@vodzong.mjunoon.tv:8087/streamtest/SaudiSunnah-141/playlist.m3u8",
@@ -756,7 +756,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277110,
+    "id": 1782233356011,
     "name": "SUNNAH (2)",
     "logo": "",
     "stream": "http://m.live.net.sa:1935/live/sunnah/chunklist.m3u8",
@@ -770,7 +770,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277111,
+    "id": 1782233356012,
     "name": "মাই টিভি",
     "logo": "",
     "stream": "http://116.204.149.16/mytv/index.m3u8",
@@ -784,7 +784,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277112,
+    "id": 1782233356013,
     "name": "RAJDHANI TV",
     "logo": "",
     "stream": "https://sm-monirul.top/toffee/play/rajdhani_tv.m3u8",
@@ -798,7 +798,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277113,
+    "id": 1782233356014,
     "name": "FS1",
     "logo": "",
     "stream": "http://41.223.30.230/FOXSPORTS1/index.m3u8",
@@ -812,7 +812,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277114,
+    "id": 1782233356015,
     "name": "FOX NY",
     "logo": "",
     "stream": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00488-foxdigital-wnyw-lgus/playlist.m3u8",
@@ -826,7 +826,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277115,
+    "id": 1782233356016,
     "name": "FOX 11 Green Bay WI (WLUK)",
     "logo": "",
     "stream": "https://linear-702.frequency.stream/dist/stirr/702/hls/master/playlist.m3u8",
@@ -840,7 +840,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277116,
+    "id": 1782233356017,
     "name": "FOX Sports 2 [2]",
     "logo": "",
     "stream": "http://190.61.101.11:7050/play/a08v/index.m3u8",
@@ -854,7 +854,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277117,
+    "id": 1782233356018,
     "name": "Telemundo",
     "logo": "",
     "stream": "https://nbculocallive.akamaized.net/hls/live/2037499/puertorico/stream1/master_720.m3u8",
@@ -868,7 +868,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277118,
+    "id": 1782233356019,
     "name": "Telemundo 2",
     "logo": "",
     "stream": "https://nbculocallive.akamaized.net/hls/live/2037499/puertorico/stream1/master.m3u8",
@@ -882,7 +882,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277119,
+    "id": 1782233356020,
     "name": "Fox Deportes",
     "logo": "",
     "stream": "http://23.237.104.106:8080/USA_FOX_DEPORTES/index.m3u8",
@@ -896,7 +896,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277120,
+    "id": 1782233356021,
     "name": "Bein US",
     "logo": "",
     "stream": "http://23.237.104.106:8080/USA_BEIN/index.m3u8",
@@ -910,7 +910,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277121,
+    "id": 1782233356022,
     "name": "Dazn 2",
     "logo": "",
     "stream": "http://23.237.104.106:8080/DAZN_2/index.m3u8",
@@ -924,7 +924,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277122,
+    "id": 1782233356023,
     "name": "Dazn 3",
     "logo": "",
     "stream": "http://23.237.104.106:8080/DAZN_3/index.m3u8",
@@ -938,7 +938,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277123,
+    "id": 1782233356024,
     "name": "Dazn 4",
     "logo": "",
     "stream": "http://23.237.104.106:8080/DAZN_4/index.m3u8",
@@ -952,7 +952,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277124,
+    "id": 1782233356025,
     "name": "Dazn 5",
     "logo": "",
     "stream": "http://23.237.104.106:8080/DAZN_5/index.m3u8",
@@ -966,7 +966,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277125,
+    "id": 1782233356026,
     "name": "Dazn 6",
     "logo": "",
     "stream": "http://23.237.104.106:8080/DAZN_6/index.m3u8",
@@ -980,7 +980,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277126,
+    "id": 1782233356027,
     "name": "DSports (Opción 1)",
     "logo": "",
     "stream": "http://190.108.83.69:8000/play/a05w/index.m3u8",
@@ -994,7 +994,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277127,
+    "id": 1782233356028,
     "name": "DSports (Opción 2)",
     "logo": "",
     "stream": "http://148.222.230.201:8000/play/a0pk/index.m3u8",
@@ -1008,7 +1008,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277128,
+    "id": 1782233356029,
     "name": "DSports (Opción 3)",
     "logo": "",
     "stream": "http://148.222.230.197:8000/play/a0mm/index.m3u8",
@@ -1022,7 +1022,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277129,
+    "id": 1782233356030,
     "name": "DSports (Opción 4)",
     "logo": "",
     "stream": "http://181.64.27.65:8000/play/a0dq/index.m3u8",
@@ -1036,7 +1036,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277130,
+    "id": 1782233356031,
     "name": "DSports (Opción 5)",
     "logo": "",
     "stream": "http://38.187.7.252:8000/play/a03d/index.m3u8",
@@ -1050,7 +1050,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277131,
+    "id": 1782233356032,
     "name": "DSports (Opción 6)",
     "logo": "",
     "stream": "http://190.223.48.46:8000/play/a028/index.m3u8",
@@ -1064,7 +1064,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277132,
+    "id": 1782233356033,
     "name": "DSports (Opción 7)",
     "logo": "",
     "stream": "http://191.97.59.33:8000/play/a09t/index.m3u8",
@@ -1078,7 +1078,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277133,
+    "id": 1782233356034,
     "name": "DSports (Opción 8)",
     "logo": "",
     "stream": "http://190.117.20.37:8000/play/a08d/index.m3u",
@@ -1092,7 +1092,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277134,
+    "id": 1782233356035,
     "name": "DSports (Opción 9)",
     "logo": "",
     "stream": "http://177.53.152.117:8000/play/a07d/index.m3u8",
@@ -1106,7 +1106,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277135,
+    "id": 1782233356036,
     "name": "DSports (Opción 10)",
     "logo": "",
     "stream": "http://8.243.126.131:8000/play/a05a/index.m3u8",
@@ -1120,7 +1120,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277136,
+    "id": 1782233356037,
     "name": "DSports (Opción 11)",
     "logo": "",
     "stream": "http://177.10.184.193:8000/play/a0fc/index.m3u8",
@@ -1134,7 +1134,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277137,
+    "id": 1782233356038,
     "name": "Bein Xtra (720)",
     "logo": "",
     "stream": "https://d9ssxzmclhfo4.cloudfront.net/bein_sports720p.m3u8",
@@ -1148,7 +1148,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277138,
+    "id": 1782233356039,
     "name": "FOX Sports (720)",
     "logo": "",
     "stream": "https://d1jzu95oc8fgt3.cloudfront.net/FOX_Sports720p.m3u8",
@@ -1162,7 +1162,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277139,
+    "id": 1782233356040,
     "name": "Caze TV (720)",
     "logo": "",
     "stream": "https://dfr80qz435crc.cloudfront.net/MNOP/Amagi/Caze/Caze_TV_BR/720p-vtt/index.m3u8",
@@ -1176,7 +1176,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277140,
+    "id": 1782233356041,
     "name": "TUDN",
     "logo": "",
     "stream": "http://24.152.53.3:8090/play/a012/index.m3u8",
@@ -1190,7 +1190,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277141,
+    "id": 1782233356042,
     "name": "Fubo Sports 2",
     "logo": "",
     "stream": "https://otte.live.fly.ww.aiv-cdn.net/pdx-nitro/live/clients/dash/enc/uiffe4jhf0/out/v1/3534efafca8c4815adbb4d2e9a1fe003/cenc.mpd",
@@ -1204,7 +1204,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277142,
+    "id": 1782233356043,
     "name": "Redbull TV",
     "logo": "",
     "stream": "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_3360.m3u8",
@@ -1218,7 +1218,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277143,
+    "id": 1782233356044,
     "name": "NBA",
     "logo": "",
     "stream": "http://41.223.30.230/ESPN2/index.m3u8",
@@ -1232,7 +1232,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277144,
+    "id": 1782233356045,
     "name": "CT SPORT HD",
     "logo": "",
     "stream": "http://88.212.15.19/live/test_ctsport_25p/playlist.m3u8",
@@ -1246,7 +1246,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277145,
+    "id": 1782233356046,
     "name": "TYC SPORTS FUENTE 2",
     "logo": "",
     "stream": "http://tv.zeuspro.xyz:8080/peterordonez/OKEtJocXkL/157580",
@@ -1260,7 +1260,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277146,
+    "id": 1782233356047,
     "name": "TELEFE FUENTE 1",
     "logo": "",
     "stream": "http://tv.zeuspro.xyz:8080/peterordonez/OKEtJocXkL/157590",
@@ -1274,7 +1274,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277147,
+    "id": 1782233356048,
     "name": "DSports",
     "logo": "",
     "stream": "http://147.135.114.221:8001/play/a00m/index.m3u8",
@@ -1288,7 +1288,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277148,
+    "id": 1782233356049,
     "name": "RCN (Colombia) (🇨🇴)",
     "logo": "",
     "stream": "http://181.78.211.244:8005/play/a0ak/index.m3u8",
@@ -1302,7 +1302,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277149,
+    "id": 1782233356050,
     "name": "WIN+ (Peru) (🇵🇪)",
     "logo": "",
     "stream": "http://147.135.114.221:8001/play/a00u/index.m3u8",
@@ -1316,7 +1316,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277150,
+    "id": 1782233356051,
     "name": "Caracol",
     "logo": "",
     "stream": "http://181.78.8.199:8000/play/a0b0/index.m3u8",
@@ -1330,7 +1330,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277151,
+    "id": 1782233356052,
     "name": "real Madrid TV (2)",
     "logo": "",
     "stream": "https://rmtv.akamaized.net/hls/live/2043153/rmtv-es-web/master.m3u8",
@@ -1344,7 +1344,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277152,
+    "id": 1782233356053,
     "name": "Choppertown",
     "logo": "",
     "stream": "https://7d8dc76d676946ec8d372d4ed7b22333.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-11-CHOPPERTOWN-SPORTSTRIBAL/mt/sportstribaltv/11/hls/master/playlist.m3u8",
@@ -1358,7 +1358,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277153,
+    "id": 1782233356054,
     "name": "Commune",
     "logo": "",
     "stream": "https://082cdda06abe450a84acd825e814a6b8.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/SportsTribal-eu_Commune-1/playlist.m3u8",
@@ -1372,7 +1372,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277154,
+    "id": 1782233356055,
     "name": "Cricket Gold",
     "logo": "",
     "stream": "https://d1nj4u39ja4cn0.cloudfront.net/v1/master/9d062541f2ff39b5c0f48b743c6411d25f62fc25/FLS-MuxIP-CricketGold/418.m3u8",
@@ -1386,7 +1386,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277155,
+    "id": 1782233356056,
     "name": "Documentary+",
     "logo": "",
     "stream": "https://a38d899367d24b1197db60dedfa80262.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-887-DOCUMENTARYINTERNATIONAL-FREELIVESPORTS/mt/freelivesports/887/hls/master/playlist.m3u8",
@@ -1400,7 +1400,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277156,
+    "id": 1782233356057,
     "name": "Drone TV",
     "logo": "",
     "stream": "https://a480c1a918694b47b63f7ba07a0f1dc2.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/SportsTribal-eu_DroneTV/playlist.m3u8",
@@ -1414,7 +1414,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277157,
+    "id": 1782233356058,
     "name": "Field & Stream",
     "logo": "",
     "stream": "https://3100d8a6ad764beb9da3c6ebf285ba1b.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-600-OUTDOORAMERICA-FREELIVESPORTS/mt/freelivesports/600/hls/master/playlist.m3u8",
@@ -1428,7 +1428,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277158,
+    "id": 1782233356059,
     "name": "FIGHT NETWORK",
     "logo": "",
     "stream": "https://amg00966-amg00966c10-amgplt0201.playout.now3.amagi.tv/playlist/amg00966-amg00966c10-amgplt0201/playlist.m3u8",
@@ -1442,7 +1442,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277159,
+    "id": 1782233356060,
     "name": "FUEL TV",
     "logo": "",
     "stream": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01074-fueltv-fueltvemeaen-sportstribal/playlist.m3u8",
@@ -1456,7 +1456,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277160,
+    "id": 1782233356061,
     "name": "GoPro",
     "logo": "",
     "stream": "https://3a1b4d927c02473b806350cc162d271f.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-891-GOPRO-FREELIVESPORTS/mt/freelivesports/891/hls/master/playlist.m3u8",
@@ -1470,7 +1470,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277161,
+    "id": 1782233356062,
     "name": "H20 TV",
     "logo": "",
     "stream": "https://1261a78709344810a5b834d397509879.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-738-H2OTV-SPORTSTRIBALTV/mt/sportstribaltv/738/hls/master/playlist.m3u8",
@@ -1484,7 +1484,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277162,
+    "id": 1782233356063,
     "name": "Hard Knocks",
     "logo": "",
     "stream": "https://d3uyzhwvmemdyf.cloudfront.net/v1/master/9d062541f2ff39b5c0f48b743c6411d25f62fc25/HardKnocks-SportsTribalV2/121.m3u8",
@@ -1498,7 +1498,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277163,
+    "id": 1782233356064,
     "name": "Harlem Globetrotters",
     "logo": "",
     "stream": "https://32d0f0785a2a46d28117199f63ad73ea.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/SportsTribal-eu_TheHarlemGlobeTrotters/playlist.m3u8",
@@ -1512,7 +1512,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277164,
+    "id": 1782233356065,
     "name": "Horse & Country",
     "logo": "",
     "stream": "https://hncfree-sportstribal.amagi.tv/hls/amagi_hls_data_sportstri-hncfree-sportstribal/CDN/playlist.m3u8",
@@ -1526,7 +1526,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277165,
+    "id": 1782233356066,
     "name": "win",
     "logo": "",
     "stream": "http://8.243.126.131:8000/play/a025/index.m3u8",
@@ -1540,7 +1540,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277166,
+    "id": 1782233356067,
     "name": "Win Sports",
     "logo": "",
     "stream": "http://181.78.17.52:8000/play/a0pw/index.m3u8",
@@ -1554,7 +1554,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277167,
+    "id": 1782233356068,
     "name": "WIN SPORTS (2)",
     "logo": "",
     "stream": "http://181.78.71.71:18000/play/a03p/index.m3u8",
@@ -1568,7 +1568,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277168,
+    "id": 1782233356069,
     "name": "win+",
     "logo": "",
     "stream": "http://190.60.37.154:45000/play/a00q/index.m3u8",
@@ -1582,7 +1582,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277169,
+    "id": 1782233356070,
     "name": "TYC",
     "logo": "",
     "stream": "http://190.60.37.154:45000/play/a05a/index.m3u8",
@@ -1596,7 +1596,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277170,
+    "id": 1782233356071,
     "name": "DSPORTS 1 🇦🇷",
     "logo": "",
     "stream": "http://190.117.20.37:8000/play/a08d/index.m3u8",
@@ -1610,7 +1610,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277171,
+    "id": 1782233356072,
     "name": "espn premium",
     "logo": "",
     "stream": "http://205.235.6.29:8000/play/a0pz/index.m3u8",
@@ -1624,7 +1624,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277172,
+    "id": 1782233356073,
     "name": "tnt sport",
     "logo": "",
     "stream": "http://205.235.6.29:8000/play/a0xa/index.m3u8",
@@ -1638,7 +1638,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277173,
+    "id": 1782233356074,
     "name": "tnt sport premium",
     "logo": "",
     "stream": "http://205.235.6.29:8000/play/a104/index.m3u8",
@@ -1652,7 +1652,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277174,
+    "id": 1782233356075,
     "name": "espn",
     "logo": "",
     "stream": "http://205.235.6.29:8000/play/a0zf/index.m3u8",
@@ -1666,7 +1666,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277175,
+    "id": 1782233356076,
     "name": "espn 7",
     "logo": "",
     "stream": "http://205.235.6.29:8000/play/a0zv/index.m3u8",
@@ -1680,7 +1680,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277176,
+    "id": 1782233356077,
     "name": "DSports (2)",
     "logo": "",
     "stream": "http://38.226.210.46:8000/play/A008/index.m3u8",
@@ -1694,7 +1694,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277177,
+    "id": 1782233356078,
     "name": "TUDN USA",
     "logo": "",
     "stream": "http://m3u.tvcluboficial.com/m/m/957.m3u8",
@@ -1708,7 +1708,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277178,
+    "id": 1782233356079,
     "name": "win sport",
     "logo": "",
     "stream": "http://m3u.tvcluboficial.com/m/m/1039.m3u8",
@@ -1722,7 +1722,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277179,
+    "id": 1782233356080,
     "name": "win sports+",
     "logo": "",
     "stream": "http://m3u.tvcluboficial.com/m/m/1042.m3u8",
@@ -1736,7 +1736,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277180,
+    "id": 1782233356081,
     "name": "BEIN SPORTS Ñ",
     "logo": "",
     "stream": "https://amg01334-beinsportsllc-beinxtraesp-localnow-aekzc.amagi.tv/playlist.m3u8",
@@ -1750,7 +1750,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277181,
+    "id": 1782233356082,
     "name": "ESPN PREMIUM CHI",
     "logo": "",
     "stream": "http://186.33.40.97:8789/play/22",
@@ -1764,7 +1764,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277182,
+    "id": 1782233356083,
     "name": "WIN SPORTS (3)",
     "logo": "",
     "stream": "http://190.60.39.195:8000/play/a0ug/index.m3u8",
@@ -1778,7 +1778,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277183,
+    "id": 1782233356084,
     "name": "ESPN PREMIUN 1",
     "logo": "",
     "stream": "http://190.7.19.197:232/play/a038/index.m3u8",
@@ -1792,7 +1792,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277184,
+    "id": 1782233356085,
     "name": "ESPN ARG",
     "logo": "",
     "stream": "http://45.170.130.224:8000/play/a04l/index.m3u8",
@@ -1806,7 +1806,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277185,
+    "id": 1782233356086,
     "name": "TYC SPORTS Internacional",
     "logo": "",
     "stream": "http://190.7.19.197:232/play/a04w/index.m3u8",
@@ -1820,7 +1820,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277186,
+    "id": 1782233356087,
     "name": "ARG ESPN 1",
     "logo": "",
     "stream": "http://rlatinop.com:8880/josesosa547tv/FFy5GgKfmFgh/327914",
@@ -1834,7 +1834,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277187,
+    "id": 1782233356088,
     "name": "ARG ESPN 2",
     "logo": "",
     "stream": "http://rlatinop.com:8880/josesosa547tv/FFy5GgKfmFgh/327915",
@@ -1848,7 +1848,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277188,
+    "id": 1782233356089,
     "name": "ARG ESPN 3",
     "logo": "",
     "stream": "http://rlatinop.com:8880/josesosa547tv/FFy5GgKfmFgh/327916",
@@ -1862,7 +1862,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277189,
+    "id": 1782233356090,
     "name": "ARG ESPN PREMIUM",
     "logo": "",
     "stream": "http://rlatinop.com:8880/josesosa547tv/FFy5GgKfmFgh/327917",
@@ -1876,7 +1876,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277190,
+    "id": 1782233356091,
     "name": "ARG ESPN PREMIUM OP2",
     "logo": "",
     "stream": "http://rlatinop.com:8880/josesosa547tv/FFy5GgKfmFgh/377719",
@@ -1890,7 +1890,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277191,
+    "id": 1782233356092,
     "name": "ARG ESPN HD",
     "logo": "",
     "stream": "http://daleplaytv.vip:80//live/4nd9wbtu/c5hrn9eFhfsa/81262.ts",
@@ -1904,7 +1904,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277192,
+    "id": 1782233356093,
     "name": "ARG ESPN 2 SD",
     "logo": "",
     "stream": "http://daleplaytv.vip:80//live/4nd9wbtu/c5hrn9eFhfsa/81259.ts",
@@ -1918,7 +1918,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277193,
+    "id": 1782233356094,
     "name": "ARG ESPN 2 HD",
     "logo": "",
     "stream": "http://daleplaytv.vip:80//live/4nd9wbtu/c5hrn9eFhfsa/81258.ts",
@@ -1932,7 +1932,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277194,
+    "id": 1782233356095,
     "name": "ARG FOX SPORTS 2 HD",
     "logo": "",
     "stream": "http://daleplaytv.vip:80//live/4nd9wbtu/c5hrn9eFhfsa/50507.ts",
@@ -1946,7 +1946,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277195,
+    "id": 1782233356096,
     "name": "ARG TYC SPORTS SD",
     "logo": "",
     "stream": "http://daleplaytv.vip:80//live/4nd9wbtu/c5hrn9eFhfsa/81253.ts",
@@ -1960,7 +1960,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277196,
+    "id": 1782233356097,
     "name": "ARG TYC SPORTS HD",
     "logo": "",
     "stream": "http://daleplaytv.vip:80//live/4nd9wbtu/c5hrn9eFhfsa/81252.ts",
@@ -1974,7 +1974,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277197,
+    "id": 1782233356098,
     "name": "ARG TYC SPORTS INTERNACIONAL",
     "logo": "",
     "stream": "http://daleplaytv.vip:80//live/4nd9wbtu/c5hrn9eFhfsa/81538.ts",
@@ -1988,7 +1988,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277198,
+    "id": 1782233356099,
     "name": "ARG TNT SPORTS",
     "logo": "",
     "stream": "http://daleplaytv.vip:80//live/4nd9wbtu/c5hrn9eFhfsa/361001.ts",
@@ -2002,7 +2002,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277199,
+    "id": 1782233356100,
     "name": "ARG ESPN HD (2)",
     "logo": "",
     "stream": "http://daleplaytv.vip:80//live/4nd9wbtu/c5hrn9eFhfsa/306497.ts",
@@ -2016,7 +2016,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277200,
+    "id": 1782233356101,
     "name": "ARG ESPN 2 HD (2)",
     "logo": "",
     "stream": "http://daleplaytv.vip:80//live/4nd9wbtu/c5hrn9eFhfsa/306486.ts",
@@ -2030,7 +2030,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277201,
+    "id": 1782233356102,
     "name": "DAZN 1",
     "logo": "",
     "stream": "http://znty.dyndns.org:5010/hls/eleven1.m3u8",
@@ -2044,7 +2044,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277202,
+    "id": 1782233356103,
     "name": "DAZN 2 (2)",
     "logo": "",
     "stream": "http://znty.dyndns.org:5010/hls/eleven2.m3u8",
@@ -2058,7 +2058,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277203,
+    "id": 1782233356104,
     "name": "DAZN 3 (2)",
     "logo": "",
     "stream": "http://znty.dyndns.org:5010/hls/eleven3.m3u8",
@@ -2072,7 +2072,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277204,
+    "id": 1782233356105,
     "name": "DAZN 4 (2)",
     "logo": "",
     "stream": "http://znty.dyndns.org:5010/hls/eleven4.m3u8",
@@ -2086,7 +2086,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277205,
+    "id": 1782233356106,
     "name": "DAZN 5 (2)",
     "logo": "",
     "stream": "http://znty.dyndns.org:5010/hls/eleven5.m3u8",
@@ -2100,7 +2100,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277206,
+    "id": 1782233356107,
     "name": "BEIN SPORTS 2 HD",
     "logo": "",
     "stream": "http://foxbleu-cdn.com/live/e8:aa:cb:c4:bf:92/aMzpeeG/78379.ts",
@@ -2114,7 +2114,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277207,
+    "id": 1782233356108,
     "name": "BEIN SPORTS 3 HD",
     "logo": "",
     "stream": "http://foxbleu-cdn.com/live/e8:aa:cb:c4:bf:92/aMzpeeG/89342.ts",
@@ -2128,7 +2128,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277208,
+    "id": 1782233356109,
     "name": "BEIN SPORTS 4 HD",
     "logo": "",
     "stream": "http://foxbleu-cdn.com/live/e8:aa:cb:c4:bf:92/aMzpeeG/78381.ts",
@@ -2142,7 +2142,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277209,
+    "id": 1782233356110,
     "name": "BEIN SPORTS 5 HD",
     "logo": "",
     "stream": "http://foxbleu-cdn.com/live/e8:aa:cb:c4:bf:92/aMzpeeG/78382.ts",
@@ -2156,7 +2156,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277210,
+    "id": 1782233356111,
     "name": "BEIN SPORTS 6 HD",
     "logo": "",
     "stream": "http://foxbleu-cdn.com/live/e8:aa:cb:c4:bf:92/aMzpeeG/78383.ts",
@@ -2170,7 +2170,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277211,
+    "id": 1782233356112,
     "name": "RTI 1 (1080p) [Not 24/7]",
     "logo": "",
     "stream": "http://69.64.57.208:8080/rti1/playlist.m3u8",
@@ -2184,7 +2184,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277212,
+    "id": 1782233356113,
     "name": "RTI 2 (1080p) [Not 24/7]",
     "logo": "",
     "stream": "http://69.64.57.208:8080/rti2/playlist.m3u8",
@@ -2198,7 +2198,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277213,
+    "id": 1782233356114,
     "name": "CAZE TV 2",
     "logo": "",
     "stream": "https://otte.live.fly.ww.aiv-cdn.net/gru-nitro/live/clients/dash/enc/3ynrpdanq2/out/v1/81fd4c26584044d2b1a1cc5b32fa9af0/cenc.mpd",
@@ -2212,7 +2212,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277214,
+    "id": 1782233356115,
     "name": "CAZE TV 3",
     "logo": "",
     "stream": "https://otte.live.fly.ww.aiv-cdn.net/gru-nitro/live/clients/dash/enc/epg9sw6owc/out/v1/e50aecefcb294fae85d6b343e0a6f1cc/cenc.mpd",
@@ -2226,7 +2226,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277215,
+    "id": 1782233356116,
     "name": "BEIN SPORTS 1 AU",
     "logo": "",
     "stream": "https://otte.live.fly.ww.aiv-cdn.net/syd-nitro/live/clients/dash/enc/ghwcl6hv68/out/v1/83536910d8034e9b9895a20fbe1c1687/cenc.mpd",
@@ -2240,7 +2240,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277216,
+    "id": 1782233356117,
     "name": "BEIN SPORTS 2 AU",
     "logo": "",
     "stream": "https://otte.live.fly.ww.aiv-cdn.net/syd-nitro/live/clients/dash/enc/8m8cd46i1t/out/v1/83985c68e4174e90a58a1f2c024be4c9/cenc.mpd",
@@ -2254,7 +2254,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277217,
+    "id": 1782233356118,
     "name": "BEIN SPORTS 3 AU",
     "logo": "",
     "stream": "https://a83aivottlinear-a.akamaihd.net/OTTB/syd-nitro/live/clients/dash/enc/q4u5nwaogz/out/v1/18de6d3e65934f3a8de4358e69eab86c/cenc.mpd",
@@ -2268,7 +2268,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277218,
+    "id": 1782233356119,
     "name": "BEIN Sports 1 1080P",
     "logo": "",
     "stream": "https://andro.226503.xyz/checklist/androstreamlivebs1.m3u8",
@@ -2282,7 +2282,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277219,
+    "id": 1782233356120,
     "name": "BEIN Sports 2 1080P",
     "logo": "",
     "stream": "https://andro.226503.xyz/checklist/androstreamlivebs2.m3u8",
@@ -2296,7 +2296,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277220,
+    "id": 1782233356121,
     "name": "BEIN Sports 3 1080P",
     "logo": "",
     "stream": "https://andro.226503.xyz/checklist/androstreamlivebs3.m3u8",
@@ -2310,7 +2310,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277221,
+    "id": 1782233356122,
     "name": "BEIN Sports 4 1080P",
     "logo": "",
     "stream": "https://andro.226503.xyz/checklist/androstreamlivebs4.m3u8",
@@ -2324,7 +2324,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277222,
+    "id": 1782233356123,
     "name": "BEIN Sports 5 1080P",
     "logo": "",
     "stream": "https://andro.226503.xyz/checklist/androstreamlivebs5.m3u8",
@@ -2338,7 +2338,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277223,
+    "id": 1782233356124,
     "name": "TNT Sports (Backup)",
     "logo": "",
     "stream": "http://45.232.210.1:18000/play/a08x/index.m3u8",
@@ -2352,7 +2352,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277224,
+    "id": 1782233356125,
     "name": "TNT Sports (Backup 2)",
     "logo": "",
     "stream": "http://45.181.122.46:8090/play/a04m",
@@ -2366,7 +2366,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277225,
+    "id": 1782233356126,
     "name": "TNT Premium (Principal)",
     "logo": "",
     "stream": "http://38.226.210.46:8000/play/a05m/index.m3u8",
@@ -2380,7 +2380,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277226,
+    "id": 1782233356127,
     "name": "TNT Premium (Backup 4)",
     "logo": "",
     "stream": "http://daleplaytv.vip:80//live/123MMM/654321/276334.ts",
@@ -2394,7 +2394,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277227,
+    "id": 1782233356128,
     "name": "ESPN 1 LAT (Z)(720) (Backup)",
     "logo": "",
     "stream": "http://gol-tv.online:80/12345678/12345678/845120",
@@ -2408,7 +2408,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277228,
+    "id": 1782233356129,
     "name": "ESPN 2 (Principal)",
     "logo": "",
     "stream": "http://181.176.155.7:8090/play/a1vv/index.m3u8",
@@ -2422,7 +2422,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277229,
+    "id": 1782233356130,
     "name": "ESPN 2 (Backup)",
     "logo": "",
     "stream": "http://45.167.1.136:8000/play/a06b",
@@ -2436,7 +2436,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277230,
+    "id": 1782233356131,
     "name": "ESPN 3 (Principal)",
     "logo": "",
     "stream": "http://45.167.1.136:8000/play/a02k",
@@ -2450,7 +2450,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277231,
+    "id": 1782233356132,
     "name": "ESPN 3 (Backup)",
     "logo": "",
     "stream": "http://45.181.122.46:8090/play/a01t",
@@ -2464,7 +2464,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277232,
+    "id": 1782233356133,
     "name": "ESPN 4 (Backup)",
     "logo": "",
     "stream": "http://45.167.1.136:8000/play/a02l",
@@ -2478,7 +2478,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277233,
+    "id": 1782233356134,
     "name": "ESPN 4 (Backup 2)",
     "logo": "",
     "stream": "http://daleplaytv.vip:80//live/123MMM/654321/360928.ts",
@@ -2492,7 +2492,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277234,
+    "id": 1782233356135,
     "name": "ESPN 5 (Backup)",
     "logo": "",
     "stream": "http://45.167.1.136:8000/play/a04g",
@@ -2506,7 +2506,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277235,
+    "id": 1782233356136,
     "name": "ESPN 5 (Backup 2)",
     "logo": "",
     "stream": "http://daleplaytv.vip:80//live/123MMM/654321/306878.ts",
@@ -2520,7 +2520,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277236,
+    "id": 1782233356137,
     "name": "ESPN 6 (Principal)",
     "logo": "",
     "stream": "http://45.167.1.136:8000/play/a06d",
@@ -2534,7 +2534,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277237,
+    "id": 1782233356138,
     "name": "ESPN 6 HD",
     "logo": "",
     "stream": "http://daleplaytv.vip:80//live/123MMM/654321/361022.ts",
@@ -2548,7 +2548,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277238,
+    "id": 1782233356139,
     "name": "ESPN 7 (Principal)",
     "logo": "",
     "stream": "http://181.118.153.15:8000/play/rq26/index.m3u8",
@@ -2562,7 +2562,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277239,
+    "id": 1782233356140,
     "name": "ESPN 7 HD",
     "logo": "",
     "stream": "http://daleplaytv.vip:80//live/123MMM/654321/361023.ts",
@@ -2576,7 +2576,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277240,
+    "id": 1782233356141,
     "name": "ESPN Premium (Backup)",
     "logo": "",
     "stream": "http://45.181.122.46:8090/play/a015",
@@ -2590,7 +2590,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277241,
+    "id": 1782233356142,
     "name": "ESPN Premium (Backup 2)",
     "logo": "",
     "stream": "http://daleplaytv.vip:80//live/123MMM/654321/81254.ts",
@@ -2604,7 +2604,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277242,
+    "id": 1782233356143,
     "name": "ESPN 3 MX",
     "logo": "",
     "stream": "http://daleplaytv.vip:80//live/123MMM/654321/361011.ts",
@@ -2618,7 +2618,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277243,
+    "id": 1782233356144,
     "name": "Sky Sport",
     "logo": "",
     "stream": "http://45.5.118.152:8000/play/a08f/index.m3u8",
@@ -2632,7 +2632,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277244,
+    "id": 1782233356145,
     "name": "FOX Sports 3",
     "logo": "",
     "stream": "http://45.167.2.138:8000/play/a0qn/index.m3u8",
@@ -2646,7 +2646,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277245,
+    "id": 1782233356146,
     "name": "Claro Sports 1",
     "logo": "",
     "stream": "http://45.167.1.136:8000/play/a00d",
@@ -2660,7 +2660,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277246,
+    "id": 1782233356147,
     "name": "Claro Sports 2",
     "logo": "",
     "stream": "http://45.5.118.152:8000/play/a0ah/index.m3u8",
@@ -2674,7 +2674,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277247,
+    "id": 1782233356148,
     "name": "Movistar Deportes",
     "logo": "",
     "stream": "http://38.226.210.46:8000/play/a06d/index.m3u8",
@@ -2688,7 +2688,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277248,
+    "id": 1782233356149,
     "name": "Tigo Sports",
     "logo": "",
     "stream": "http://181.78.17.52:8000/play/a0rq/index.m3u8",
@@ -2702,7 +2702,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277249,
+    "id": 1782233356150,
     "name": "Via X Sport",
     "logo": "",
     "stream": "http://38.226.49.253:8000/play/a042/index.m3u8",
@@ -2716,7 +2716,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277250,
+    "id": 1782233356151,
     "name": "Golf Channel",
     "logo": "",
     "stream": "http://45.167.1.136:8000/play/a05s",
@@ -2730,7 +2730,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277251,
+    "id": 1782233356152,
     "name": "Tennis Channel (Backup 3)",
     "logo": "",
     "stream": "http://elpapanatas.space:8080/12meses21890310/12meses21890310/1553",
@@ -2744,7 +2744,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277252,
+    "id": 1782233356153,
     "name": "UFC FIGHT PASS 1",
     "logo": "",
     "stream": "http://vipmdvmxqha.top:8080/VIP0175170262473041/91702624730057/129980",
@@ -2758,7 +2758,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277253,
+    "id": 1782233356154,
     "name": "Combate",
     "logo": "",
     "stream": "http://daleplaytv.vip:80//live/123MMM/654321/306483.ts",
@@ -2772,7 +2772,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277254,
+    "id": 1782233356155,
     "name": "Red Bull Tv",
     "logo": "",
     "stream": "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8",
@@ -2786,7 +2786,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277255,
+    "id": 1782233356156,
     "name": "ESPN 2 Latin (alt)",
     "logo": "",
     "stream": "http://190.11.225.124:5000/live/espn_2_hd/playlist.m3u8",
@@ -2800,7 +2800,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277256,
+    "id": 1782233356157,
     "name": "BEIN SPORTS 1 Turkey",
     "logo": "",
     "stream": "https://andro.226503.xyz/checklist/androstreamlivebiraz1.m3u8",
@@ -2814,7 +2814,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277257,
+    "id": 1782233356158,
     "name": "BEIN SPORTS 2 Turkey",
     "logo": "",
     "stream": "https://andro.okan11gote12sokan.cfd/checklist/androstreamlivebs2.m3u8",
@@ -2828,7 +2828,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277258,
+    "id": 1782233356159,
     "name": "BEIN SPORTS 3 Turkey",
     "logo": "",
     "stream": "https://andro.okan11gote12sokan.cfd/checklist/androstreamlivebs3.m3u8",
@@ -2842,7 +2842,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277259,
+    "id": 1782233356160,
     "name": "BEIN SPORTS 4 Turkey",
     "logo": "",
     "stream": "https://andro.okan11gote12sokan.cfd/checklist/androstreamlivebs4.m3u8",
@@ -2856,7 +2856,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277260,
+    "id": 1782233356161,
     "name": "BEIN SPORTS France (alt)",
     "logo": "",
     "stream": "http://99.27.51.147:8080/BeinSport/mpegts",
@@ -2870,7 +2870,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277261,
+    "id": 1782233356162,
     "name": "BEIN SPORTS 3 France (Alt)",
     "logo": "",
     "stream": "http://99.27.51.147:8080/BeinSport3/mpegts",
@@ -2884,7 +2884,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277262,
+    "id": 1782233356163,
     "name": "BEIN SPORTS 3 France (Alt2)",
     "logo": "",
     "stream": "http://145.239.5.177/559/mpegts",
@@ -2898,7 +2898,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277263,
+    "id": 1782233356164,
     "name": "RS News",
     "logo": "",
     "stream": "https://video07.logicahost.com.br/rsnews01/rsnews01/playlist.m3u8",
@@ -2912,7 +2912,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277264,
+    "id": 1782233356165,
     "name": "RS Sports 1",
     "logo": "",
     "stream": "https://video07.logicahost.com.br/rssports01/rssports01/playlist.m3u8",
@@ -2926,7 +2926,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277265,
+    "id": 1782233356166,
     "name": "RS Sports 2",
     "logo": "",
     "stream": "https://video07.logicahost.com.br/rssports02/rssports02/playlist.m3u8",
@@ -2940,7 +2940,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277266,
+    "id": 1782233356167,
     "name": "RS Sports 3",
     "logo": "",
     "stream": "https://video07.logicahost.com.br/rssports03/rssports03/playlist.m3u8",
@@ -2954,7 +2954,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277267,
+    "id": 1782233356168,
     "name": "RS Sports 4",
     "logo": "",
     "stream": "https://video07.logicahost.com.br/rssports04/rssports04/playlist.m3u8",
@@ -2968,7 +2968,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277268,
+    "id": 1782233356169,
     "name": "RS Sports 5",
     "logo": "",
     "stream": "https://video03.logicahost.com.br/rssports5/rssports5/playlist.m3u8",
@@ -2982,7 +2982,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277269,
+    "id": 1782233356170,
     "name": "RS TV",
     "logo": "",
     "stream": "https://video07.logicahost.com.br/rstv1/rstv1/playlist.m3u8",
@@ -2996,7 +2996,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277270,
+    "id": 1782233356171,
     "name": "RS News Web",
     "logo": "",
     "stream": "https://video01.logicahost.com.br/rsnewswebtv/rsnewswebtv/playlist.m3u8",
@@ -3010,7 +3010,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277271,
+    "id": 1782233356172,
     "name": "RS PREMIERE",
     "logo": "",
     "stream": "https://video03.logicahost.com.br/rspremiere/rspremiere/playlist.m3u8",
@@ -3024,7 +3024,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277272,
+    "id": 1782233356173,
     "name": "RS PREMIERE 2",
     "logo": "",
     "stream": "https://video03.logicahost.com.br/rspremiere2/rspremiere2/playlist.m3u8",
@@ -3038,7 +3038,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277273,
+    "id": 1782233356174,
     "name": "RS PREMIERE 3",
     "logo": "",
     "stream": "https://video03.logicahost.com.br/rspremiere3/rspremiere3/playlist.m3u8",
@@ -3052,7 +3052,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277274,
+    "id": 1782233356175,
     "name": "RS PREMIERE 4",
     "logo": "",
     "stream": "https://video03.logicahost.com.br/rspremiere4/rspremiere4/playlist.m3u8",
@@ -3066,7 +3066,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277275,
+    "id": 1782233356176,
     "name": "Red Bull TV Brasil",
     "logo": "",
     "stream": "https://d03ae6b5c6724c24867e97a3dc04934a.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-1026-WORBBRPTFAST-WHALETVPLUS/1026/hls/master/playlist.m3u8",
@@ -3080,7 +3080,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277276,
+    "id": 1782233356177,
     "name": "Red Bull TV Australia",
     "logo": "",
     "stream": "https://db34cc6127ac459db55cab5f97cd66b9.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-680-WORBAUENFAST-WHALETVPLUS/680/whaletvplus/hls/master/playlist.m3u8",
@@ -3094,7 +3094,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277277,
+    "id": 1782233356178,
     "name": "Red Bull TV Espanha",
     "logo": "",
     "stream": "https://886bd3fbc782459f8de7555d32d7e9ce.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-957-WORBLATAMESFAST-WHALETVPLUS/957/whaletvplus/hls/master/playlist.m3u8",
@@ -3108,7 +3108,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277278,
+    "id": 1782233356179,
     "name": "Canal + Live 1",
     "logo": "",
     "stream": "http://assarao4k.com:80/play/live.php",
@@ -3122,7 +3122,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277279,
+    "id": 1782233356180,
     "name": "ESPN 4",
     "logo": "",
     "stream": "http://45.5.119.43:4000/play/a028/index.m3u8",
@@ -3136,7 +3136,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277280,
+    "id": 1782233356181,
     "name": "la liga",
     "logo": "",
     "stream": "http://45.5.119.43:4000/play/a05r/index.m3u8",
@@ -3150,7 +3150,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277281,
+    "id": 1782233356182,
     "name": "tudn (2)",
     "logo": "",
     "stream": "http://45.5.119.43:4000/play/a05q/index.m3u8",
@@ -3164,7 +3164,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277282,
+    "id": 1782233356183,
     "name": "ESPN 2",
     "logo": "",
     "stream": "http://45.5.119.43:4000/play/a053/index.m3u8",
@@ -3178,7 +3178,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277283,
+    "id": 1782233356184,
     "name": "SKY SPORTS GT",
     "logo": "",
     "stream": "http://45.171.64.30:2000/play/a08m/index.m3u8",
@@ -3192,7 +3192,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277284,
+    "id": 1782233356185,
     "name": "Winsport",
     "logo": "",
     "stream": "http://181.78.85.59:2500/play/a030/index.m3u8",
@@ -3206,7 +3206,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277285,
+    "id": 1782233356186,
     "name": "ESPN CO",
     "logo": "",
     "stream": "http://181.205.130.194:4000/play/a08n",
@@ -3220,7 +3220,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277286,
+    "id": 1782233356187,
     "name": "ESPN 6 HD (2)",
     "logo": "",
     "stream": "http://181.205.130.194:4000/play/a0eh",
@@ -3234,7 +3234,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277287,
+    "id": 1782233356188,
     "name": "TUDN (3)",
     "logo": "",
     "stream": "http://45.171.64.30:2000/play/a08j/index.m3u8",
@@ -3248,7 +3248,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277288,
+    "id": 1782233356189,
     "name": "TyC Sports",
     "logo": "",
     "stream": "http://38.44.109.41:8003/play/a02l/index.m3u8",
@@ -3262,7 +3262,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277289,
+    "id": 1782233356190,
     "name": "BEIN SPORTS Ñ.HD2",
     "logo": "",
     "stream": "http://190.83.9.222:8000/play/ca129",
@@ -3276,7 +3276,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277290,
+    "id": 1782233356191,
     "name": "TIGO Sports (2)",
     "logo": "",
     "stream": "http://45.5.119.43:4000/play/a05t/index.m3u8",
@@ -3290,7 +3290,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277291,
+    "id": 1782233356192,
     "name": "ESPN PREMIUM HD",
     "logo": "",
     "stream": "http://181.205.130.194:4000/play/a0fk",
@@ -3304,7 +3304,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277292,
+    "id": 1782233356193,
     "name": "WIN SPORTS+ HD",
     "logo": "",
     "stream": "http://181.205.130.194:4000/play/a0fu",
@@ -3318,7 +3318,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277293,
+    "id": 1782233356194,
     "name": "Fox SPORTS 3 (2)",
     "logo": "",
     "stream": "http://45.5.119.43:4000/play/a024/index.m3u8",
@@ -3332,7 +3332,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277294,
+    "id": 1782233356195,
     "name": "5",
     "logo": "",
     "stream": "http://45.5.119.43:4000/play/a05o/index.m3u8",
@@ -3346,7 +3346,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277295,
+    "id": 1782233356196,
     "name": "Win2",
     "logo": "",
     "stream": "http://190.60.37.118:4000/play/a0bw",
@@ -3360,7 +3360,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277296,
+    "id": 1782233356197,
     "name": "Gol TV",
     "logo": "",
     "stream": "http://38.44.109.41:8003/play/a02h/index.m3u8",
@@ -3374,7 +3374,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277297,
+    "id": 1782233356198,
     "name": "ESPN 4 HD",
     "logo": "",
     "stream": "http://181.78.49.113:9999/play/a07e/index.m3u8",
@@ -3388,7 +3388,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277298,
+    "id": 1782233356199,
     "name": "ESPN 5 HD",
     "logo": "",
     "stream": "http://181.78.49.113:9999/play/a07f/index.m3u8",
@@ -3402,7 +3402,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277299,
+    "id": 1782233356200,
     "name": "DEPORTE - Eliminatorias Concacaf",
     "logo": "",
     "stream": "https://dto4p9su9kcif.cloudfront.net/out/v1/45b4d7be5ac64a83bdfdca7b683b40b5/index.m3u8",
@@ -3416,7 +3416,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277300,
+    "id": 1782233356201,
     "name": "DEPORTE - Eliminatorias Concacaf (2)",
     "logo": "",
     "stream": "https://d29uu6lcvq8u18.cloudfront.net/out/v1/0fc428527c0b4981900340462bc9e390/index.m3u8",
@@ -3430,7 +3430,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277301,
+    "id": 1782233356202,
     "name": "DEPORTE - Eliminatorias Concacaf (3)",
     "logo": "",
     "stream": "https://d2cozakhtdw466.cloudfront.net/out/v1/0310eeeafd9a491796b23aec39fad1c4/index.m3u8",
@@ -3444,7 +3444,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277302,
+    "id": 1782233356203,
     "name": "DEPORTE - Claro Sports",
     "logo": "",
     "stream": "https://dai.google.com/linear/hls/event/yINISWAPQ0CPhPixe-40wQ/master.m3u8",
@@ -3458,7 +3458,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277303,
+    "id": 1782233356204,
     "name": "DEPORTE - Estrella TV",
     "logo": "",
     "stream": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00567-estrellamedia-estrellatv-distrotv/playlist.m3u8",
@@ -3472,7 +3472,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277304,
+    "id": 1782233356205,
     "name": "DEPORTE - SKY SPORTS",
     "logo": "",
     "stream": "http://177.10.184.193:8000/play/a0eh/index.m3u8",
@@ -3486,7 +3486,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277305,
+    "id": 1782233356206,
     "name": "🇬🇧 REAL MADRID TV - English (Oficial)",
     "logo": "",
     "stream": "https://rmtv.akamaized.net/hls/live/2043154/rmtv-en-web/master.m3u8",
@@ -3500,7 +3500,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277306,
+    "id": 1782233356207,
     "name": "BEIN SPORTS XTRA",
     "logo": "",
     "stream": "https://dc1644a9jazgj.cloudfront.net/beIN_Sports_Xtra_Espanol1080.m3u8",
@@ -3514,7 +3514,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277307,
+    "id": 1782233356208,
     "name": "CLARO SPORTS",
     "logo": "",
     "stream": "https://dai.google.com/linear/hls/event/_OKWx76jT7mivD6d-25QAw/master.m3u8",
@@ -3528,7 +3528,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277308,
+    "id": 1782233356209,
     "name": "Eurosport 1 (FR)",
     "logo": "",
     "stream": "http://151.80.18.177:86/Eurosport_HD/playlist.m3u8",
@@ -3542,7 +3542,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277309,
+    "id": 1782233356210,
     "name": "Eurosport 2 (FR)",
     "logo": "",
     "stream": "http://151.80.18.177:86/Eurosport_2_HD/playlist.m3u8",
@@ -3556,7 +3556,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277310,
+    "id": 1782233356211,
     "name": "Eurosport 1 (FR) (Alt)",
     "logo": "",
     "stream": "http://151.80.18.177:86/Eurosport_HD/mpegts",
@@ -3570,7 +3570,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277311,
+    "id": 1782233356212,
     "name": "Eurosport 2 (FR) (Alt)",
     "logo": "",
     "stream": "http://151.80.18.177:86/Eurosport_2_HD/mpegts",
@@ -3584,7 +3584,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277312,
+    "id": 1782233356213,
     "name": "ESPN5 HD",
     "logo": "",
     "stream": "http://181.205.130.194:4000/play/a0fs",
@@ -3598,7 +3598,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277313,
+    "id": 1782233356214,
     "name": "ESPN HD",
     "logo": "",
     "stream": "http://181.205.130.194:4000/play/a07j",
@@ -3612,7 +3612,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277314,
+    "id": 1782233356215,
     "name": "Win1",
     "logo": "",
     "stream": "http://190.60.37.118:4000/play/a0b2",
@@ -3626,7 +3626,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277315,
+    "id": 1782233356216,
     "name": "Mundial NBC Universo",
     "logo": "",
     "stream": "http://190.11.225.124:5000/live/universo_hd/playlist.m3u8",
@@ -3640,7 +3640,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277316,
+    "id": 1782233356217,
     "name": "Mundial Azteca UNO",
     "logo": "",
     "stream": "http://38.44.109.41:8003/play/a033/index.m3u8",
@@ -3654,7 +3654,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277317,
+    "id": 1782233356218,
     "name": "AZTECA uno",
     "logo": "",
     "stream": "http://45.189.62.33:8002/play/a0cc/index.m3u8",
@@ -3668,7 +3668,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277318,
+    "id": 1782233356219,
     "name": "Azteca 7a",
     "logo": "",
     "stream": "https://estrellatv-roku.amagi.tv/playlist.m3u8",
@@ -3682,7 +3682,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277319,
+    "id": 1782233356220,
     "name": "✔️ Bein Sports Xtra ñ *2",
     "logo": "",
     "stream": "https://bein-esp-xumo.amagi.tv/playlist.m3u8",
@@ -3696,7 +3696,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277320,
+    "id": 1782233356221,
     "name": "✔️ Red Bull TV",
     "logo": "",
     "stream": "http://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master_3360.m3u8",
@@ -3710,7 +3710,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277321,
+    "id": 1782233356222,
     "name": "Tango Sports 4",
     "logo": "",
     "stream": "http://190.7.19.197:232/play/a037/index.m3u8",
@@ -3724,7 +3724,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277322,
+    "id": 1782233356223,
     "name": "5 SPORT 🇮🇱",
     "logo": "",
     "stream": "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2558/index.m3u8",
@@ -3738,7 +3738,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277323,
+    "id": 1782233356224,
     "name": "SKY SPORT LALIGA 🇲🇽 (2)",
     "logo": "",
     "stream": "http://181.78.109.48:9998/play/a06r/index.m3u8",
@@ -3752,7 +3752,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277324,
+    "id": 1782233356225,
     "name": "Матч! 🇷🇺",
     "logo": "",
     "stream": "http://catchup.videoline.ru/match/tracks-v1a1/mono.m3u8",
@@ -3766,7 +3766,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277325,
+    "id": 1782233356226,
     "name": "Матч! 🇷🇺 (2)",
     "logo": "",
     "stream": "http://bl.video.matchtv.ru/media/playlist/free_d46d0cf1712c0542ec7fd4f0808f600a_hd/17_89756005/1080/e6bef86de8a133cd7b27deb040758a00/4796141934.m3u8",
@@ -3780,7 +3780,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277326,
+    "id": 1782233356227,
     "name": "Матч! 🇷🇺 (3)",
     "logo": "",
     "stream": "http://cdntv.online/low/9mlxywika2/48.m3u8",
@@ -3794,7 +3794,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277327,
+    "id": 1782233356228,
     "name": "ESPN 2 🇦🇷",
     "logo": "",
     "stream": "http://191.97.49.82:8001/play/a00m/index.m3u8",
@@ -3808,7 +3808,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277328,
+    "id": 1782233356229,
     "name": "Dazn 1 🇵🇹",
     "logo": "",
     "stream": "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2531/index.m3u8",
@@ -3822,7 +3822,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277329,
+    "id": 1782233356230,
     "name": "Dazn 1 🇵🇹 (2)",
     "logo": "",
     "stream": "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/19158/index.m3u8",
@@ -3836,7 +3836,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277330,
+    "id": 1782233356231,
     "name": "Dazn 2 🇵🇹",
     "logo": "",
     "stream": "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2532/index.m3u8",
@@ -3850,7 +3850,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277331,
+    "id": 1782233356232,
     "name": "Dazn 3 🇵🇹",
     "logo": "",
     "stream": "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/7062/index.m3u8",
@@ -3864,7 +3864,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277332,
+    "id": 1782233356233,
     "name": "Dazn 4 🇵🇹",
     "logo": "",
     "stream": "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2534/index.m3u8",
@@ -3878,7 +3878,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277333,
+    "id": 1782233356234,
     "name": "Dazn 5 🇵🇹",
     "logo": "",
     "stream": "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2535/index.m3u8",
@@ -3892,7 +3892,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277334,
+    "id": 1782233356235,
     "name": "Bein Sport 3 🇫🇷",
     "logo": "",
     "stream": "http://145.239.5.177:80/559/index.m3u8",
@@ -3906,7 +3906,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277335,
+    "id": 1782233356236,
     "name": "CANAL + Sport 🇫🇷",
     "logo": "",
     "stream": "http://151.80.18.177:86/Canal+_sport_HD/index.m3u8",
@@ -3920,7 +3920,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277336,
+    "id": 1782233356237,
     "name": "Setenta Sport 1 🇷🇺",
     "logo": "",
     "stream": "http://cdntv.online/low/9mlxywika2/1021.m3u8",
@@ -3934,7 +3934,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277337,
+    "id": 1782233356238,
     "name": "Матч! 🇷🇺 (4)",
     "logo": "",
     "stream": "http://tv.tuva.ru/machtv/index.m3u8",
@@ -3948,7 +3948,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277338,
+    "id": 1782233356239,
     "name": "Матч! 🇷🇺 (5)",
     "logo": "",
     "stream": "http://185.46.48.18:80/match/tracks-v1a1/mono.m3u8",
@@ -3962,7 +3962,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277339,
+    "id": 1782233356240,
     "name": "МАТЧ! ФУТБOЛ 1HD 🇷🇺",
     "logo": "",
     "stream": "http://cdntv.online/low/9mlxywika2/55.m3u8",
@@ -3976,7 +3976,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277340,
+    "id": 1782233356241,
     "name": "МАТЧ! ФУТБOЛ 3HD 🇷🇺",
     "logo": "",
     "stream": "http://185.57.68.33/110/mpegts",
@@ -3990,7 +3990,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277341,
+    "id": 1782233356242,
     "name": "Матч! Футбол 3 HD 🇷🇺",
     "logo": "",
     "stream": "http://185.57.68.33:8091/110/playlist.m3u8",
@@ -4004,7 +4004,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277342,
+    "id": 1782233356243,
     "name": "МАТЧ! ФУТБOЛ 3HD 🇷🇺 (2)",
     "logo": "",
     "stream": "http://cdntv.online/low/9mlxywika2/57.m3u8",
@@ -4018,7 +4018,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277343,
+    "id": 1782233356244,
     "name": "Футбол 3 (SD) 🇷🇺",
     "logo": "",
     "stream": "http://185.57.68.33:80/110/index.m3u8",
@@ -4032,7 +4032,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277344,
+    "id": 1782233356245,
     "name": "Setanta Sport 🇺🇦",
     "logo": "",
     "stream": "http://217.174.225.146/hls/ch004_720/index.m3u8",
@@ -4046,7 +4046,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277345,
+    "id": 1782233356246,
     "name": "Super Sport 1 🇦🇱",
     "logo": "",
     "stream": "http://93.93.113.95:25461/TV-Berati/XtreamCodes/494",
@@ -4060,7 +4060,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277346,
+    "id": 1782233356247,
     "name": "Super Sport 2 🇦🇱",
     "logo": "",
     "stream": "http://93.93.113.95:25461/TV-Berati/XtreamCodes/495",
@@ -4074,7 +4074,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277347,
+    "id": 1782233356248,
     "name": "NOVA SPORT 1 HD 🇨🇿",
     "logo": "",
     "stream": "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2555/index.m3u8",
@@ -4088,7 +4088,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277348,
+    "id": 1782233356249,
     "name": "SPORT 1 HD 🇨🇿",
     "logo": "",
     "stream": "http://88.212.15.19/live/test_sport1_25p/playlist.m3u8",
@@ -4102,7 +4102,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277349,
+    "id": 1782233356250,
     "name": "SPORT 2 HD 🇨🇿",
     "logo": "",
     "stream": "http://88.212.15.19/live/test_sport_2/playlist.m3u8",
@@ -4116,7 +4116,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277350,
+    "id": 1782233356251,
     "name": "ARENA SPORT 1 🇨🇿",
     "logo": "",
     "stream": "http://88.212.15.19/live/test_arenasport/playlist.m3u8",
@@ -4130,7 +4130,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277351,
+    "id": 1782233356252,
     "name": "ARENA SPORT 2 🇨🇿",
     "logo": "",
     "stream": "http://88.212.15.19/live/test_arenasport_dva/playlist.m3u8",
@@ -4144,7 +4144,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277352,
+    "id": 1782233356253,
     "name": "MAX SPORT 1 🇧🇬",
     "logo": "",
     "stream": "http://77.46.130.252:99/maxsport1",
@@ -4158,7 +4158,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277353,
+    "id": 1782233356254,
     "name": "MAX SPORT 2 🇧🇬",
     "logo": "",
     "stream": "http://77.46.130.252:99/maxsport2",
@@ -4172,7 +4172,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277354,
+    "id": 1782233356255,
     "name": "MAX SPORT 3 🇧🇬",
     "logo": "",
     "stream": "http://77.46.130.252:99/maxsport3",
@@ -4186,7 +4186,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277355,
+    "id": 1782233356256,
     "name": "MAX SPORT 4 🇧🇬",
     "logo": "",
     "stream": "http://77.46.130.252:99/maxsport4",
@@ -4200,7 +4200,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277356,
+    "id": 1782233356257,
     "name": "M4 Sport 🇭🇺",
     "logo": "",
     "stream": "http://46.149.191.217:9010/play/a017",
@@ -4214,7 +4214,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277357,
+    "id": 1782233356258,
     "name": "ZIGGO SPORT 2 HD 🇳🇱",
     "logo": "",
     "stream": "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2561/index.m3u8",
@@ -4228,7 +4228,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277358,
+    "id": 1782233356259,
     "name": "ZIGGO SPORT 3 HD 🇳🇱",
     "logo": "",
     "stream": "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2559/index.m3u8",
@@ -4242,7 +4242,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277359,
+    "id": 1782233356260,
     "name": "ZIGGO SPORT LIVE 🇳🇱",
     "logo": "",
     "stream": "http://wo0dyefk.dienalt.org/iptv/DV3AC2Q6YSR9XE/2560/index.m3u8",
@@ -4256,7 +4256,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277360,
+    "id": 1782233356261,
     "name": "ORF+ 🇦🇹",
     "logo": "",
     "stream": "http://212.186.45.34:9981/stream/channelid/906723447",
@@ -4270,7 +4270,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277361,
+    "id": 1782233356262,
     "name": "ESPN 2 🇦🇷 (2)",
     "logo": "",
     "stream": "http://181.205.130.194:4000/play/a07i",
@@ -4284,7 +4284,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277362,
+    "id": 1782233356263,
     "name": "MTR Sports-1 🇬🇧",
     "logo": "",
     "stream": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg02873-kravemedia-mtrspt1-distrotv/playlist.m3u8",
@@ -4298,7 +4298,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277363,
+    "id": 1782233356264,
     "name": "X SPORT 🇷🇺",
     "logo": "",
     "stream": "http://iptv.prosto.tv:7000/ch109/video.m3u8",
@@ -4312,7 +4312,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277364,
+    "id": 1782233356265,
     "name": "Turkmenistan Sport 🇹🇲",
     "logo": "",
     "stream": "http://217.174.225.146/legacyhls/ch004_720/index.m3u8",
@@ -4326,7 +4326,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277365,
+    "id": 1782233356266,
     "name": "SPORTV 2",
     "logo": "",
     "stream": "https://otte.live.fly.ww.aiv-cdn.net/gru-nitro/live/clients/dash-sd/enc/4yiko4it8k/out/v1/b77dd424c745443aba2f3f88d418f797/cenc-sd.mpd",
@@ -4340,7 +4340,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277366,
+    "id": 1782233356267,
     "name": "SPORTV 3",
     "logo": "",
     "stream": "https://otte.live.fly.ww.aiv-cdn.net/gru-nitro/live/clients/dash/enc/6otiglnptp/out/v1/add7499679b0422cb6791f7701f95ecc/cenc.mpd",
@@ -4354,7 +4354,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277367,
+    "id": 1782233356268,
     "name": "FX SPORTS 2",
     "logo": "",
     "stream": "https://otte.live.fly.ww.aiv-cdn.net/iad-nitro/live/clients/dash/enc/tepjqej1ys/out/v1/c9c9159baee749a19612b1598495859a/cenc.mpd",
@@ -4368,7 +4368,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277368,
+    "id": 1782233356269,
     "name": "FX PREM",
     "logo": "",
     "stream": "https://otte.live.fly.ww.aiv-cdn.net/iad-nitro/live/clients/dash/enc/fdx74zqzhu/out/v1/7d7a8c6981a842b98a683e9fbfe51d17/cenc.mpd",
@@ -4382,7 +4382,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277369,
+    "id": 1782233356270,
     "name": "CLARO SPORTS (2)",
     "logo": "",
     "stream": "http://162.19.255.233:8080/play/UNbAl57p9hXZClOu56FCTUSaL5q1VtS-E1wCfb1nvO4/m3u8",
@@ -4396,7 +4396,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277370,
+    "id": 1782233356271,
     "name": "МАТЧ! ФУТБOЛ 2HD 🇷🇺",
     "logo": "",
     "stream": "http://193.25.8.59:8000/fut2",
@@ -4410,7 +4410,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277371,
+    "id": 1782233356272,
     "name": "LIG 🇪🇸",
     "logo": "",
     "stream": "http://200.115.120.1:8000/play/ca124/index.m3u8",
@@ -4424,7 +4424,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277372,
+    "id": 1782233356273,
     "name": "МАТЧ! ФУТБOЛ 2HD 🇷🇺 (2)",
     "logo": "",
     "stream": "http://cdntv.online/low/9mlxywika2/56.m3u8",
@@ -4438,7 +4438,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277373,
+    "id": 1782233356274,
     "name": "TDM Desporto 🇲🇴",
     "logo": "",
     "stream": "http://cdn6.163189.xyz/163189/amty",
@@ -4452,7 +4452,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277374,
+    "id": 1782233356275,
     "name": "OTT CLUB 🇷🇺",
     "logo": "",
     "stream": "http://czrb8vng.ottclub.xyz/iptv/AHMQNVLWUTM5PW/6554/index.m3u8",
@@ -4466,7 +4466,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277375,
+    "id": 1782233356276,
     "name": "Digi Sport 2 🇷🇴",
     "logo": "",
     "stream": "http://91.201.172.14:35006/",
@@ -4480,7 +4480,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277376,
+    "id": 1782233356277,
     "name": "TNT SPORTS PREMIUM 🇬🇧",
     "logo": "",
     "stream": "http://200.115.120.1:8000/play/ca040/index.m3u8",
@@ -4494,7 +4494,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277377,
+    "id": 1782233356278,
     "name": "Bein Sport 1 🇫🇷",
     "logo": "",
     "stream": "http://99.27.51.147:8080/BeinSport/index.m3u8",
@@ -4508,7 +4508,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277378,
+    "id": 1782233356279,
     "name": "Bein Sport 3 🇫🇷 (2)",
     "logo": "",
     "stream": "http://99.27.51.147:8080/BeinSport3/index.m3u8",
@@ -4522,7 +4522,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277379,
+    "id": 1782233356280,
     "name": "Setenta Sport 2 🇷🇺",
     "logo": "",
     "stream": "http://cdntv.online/low/9mlxywika2/1022.m3u8",
@@ -4536,7 +4536,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277380,
+    "id": 1782233356281,
     "name": "Матч! 🇷🇺 (6)",
     "logo": "",
     "stream": "http://5.188.221.43:8080/play/match",
@@ -4550,7 +4550,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277381,
+    "id": 1782233356282,
     "name": "Матч! 🇷🇺 (7)",
     "logo": "",
     "stream": "http://95.47.155.244:8001/play/a003",
@@ -4564,7 +4564,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277382,
+    "id": 1782233356283,
     "name": "МАТЧ! ФУТБOЛ 1HD 🇷🇺 (2)",
     "logo": "",
     "stream": "http://193.25.8.59:8000/fut",
@@ -4578,7 +4578,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277383,
+    "id": 1782233356284,
     "name": "Матч! 4 HD 🇷🇺",
     "logo": "",
     "stream": "http://46.149.191.217:9010/play/a019",
@@ -4592,7 +4592,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277384,
+    "id": 1782233356285,
     "name": "Суспільне Kiev Спорт HD 🇺🇦",
     "logo": "",
     "stream": "https://tva.in.ua/live/susp-sport.m3u8",
@@ -4606,7 +4606,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277385,
+    "id": 1782233356286,
     "name": "RTSH Sport 🇦🇱",
     "logo": "",
     "stream": "http://217.73.139.200:5443/play/a01d",
@@ -4620,7 +4620,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277386,
+    "id": 1782233356287,
     "name": "Sportdigital 🇩🇪",
     "logo": "",
     "stream": "https://jmp2.uk/stvp-ATAJ0500433A",
@@ -4634,7 +4634,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277387,
+    "id": 1782233356288,
     "name": "TELEFE 🇦🇷",
     "logo": "",
     "stream": "http://200.115.120.1:8000/play/ca016/index.m3u8",
@@ -4648,7 +4648,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277388,
+    "id": 1782233356289,
     "name": "Turkmenistan Sport 🇹🇲 (2)",
     "logo": "",
     "stream": "https://alpha.tv.online.tm/legacyhls/ch004_720/index.m3u8",
@@ -4662,7 +4662,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277389,
+    "id": 1782233356290,
     "name": "SPORT ITALIA 🇮🇹",
     "logo": "",
     "stream": "https://amg01370-italiansportcom-sportitalia-rakuten-3hmdb.amagi.tv/amRdirect/ads_pod_type=playerpage_midroll&ads_env=prod&ads_ppid=&ads_rtvid=271861&ads_streaming_id=4f185419-74f6-4564-8ea9-4cdc60746e2f&ads_amagi_channel=781&ads_device_type=web&ads_device_model=&ads_device_year=&ads_player_width=&ads_rtv_content_language=ita&ads_market=it&ads_rtv_content_id=3741&ads_device_make=&ads_user_type=visitor&ads_content_classification=6&ads_gdpr_consent=&ads_device_lmt=1&ads_player_height=&uid=1gnmqg5gu-qsvc-bfo-gaq3-3dgjgexshpe/hls/amagi_hls_data_rakutenAA-sportitalia-rakuten/CDN/1920x1080_4540800/chunklist.m3u8",
@@ -4676,7 +4676,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277390,
+    "id": 1782233356291,
     "name": "TR Sport (480p) 🇮🇹",
     "logo": "",
     "stream": "https://livetr.teleromagna.it/mia/live/playlist.m3u8",
@@ -4690,7 +4690,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277391,
+    "id": 1782233356292,
     "name": "L`Equipe 🇫🇷",
     "logo": "",
     "stream": "https://jmp2.uk/stvp-FR200016Y5",
@@ -4704,7 +4704,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277392,
+    "id": 1782233356293,
     "name": "INFOSPORT 🇫🇷",
     "logo": "",
     "stream": "http://212.102.60.80/Infosport/index.m3u8",
@@ -4718,7 +4718,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277393,
+    "id": 1782233356294,
     "name": "ON Sports+ 🇭🇰",
     "logo": "",
     "stream": "https://freem3u.xyz/api/live/play.m3u8",
@@ -4732,7 +4732,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277394,
+    "id": 1782233356295,
     "name": "Fox Sports 🇮🇳",
     "logo": "",
     "stream": "http://y3fqd48g.megatv.fun/iptv/NRLXRWSBWBPLN4/19146/index.m3u8",
@@ -4746,7 +4746,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277395,
+    "id": 1782233356296,
     "name": "MMN Sport 🇸🇦",
     "logo": "",
     "stream": "http://mmn.mypsx.net:1935/live/mmnhdsport/chunklist.m3u8",
@@ -4760,7 +4760,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277396,
+    "id": 1782233356297,
     "name": "MASR 🇶🇦",
     "logo": "",
     "stream": "https://shls-masr-ak.akamaized.net/out/v1/d5036cabf11e45bf9d0db410ca135c18/index.m3u8",
@@ -4774,7 +4774,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277397,
+    "id": 1782233356298,
     "name": "TELETRAK 🇨🇱",
     "logo": "",
     "stream": "http://unlimited6-cl.dps.live/sportinghd/sportinghd.smil/playlist.m3u8",
@@ -4788,7 +4788,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277398,
+    "id": 1782233356299,
     "name": "Sport5 🇮🇱",
     "logo": "",
     "stream": "https://rgelive.akamaized.net/hls/live/2043151/radiolive/playlist.m3u8",
@@ -4802,7 +4802,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277399,
+    "id": 1782233356300,
     "name": "Sport5 🇮🇱 (2)",
     "logo": "",
     "stream": "https://rgelive.akamaized.net/hls/live/2043095/live3/playlist.m3u8",
@@ -4816,7 +4816,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277400,
+    "id": 1782233356301,
     "name": "ESPN 🇦🇷",
     "logo": "",
     "stream": "http://181.118.156.46:8000/play/a04g/index.m3u8",
@@ -4830,7 +4830,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277401,
+    "id": 1782233356302,
     "name": "ESPN 2 🇨🇴",
     "logo": "",
     "stream": "http://200.10.30.241:8000/play/a01r/index.m3u8",
@@ -4844,7 +4844,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277402,
+    "id": 1782233356303,
     "name": "Azteca 7",
     "logo": "",
     "stream": "https://tv91.hostingnuclear.com:19360/xhunestv/xhunestv.m3u8",
@@ -4858,7 +4858,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277403,
+    "id": 1782233356304,
     "name": "FIFA World Cup 2026",
     "logo": "",
     "stream": "https://owrcovcrpy.gpcdn.net/bpk-tv/1702/output/1702-audio_113322_eng=113200-video=2202800.m3u8",
@@ -4872,7 +4872,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277404,
+    "id": 1782233356305,
     "name": "FIFA World Cup 2026 🇮🇳[coming]",
     "logo": "",
     "stream": "http://66.102.126.10:8000/play/a022/index.m3u8",
@@ -4886,7 +4886,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277405,
+    "id": 1782233356306,
     "name": "Star Sports 2 Hindi HD (1080p)",
     "logo": "",
     "stream": "http://103.157.248.140:8000/play/a01m/index.m3u8",
@@ -4900,7 +4900,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277406,
+    "id": 1782233356307,
     "name": "Willow Sports (1080p)",
     "logo": "",
     "stream": "https://d36r8jifhgsk5j.cloudfront.net/Willow_TV.m3u8",
@@ -4914,7 +4914,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277407,
+    "id": 1782233356308,
     "name": "Star Sports 1 Hindi",
     "logo": "",
     "stream": "http://103.157.248.140:8000/play/a00g/index.m3u8",
@@ -4928,7 +4928,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277408,
+    "id": 1782233356309,
     "name": "Hub Sports 3 HD",
     "logo": "",
     "stream": "http://tv-premium-pro.com/live/wezqqszfr2/i7481xvrdf/280824.m3u8",
@@ -4942,7 +4942,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277409,
+    "id": 1782233356310,
     "name": "Sky Sport1 NZ FHD",
     "logo": "",
     "stream": "http://tv-premium-pro.com/live/wezqqszfr2/i7481xvrdf/579826.m3u8",
@@ -4956,7 +4956,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277410,
+    "id": 1782233356311,
     "name": "Sky Sport2 NZ FHD",
     "logo": "",
     "stream": "http://tv-premium-pro.com/live/wezqqszfr2/i7481xvrdf/579825.m3u8",
@@ -4970,7 +4970,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277411,
+    "id": 1782233356312,
     "name": "Sky Sport3 NZ FHD",
     "logo": "",
     "stream": "http://tv-premium-pro.com/live/wezqqszfr2/i7481xvrdf/579824.m3u8",
@@ -4984,7 +4984,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277412,
+    "id": 1782233356313,
     "name": "Sky Sport4 NZ FHD",
     "logo": "",
     "stream": "http://tv-premium-pro.com/live/wezqqszfr2/i7481xvrdf/579823.m3u8",
@@ -4998,7 +4998,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277413,
+    "id": 1782233356314,
     "name": "Sky Sport5 NZ FHD",
     "logo": "",
     "stream": "http://tv-premium-pro.com/live/wezqqszfr2/i7481xvrdf/579822.m3u8",
@@ -5012,7 +5012,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277414,
+    "id": 1782233356315,
     "name": "beIN SPORTS 4 HD (2)",
     "logo": "",
     "stream": "http://ytoxw6un.ottclub.xyz/iptv/VSQZTL9D68WBD9/6125/index.m3u8",
@@ -5026,7 +5026,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277415,
+    "id": 1782233356316,
     "name": "beIN SPORTS 5 HD (2)",
     "logo": "",
     "stream": "http://ytoxw6un.ottclub.xyz/iptv/VSQZTL9D68WBD9/6126/index.m3u8",
@@ -5040,7 +5040,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277416,
+    "id": 1782233356317,
     "name": "señal exclusiva (1)",
     "logo": "",
     "stream": "http://rlatinop.com:8880/Jhoselin102030xd1011/SQDyyTdV2z6x/526169",
@@ -5054,7 +5054,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277417,
+    "id": 1782233356318,
     "name": "señal exclusiva (3)",
     "logo": "",
     "stream": "http://rlatinop.com:8880/Jhoselin102030xd1011/SQDyyTdV2z6x/527938",
@@ -5068,7 +5068,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277418,
+    "id": 1782233356319,
     "name": "ARG ESPN SD",
     "logo": "",
     "stream": "http://daleplaytv.vip:80//live/4nd9wbtu/c5hrn9eFhfsa/306498.ts",
@@ -5082,7 +5082,7 @@
     "isIptv": true
   },
   {
-    "id": 1782151277419,
+    "id": 1782233356320,
     "name": "TyC SPORTS (2)",
     "logo": "",
     "stream": "http://190.108.93.75:8001/play/a05d/index.m3u8",
